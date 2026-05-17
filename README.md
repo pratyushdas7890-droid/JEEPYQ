@@ -323,7 +323,7 @@
             <span class="total-badge">14 Chapters</span>
         </div>
         <div class="chapter-list">
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-01: Electrostatic Potential and Capacitance</span><span class="chapter-subtitle-text">PYQ Practice Sheet ~ Physics</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
+            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-01: Electrostatic Potential and Capacitance</span><span class="chapter-subtitle-text">PYQ Practice Sheet ~ Physics</span></div><a href="https://drive.google.com/file/d/19o1A0KhLXBJCKUeU-BicPdJvwtp-ChUW/view?usp=drivesdk" target="_blank" class="btn-download">Open PDF</a></div>
             <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-02: Moving Charges and Magnetism</span><span class="chapter-subtitle-text">PYQ Practice Sheet ~ Physics</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
             <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-03: Dual Nature of Radiation and Matter</span><span class="chapter-subtitle-text">PYQ Practice Sheet ~ Physics</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
             <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-04: Ray Optics and Optical Instruments</span><span class="chapter-subtitle-text">PYQ Practice Sheet ~ Physics</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
