@@ -10,14 +10,12 @@
     
     <style>
         :root {
-            /* Premium Deep Cosmic Dark UI Background instead of pure black */
             --bg-dark: #0a0f1d;
             --glass-card: rgba(255, 255, 255, 0.02);
             --glass-border: rgba(255, 255, 255, 0.06);
             --text-white: #ffffff;
             --text-muted: #8a99ad;
             
-            /* Premium Neon Gradients */
             --physics-glow: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
             --chemistry-glow: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
             --maths-glow: linear-gradient(135deg, #10b981 0%, #059669 100%);
@@ -40,7 +38,6 @@
             min-height: 100vh;
             padding: 40px 20px;
             overflow-x: hidden;
-            /* Ultra-Smooth Premium Ambient Background */
             background-image: 
                 radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.18) 0px, transparent 50%),
                 radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.12) 0px, transparent 50%),
@@ -53,7 +50,6 @@
             margin: 0 auto;
         }
 
-        /* Glassmorphism Header */
         header {
             background: var(--glass-card);
             backdrop-filter: blur(25px);
@@ -83,7 +79,6 @@
             line-height: 1.6;
         }
 
-        /* Control Bar for Back Buttons */
         .control-bar {
             display: none;
             margin-bottom: 25px;
@@ -120,7 +115,6 @@
             transform: translateX(-4px);
         }
 
-        /* Subject Cards Grid Layout */
         .subject-grid, .options-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -130,7 +124,6 @@
 
         .options-grid {
             display: none;
-            grid-template-columns: repeat(2, 1fr); /* 2 options: Class 11 & Class 12 */
         }
 
         .subject-card, .option-card {
@@ -153,7 +146,6 @@
             transform: scale(0.95);
         }
 
-        /* Border Glow effects */
         .subject-card[data-target="physics"]:hover, .option-card[data-type="physics"]:hover { border-color: #3b82f6; box-shadow: 0 0 30px rgba(59, 130, 246, 0.25); }
         .subject-card[data-target="chemistry"]:hover, .option-card[data-type="chemistry"]:hover { border-color: #f59e0b; box-shadow: 0 0 30px rgba(245, 158, 11, 0.2); }
         .subject-card[data-target="maths"]:hover, .option-card[data-type="maths"]:hover { border-color: #10b981; box-shadow: 0 0 30px rgba(16, 185, 129, 0.2); }
@@ -172,7 +164,6 @@
             letter-spacing: -0.5px;
         }
 
-        /* Chapter Screen Panels with Ultra-Smooth Animation */
         .chapters-panel {
             display: none;
             background: var(--glass-card);
@@ -215,7 +206,6 @@
             color: var(--text-muted);
         }
 
-        /* Premium Rows Structuring */
         .chapter-list {
             display: flex;
             flex-direction: column;
@@ -258,7 +248,6 @@
             font-weight: 500;
         }
 
-        /* View/Open PDF Premium Buttons */
         .btn-download {
             text-decoration: none;
             color: #ffffff;
@@ -280,7 +269,6 @@
         .chemistry-view .btn-download { background: var(--chemistry-glow); box-shadow: 0 4px 15px rgba(245, 158, 11, 0.25); }
         .maths-view .btn-download { background: var(--maths-glow); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.25); }
 
-        /* Mobile Optimization */
         @media (max-width: 768px) {
             body { padding: 25px 12px; }
             header { padding: 35px 20px; margin-bottom: 25px; }
@@ -303,7 +291,6 @@
         <p>Complete Chapter-wise Previous Year Questions for JEE Main & Advanced Entrance Preparation.</p>
     </header>
 
-    <!-- Navigation Control Bar -->
     <div class="control-bar" id="control-bar">
         <button class="btn-back" id="back-subj-btn" style="display: none;">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
@@ -311,11 +298,11 @@
         </button>
         <button class="btn-back" id="back-opt-btn" style="display: none;">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-            Back to Classes
+            Back to Books
         </button>
     </div>
 
-    <!-- Tier 1: Subject Selection Grid -->
+    <!-- Tier 1 -->
     <div class="subject-grid" id="subject-grid">
         <div class="subject-card" data-target="physics">
             <span class="card-icon-tag">Subject 01</span>
@@ -331,154 +318,155 @@
         </div>
     </div>
 
-    <!-- Tier 2: Resource Options Grid (Dynamic) -->
-    <div class="options-grid" id="options-grid">
-        <!-- Filled dynamically by JS -->
-    </div>
+    <!-- Tier 2 -->
+    <div class="options-grid" id="options-grid"></div>
 
-    <!-- Tier 3: Chapters Content Panels -->
-    <!-- PHYSICS PANEL -->
-    <div id="physics" class="chapters-panel physics-view">
-        <div class="panel-header">
-            <span class="panel-title" id="physics-panel-title" style="color: #3b82f6;">Physics Chapters</span>
-            <span class="total-badge">14 Chapters</span>
-        </div>
-        <div class="chapter-list">
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-01: Electrostatic Potential and Capacitance</span><span class="chapter-subtitle-text">PYQ Practice Sheet</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-02: Moving Charges and Magnetism</span><span class="chapter-subtitle-text">PYQ Practice Sheet</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-03: Dual Nature of Radiation and Matter</span><span class="chapter-subtitle-text">PYQ Practice Sheet</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-04: Ray Optics and Optical Instruments</span><span class="chapter-subtitle-text">PYQ Practice Sheet</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-05: Semiconductor Electronics</span><span class="chapter-subtitle-text">PYQ Practice Sheet</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-06: Electric Charges and Fields</span><span class="chapter-subtitle-text">PYQ Practice Sheet</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-07: Atomic Physics</span><span class="chapter-subtitle-text">PYQ Practice Sheet</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-08: Electromagnetic Waves</span><span class="chapter-subtitle-text">PYQ Practice Sheet</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-09: Wave Optics</span><span class="chapter-subtitle-text">PYQ Practice Sheet</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-10: Nuclear Physics</span><span class="chapter-subtitle-text">PYQ Practice Sheet</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-11: Electromagnetic Induction</span><span class="chapter-subtitle-text">PYQ Practice Sheet</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-12: Magnetism and Matter</span><span class="chapter-subtitle-text">PYQ Practice Sheet</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-13: Alternating Current</span><span class="chapter-subtitle-text">PYQ Practice Sheet</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-14: Current Electricity</span><span class="chapter-subtitle-text">PYQ Practice Sheet</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-        </div>
-    </div>
-
-    <!-- CHEMISTRY PANEL -->
-    <div id="chemistry" class="chapters-panel chemistry-view">
-        <div class="panel-header">
-            <span class="panel-title" id="chemistry-panel-title" style="color: #f59e0b;">Chemistry Chapters</span>
-            <span class="total-badge">10 Chapters</span>
-        </div>
-        <div class="chapter-list">
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-01: Solutions</span><span class="chapter-subtitle-text">Raoult's Law & Colligative Properties</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-02: Electrochemistry</span><span class="chapter-subtitle-text">Nernst Equation & Conductance</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-03: Chemical Kinetics</span><span class="chapter-subtitle-text">Rate Law & Integrated Equations</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-04: d- and f-Block Elements</span><span class="chapter-subtitle-text">Transition Metals & Lanthanoid Contraction</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-05: Coordination Compounds</span><span class="chapter-subtitle-text">IUPAC Nomenclature, VBT & CFT</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-06: Haloalkanes and Haloarenes</span><span class="chapter-subtitle-text">SN1/SN2 Mechanisms</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-07: Alcohols, Phenols and Ethers</span><span class="chapter-subtitle-text">Dehydration & Electrophilic Substitution</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-08: Aldehydes, Ketones and Carboxylic Acids</span><span class="chapter-subtitle-text">Aldol & Cannizzaro Reactions</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-09: Amines</span><span class="chapter-subtitle-text">Basicity & Diazonium Salts</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-10: Biomolecules</span><span class="chapter-subtitle-text">Carbohydrates & Proteins Structure</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-        </div>
-    </div>
-
-    <!-- MATHEMATICS PANEL -->
-    <div id="maths" class="chapters-panel maths-view">
-        <div class="panel-header">
-            <span class="panel-title" id="maths-panel-title" style="color: #10b981;">Mathematics Chapters</span>
-            <span class="total-badge">8 Chapters</span>
-        </div>
-        <div class="chapter-list">
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-01: Matrices and Determinants</span><span class="chapter-subtitle-text">Cramer's Rule & Inverse of Matrix</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-02: Relations and Functions</span><span class="chapter-subtitle-text">Types of Relations & Composite Functions</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-03: Inverse Trigonometric Functions</span><span class="chapter-subtitle-text">Principal Value & Properties</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-04: Continuity and Differentiability</span><span class="chapter-subtitle-text">Mean Value Theorems & Chain Rule</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-05: Application of Derivatives</span><span class="chapter-subtitle-text">Maxima, Minima & Tangents</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-06: Integrals</span><span class="chapter-subtitle-text">Definite & Indefinite Integration</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-07: Differential Equations</span><span class="chapter-subtitle-text">Variable Separable & Linear DE</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-08: Vector Algebra</span><span class="chapter-subtitle-text">Dot Product & Cross Product</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-        </div>
-    </div>
+    <!-- Tier 3 -->
+    <div id="chapters-container"></div>
 
 </div>
 
-<!-- SMART NAVIGATION JAVASCRIPT -->
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        // Elements Definition
         const subjectGrid = document.getElementById("subject-grid");
         const optionsGrid = document.getElementById("options-grid");
         const controlBar = document.getElementById("control-bar");
         const backSubjBtn = document.getElementById("back-subj-btn");
         const backOptBtn = document.getElementById("back-opt-btn");
-        const panels = document.querySelectorAll(".chapters-panel");
+        const chaptersContainer = document.getElementById("chapters-container");
         
         let selectedSubject = "";
 
-        // Step 1: Subject Card Selection Click
-        document.querySelectorAll(".subject-card").forEach(card => {
+        // Complete Class 12 Chapters Database
+        const chapterDatabase = {
+            physics: [
+                { ch: "CH-01", name: "Electric Charges and Fields", sub: "PYQ Practice Sheet" },
+                { ch: "CH-02", name: "Electrostatic Potential and Capacitance", sub: "PYQ Practice Sheet" },
+                { ch: "CH-03", name: "Current Electricity", sub: "PYQ Practice Sheet" },
+                { ch: "CH-04", name: "Moving Charges and Magnetism", sub: "PYQ Practice Sheet" },
+                { ch: "CH-05", name: "Magnetism and Matter", sub: "PYQ Practice Sheet" },
+                { ch: "CH-06", name: "Electromagnetic Induction", sub: "PYQ Practice Sheet" },
+                { ch: "CH-07", name: "Alternating Current", sub: "PYQ Practice Sheet" },
+                { ch: "CH-08", name: "Electromagnetic Waves", sub: "PYQ Practice Sheet" },
+                { ch: "CH-09", name: "Ray Optics and Optical Instruments", sub: "PYQ Practice Sheet" },
+                { ch: "CH-10", name: "Wave Optics", sub: "PYQ Practice Sheet" },
+                { ch: "CH-11", name: "Dual Nature of Radiation and Matter", sub: "PYQ Practice Sheet" },
+                { ch: "CH-12", name: "Atoms", sub: "PYQ Practice Sheet" },
+                { ch: "CH-13", name: "Nuclei", sub: "PYQ Practice Sheet" },
+                { ch: "CH-14", name: "Semiconductor Electronics: Materials, Devices & Simple Circuits", sub: "PYQ Practice Sheet" }
+            ],
+            chemistry: [
+                { ch: "CH-01", name: "Solutions", sub: "PYQ Practice Sheet" },
+                { ch: "CH-02", name: "Electrochemistry", sub: "PYQ Practice Sheet" },
+                { ch: "CH-03", name: "Chemical Kinetics", sub: "PYQ Practice Sheet" },
+                { ch: "CH-04", name: "d- and f-Block Elements", sub: "PYQ Practice Sheet" },
+                { ch: "CH-05", name: "Coordination Compounds", sub: "PYQ Practice Sheet" },
+                { ch: "CH-06", name: "Haloalkanes and Haloarenes", sub: "PYQ Practice Sheet" },
+                { ch: "CH-07", name: "Alcohols, Phenols and Ethers", sub: "PYQ Practice Sheet" },
+                { ch: "CH-08", name: "Aldehydes, Ketones and Carboxylic Acids", sub: "PYQ Practice Sheet" },
+                { ch: "CH-09", name: "Amines", sub: "PYQ Practice Sheet" },
+                { ch: "CH-10", name: "Biomolecules", sub: "PYQ Practice Sheet" }
+            ],
+            maths: [
+                { ch: "CH-01", name: "Relations and Functions", sub: "PYQ Practice Sheet" },
+                { ch: "CH-02", name: "Inverse Trigonometric Functions", sub: "PYQ Practice Sheet" },
+                { ch: "CH-03", name: "Matrices", sub: "PYQ Practice Sheet" },
+                { ch: "CH-04", name: "Determinants", sub: "PYQ Practice Sheet" },
+                { ch: "CH-05", name: "Continuity and Differentiability", sub: "PYQ Practice Sheet" },
+                { ch: "CH-06", name: "Application of Derivatives", sub: "PYQ Practice Sheet" },
+                { ch: "CH-07", name: "Integrals", sub: "PYQ Practice Sheet" },
+                { ch: "CH-08", name: "Application of Integrals", sub: "PYQ Practice Sheet" },
+                { ch: "CH-09", name: "Differential Equations", sub: "PYQ Practice Sheet" },
+                { ch: "CH-10", name: "Vector Algebra", sub: "PYQ Practice Sheet" },
+                { ch: "CH-11", name: "Three Dimensional Geometry", sub: "PYQ Practice Sheet" },
+                { ch: "CH-12", name: "Linear Programming", sub: "PYQ Practice Sheet" },
+                { ch: "CH-13", name: "Probability", sub: "PYQ Practice Sheet" }
+            ]
+        };
+
+        // Step 1: Subject Selection (Tier 1 -> Tier 2)
+        document.querySelectorAll(".subject-grid .subject-card").forEach(card => {
             card.addEventListener("click", function() {
                 selectedSubject = this.getAttribute("data-target");
-                const subjectName = this.querySelector(".card-title").innerText;
                 
-                // Hide Subjects Grid
                 subjectGrid.style.display = "none";
-                
-                // Build dynamic Class Options grid (Tier 2) based on selection
-                optionsGrid.innerHTML = `
-                    <div class="option-card" data-type="${selectedSubject}" data-class="11">
-                        <span class="card-icon-tag">Class XI</span>
-                        <span class="card-title">Class 11 PYQs</span>
-                    </div>
-                    <div class="option-card" data-type="${selectedSubject}" data-class="12">
-                        <span class="card-icon-tag">Class XII</span>
-                        <span class="card-title">Class 12 PYQs</span>
-                    </div>
-                `;
-                
-                // Show Options Grid with proper grid display
+                optionsGrid.innerHTML = ""; // Clear existing
+
+                // Configure books array based on rules
+                let books = ["Modules", "Arihant", "Cengage"];
+                if (selectedSubject === "maths") {
+                    books = ["Modules", "Arihant"]; // Maths does not have Cengage
+                }
+
+                // Render dynamic books grid
+                books.forEach((book, index) => {
+                    const optionCard = document.createElement("div");
+                    optionCard.className = "option-card";
+                    optionCard.setAttribute("data-type", selectedSubject);
+                    optionCard.setAttribute("data-book", book);
+                    optionCard.innerHTML = `
+                        <span class="card-icon-tag">Resource 0${index + 1}</span>
+                        <span class="card-title">${book}</span>
+                    `;
+                    optionsGrid.appendChild(optionCard);
+                });
+
                 optionsGrid.style.display = "grid";
-                
-                // Adjust Control Navbar Buttons
                 controlBar.classList.add("active");
                 backSubjBtn.style.display = "inline-flex";
                 backOptBtn.style.display = "none";
 
-                // Add active click listeners to the new dynamic option cards
-                setupOptionCards();
+                setupBookCards();
             });
         });
 
-        // Step 2: Handle Tier 2 Options Click (Class 11 or 12 Selection)
-        function setupOptionCards() {
-            document.querySelectorAll(".option-card").forEach(card => {
+        // Step 2: Book Selection (Tier 2 -> Tier 3)
+        function setupBookCards() {
+            document.querySelectorAll(".options-grid .option-card").forEach(card => {
                 card.addEventListener("click", function() {
-                    const chosenClass = this.getAttribute("data-class");
-                    
-                    // Hide the Class options
+                    const selectedBook = this.getAttribute("data-book");
                     optionsGrid.style.display = "none";
-                    
-                    // Toggle Active Chapter Panel (Tier 3)
-                    panels.forEach(p => p.classList.remove("active"));
-                    const targetPanel = document.getElementById(selectedSubject);
-                    
-                    if (targetPanel) {
-                        targetPanel.classList.add("active");
-                        // Dynamically update the heading to show chosen class context
-                        const panelTitle = document.getElementById(`${selectedSubject}-panel-title`);
-                        if(panelTitle) {
-                            panelTitle.innerText = `${selectedSubject.charAt(0).toUpperCase() + selectedSubject.slice(1)} - Class ${chosenClass} Chapters`;
-                        }
-                    }
 
-                    // Update Back Bar Navigation state
+                    // Color setup matching theme styling
+                    let titleColor = "#3b82f6";
+                    let viewClass = "physics-view";
+                    if (selectedSubject === "chemistry") { titleColor = "#f59e0b"; viewClass = "chemistry-view"; }
+                    if (selectedSubject === "maths") { titleColor = "#10b981"; viewClass = "maths-view"; }
+
+                    const chapters = chapterDatabase[selectedSubject];
+
+                    // Generate complete Tier 3 panel markup dynamically
+                    let chaptersHtml = `
+                        <div id="active-panel" class="chapters-panel ${viewClass} active">
+                            <div class="panel-header">
+                                <span class="panel-title" style="color: ${titleColor};">${selectedSubject.charAt(0).toUpperCase() + selectedSubject.slice(1)} - ${selectedBook}</span>
+                                <span class="total-badge">${chapters.length} Chapters</span>
+                            </div>
+                            <div class="chapter-list">
+                    `;
+
+                    chapters.forEach(item => {
+                        chaptersHtml += `
+                            <div class="chapter-item">
+                                <div class="chapter-details">
+                                    <span class="chapter-title-text">${item.ch}: ${item.name}</span>
+                                    <span class="chapter-subtitle-text">${item.sub}</span>
+                                </div>
+                                <a href="#" target="_blank" class="btn-download">Open PDF</a>
+                            </div>
+                        `;
+                    });
+
+                    chaptersHtml += `</div></div>`;
+                    chaptersContainer.innerHTML = chaptersHtml;
+
                     backSubjBtn.style.display = "none";
                     backOptBtn.style.display = "inline-flex";
                 });
             });
         }
 
-        // Navigation Back Actions
-        // Back from Options to Subject Grid
+        // Navigation Controllers
         backSubjBtn.addEventListener("click", function() {
             optionsGrid.style.display = "none";
             subjectGrid.style.display = "grid";
@@ -486,9 +474,8 @@
             backSubjBtn.style.display = "none";
         });
 
-        // Back from Chapters Panel to Options Grid
         backOptBtn.addEventListener("click", function() {
-            panels.forEach(p => p.classList.remove("active"));
+            chaptersContainer.innerHTML = "";
             optionsGrid.style.display = "grid";
             backOptBtn.style.display = "none";
             backSubjBtn.style.display = "inline-flex";
