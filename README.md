@@ -302,7 +302,6 @@
         </button>
     </div>
 
-    <!-- Tier 1 -->
     <div class="subject-grid" id="subject-grid">
         <div class="subject-card" data-target="physics">
             <span class="card-icon-tag">Subject 01</span>
@@ -318,10 +317,8 @@
         </div>
     </div>
 
-    <!-- Tier 2 -->
     <div class="options-grid" id="options-grid"></div>
 
-    <!-- Tier 3 -->
     <div id="chapters-container"></div>
 
 </div>
@@ -337,23 +334,18 @@
         
         let selectedSubject = "";
 
-        // Complete Class 12 Chapters Database
+        // Unit numbers removed, only names kept intact
         const chapterDatabase = {
             physics: [
-                { ch: "CH-01", name: "Electric Charges and Fields", sub: "PYQ Practice Sheet" },
-                { ch: "CH-02", name: "Electrostatic Potential and Capacitance", sub: "PYQ Practice Sheet" },
-                { ch: "CH-03", name: "Current Electricity", sub: "PYQ Practice Sheet" },
-                { ch: "CH-04", name: "Moving Charges and Magnetism", sub: "PYQ Practice Sheet" },
-                { ch: "CH-05", name: "Magnetism and Matter", sub: "PYQ Practice Sheet" },
-                { ch: "CH-06", name: "Electromagnetic Induction", sub: "PYQ Practice Sheet" },
-                { ch: "CH-07", name: "Alternating Current", sub: "PYQ Practice Sheet" },
-                { ch: "CH-08", name: "Electromagnetic Waves", sub: "PYQ Practice Sheet" },
-                { ch: "CH-09", name: "Ray Optics and Optical Instruments", sub: "PYQ Practice Sheet" },
-                { ch: "CH-10", name: "Wave Optics", sub: "PYQ Practice Sheet" },
-                { ch: "CH-11", name: "Dual Nature of Radiation and Matter", sub: "PYQ Practice Sheet" },
-                { ch: "CH-12", name: "Atoms", sub: "PYQ Practice Sheet" },
-                { ch: "CH-13", name: "Nuclei", sub: "PYQ Practice Sheet" },
-                { ch: "CH-14", name: "Semiconductor Electronics: Materials, Devices & Simple Circuits", sub: "PYQ Practice Sheet" }
+                { ch: "CH-01", name: "Electrostatics", sub: "PYQ Practice Sheet" },
+                { ch: "CH-02", name: "Current Electricity", sub: "PYQ Practice Sheet" },
+                { ch: "CH-03", name: "Magnetic Effects of Current and Magnetism", sub: "PYQ Practice Sheet" },
+                { ch: "CH-04", name: "Electromagnetic Induction and Alternating Currents", sub: "PYQ Practice Sheet" },
+                { ch: "CH-05", name: "Electromagnetic Waves", sub: "PYQ Practice Sheet" },
+                { ch: "CH-06", name: "Optics", sub: "PYQ Practice Sheet" },
+                { ch: "CH-07", name: "Dual Nature of Matter and Radiation", sub: "PYQ Practice Sheet" },
+                { ch: "CH-08", name: "Atoms and Nuclei", sub: "PYQ Practice Sheet" },
+                { ch: "CH-09", name: "Electronic Devices", sub: "PYQ Practice Sheet" }
             ],
             chemistry: [
                 { ch: "CH-01", name: "Solutions", sub: "PYQ Practice Sheet" },
@@ -390,15 +382,13 @@
                 selectedSubject = this.getAttribute("data-target");
                 
                 subjectGrid.style.display = "none";
-                optionsGrid.innerHTML = ""; // Clear existing
+                optionsGrid.innerHTML = ""; 
 
-                // Configure books array based on rules
                 let books = ["Modules", "Arihant", "Cengage"];
                 if (selectedSubject === "maths") {
-                    books = ["Modules", "Arihant"]; // Maths does not have Cengage
+                    books = ["Modules", "Arihant"]; 
                 }
 
-                // Render dynamic books grid
                 books.forEach((book, index) => {
                     const optionCard = document.createElement("div");
                     optionCard.className = "option-card";
@@ -427,7 +417,6 @@
                     const selectedBook = this.getAttribute("data-book");
                     optionsGrid.style.display = "none";
 
-                    // Color setup matching theme styling
                     let titleColor = "#3b82f6";
                     let viewClass = "physics-view";
                     if (selectedSubject === "chemistry") { titleColor = "#f59e0b"; viewClass = "chemistry-view"; }
@@ -435,7 +424,6 @@
 
                     const chapters = chapterDatabase[selectedSubject];
 
-                    // Generate complete Tier 3 panel markup dynamically
                     let chaptersHtml = `
                         <div id="active-panel" class="chapters-panel ${viewClass} active">
                             <div class="panel-header">
@@ -477,8 +465,8 @@
         backOptBtn.addEventListener("click", function() {
             chaptersContainer.innerHTML = "";
             optionsGrid.style.display = "grid";
-            backOptBtn.style.display = "none";
             backSubjBtn.style.display = "inline-flex";
+            backOptBtn.style.display = "none";
         });
     });
 </script>
