@@ -10,7 +10,8 @@
     
     <style>
         :root {
-            --bg-dark: #04060d;
+            /* Premium Deep Cosmic Dark UI Background instead of pure black */
+            --bg-dark: #0a0f1d;
             --glass-card: rgba(255, 255, 255, 0.02);
             --glass-border: rgba(255, 255, 255, 0.06);
             --text-white: #ffffff;
@@ -41,9 +42,9 @@
             overflow-x: hidden;
             /* Ultra-Smooth Premium Ambient Background */
             background-image: 
-                radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.16) 0px, transparent 45%),
-                radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.1) 0px, transparent 45%),
-                radial-gradient(at 50% 50%, rgba(245, 158, 11, 0.03) 0px, transparent 50%);
+                radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.18) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.12) 0px, transparent 50%),
+                radial-gradient(at 50% 50%, rgba(245, 158, 11, 0.04) 0px, transparent 50%);
             background-attachment: fixed;
         }
 
@@ -62,7 +63,7 @@
             text-align: center;
             margin-bottom: 35px;
             border: 1px solid var(--glass-border);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
         }
 
         header h1 {
@@ -82,7 +83,7 @@
             line-height: 1.6;
         }
 
-        /* Control Bar for Back Button */
+        /* Control Bar for Back Buttons */
         .control-bar {
             display: none;
             margin-bottom: 25px;
@@ -92,13 +93,14 @@
         }
 
         .control-bar.active {
-            display: block;
+            display: flex;
+            gap: 12px;
             opacity: 1;
             transform: translateY(0);
         }
 
         .btn-back {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.04);
             border: 1px solid var(--glass-border);
             color: var(--text-white);
             padding: 14px 28px;
@@ -113,20 +115,28 @@
         }
 
         .btn-back:hover {
-            background: rgba(255, 255, 255, 0.12);
-            border-color: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.18);
             transform: translateX(-4px);
         }
 
+        #back-opt-btn {
+            display: none;
+        }
+
         /* Subject Cards Grid Layout */
-        .subject-grid {
+        .subject-grid, .options-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 20px;
             transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1), transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        .subject-card {
+        .options-grid {
+            display: none;
+        }
+
+        .subject-card, .option-card {
             background: var(--glass-card);
             border: 1px solid var(--glass-border);
             border-radius: var(--radius-main);
@@ -139,16 +149,17 @@
             justify-content: center;
             align-items: center;
             gap: 12px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
         }
 
-        .subject-card:active {
+        .subject-card:active, .option-card:active {
             transform: scale(0.95);
         }
 
-        .subject-card[data-target="physics"]:hover { border-color: #3b82f6; box-shadow: 0 0 30px rgba(59, 130, 246, 0.25); }
-        .subject-card[data-target="chemistry"]:hover { border-color: #f59e0b; box-shadow: 0 0 30px rgba(245, 158, 11, 0.2); }
-        .subject-card[data-target="maths"]:hover { border-color: #10b981; box-shadow: 0 0 30px rgba(16, 185, 129, 0.2); }
+        /* Border Glow effects */
+        .subject-card[data-target="physics"]:hover, .option-card[data-type="physics"]:hover { border-color: #3b82f6; box-shadow: 0 0 30px rgba(59, 130, 246, 0.25); }
+        .subject-card[data-target="chemistry"]:hover, .option-card[data-type="chemistry"]:hover { border-color: #f59e0b; box-shadow: 0 0 30px rgba(245, 158, 11, 0.2); }
+        .subject-card[data-target="maths"]:hover, .option-card[data-type="maths"]:hover { border-color: #10b981; box-shadow: 0 0 30px rgba(16, 185, 129, 0.2); }
 
         .card-icon-tag {
             font-size: 11px;
@@ -171,7 +182,7 @@
             border: 1px solid var(--glass-border);
             border-radius: var(--radius-main);
             padding: 35px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
             opacity: 0;
             transform: translateY(24px);
             transition: opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1), transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
@@ -201,7 +212,7 @@
         .total-badge {
             font-size: 12px;
             font-weight: 700;
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.06);
             padding: 6px 14px;
             border-radius: 30px;
             color: var(--text-muted);
@@ -219,15 +230,15 @@
             justify-content: space-between;
             align-items: center;
             padding: 20px 24px;
-            background: rgba(255, 255, 255, 0.01);
+            background: rgba(255, 255, 255, 0.005);
             border-radius: 16px;
             border: 1px solid var(--glass-border);
             transition: background 0.3s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.3s ease, transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .chapter-item:hover {
-            background: rgba(255, 255, 255, 0.04);
-            border-color: rgba(255, 255, 255, 0.18);
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(255, 255, 255, 0.15);
             transform: scale(1.01);
         }
 
@@ -268,17 +279,17 @@
             filter: brightness(1.15);
         }
 
-        #physics .btn-download { background: var(--physics-glow); box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3); }
-        #chemistry .btn-download { background: var(--chemistry-glow); box-shadow: 0 4px 15px rgba(245, 158, 11, 0.25); }
-        #maths .btn-download { background: var(--maths-gradient); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.25); }
+        .physics-view .btn-download { background: var(--physics-glow); box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3); }
+        .chemistry-view .btn-download { background: var(--chemistry-glow); box-shadow: 0 4px 15px rgba(245, 158, 11, 0.25); }
+        .maths-view .btn-download { background: var(--maths-glow); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.25); }
 
         /* Mobile Optimization */
         @media (max-width: 768px) {
             body { padding: 25px 12px; }
             header { padding: 35px 20px; margin-bottom: 25px; }
             header h1 { font-size: 36px; }
-            .subject-grid { grid-template-columns: 1fr; gap: 15px; }
-            .subject-card { padding: 40px 20px; }
+            .subject-grid, .options-grid { grid-template-columns: 1fr; gap: 15px; }
+            .subject-card, .option-card { padding: 40px 20px; }
             .chapters-panel { padding: 20px; }
             .panel-title { font-size: 24px; }
             .chapter-item { flex-direction: column; align-items: flex-start; gap: 16px; padding: 18px; }
@@ -292,16 +303,22 @@
     
     <header id="main-header">
         <h1>JEE PYQ</h1>
-        <p>Complete Chapter-wise Previous Year Questions for Class 12 Boards & Entrance Preparation.</p>
+        <p>Complete Chapter-wise Previous Year Questions for JEE Main & Advanced Entrance Preparation.</p>
     </header>
 
+    <!-- Navigation Control Bar -->
     <div class="control-bar" id="control-bar">
-        <button class="btn-back" id="back-btn">
+        <button class="btn-back" id="back-subj-btn">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
             Back to Subjects
         </button>
+        <button class="btn-back" id="back-opt-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            Back to Options
+        </button>
     </div>
 
+    <!-- Tier 1: Subject Selection Grid -->
     <div class="subject-grid" id="subject-grid">
         <div class="subject-card" data-target="physics">
             <span class="card-icon-tag">Subject 01</span>
@@ -317,32 +334,40 @@
         </div>
     </div>
 
-    <div id="physics" class="chapters-panel">
+    <!-- Tier 2: Resource Options Grid (Dynamic) -->
+    <div class="options-grid" id="options-grid">
+        <!-- Will be filled by JavaScript based on chosen subject -->
+    </div>
+
+    <!-- Tier 3: Chapters Content Panels -->
+    <!-- PHYSICS PANEL -->
+    <div id="physics" class="chapters-panel physics-view">
         <div class="panel-header">
-            <span class="panel-title" style="color: #3b82f6;">Physics Chapters</span>
+            <span class="panel-title" id="physics-panel-title" style="color: #3b82f6;">Physics Chapters</span>
             <span class="total-badge">14 Chapters</span>
         </div>
         <div class="chapter-list">
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-01: Electrostatic Potential and Capacitance</span><span class="chapter-subtitle-text">PYQ Practice Sheet ~ Physics</span></div><a href="https://drive.google.com/file/d/19o1A0KhLXBJCKUeU-BicPdJvwtp-ChUW/view?usp=drivesdk" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-02: Moving Charges and Magnetism</span><span class="chapter-subtitle-text">PYQ Practice Sheet ~ Physics</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-03: Dual Nature of Radiation and Matter</span><span class="chapter-subtitle-text">PYQ Practice Sheet ~ Physics</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-04: Ray Optics and Optical Instruments</span><span class="chapter-subtitle-text">PYQ Practice Sheet ~ Physics</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
+            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-01: Electrostatic Potential and Capacitance</span><span class="chapter-subtitle-text">PYQ Practice Sheet</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
+            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-02: Moving Charges and Magnetism</span><span class="chapter-subtitle-text">PYQ Practice Sheet</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
+            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-03: Dual Nature of Radiation and Matter</span><span class="chapter-subtitle-text">PYQ Practice Sheet</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
+            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-04: Ray Optics and Optical Instruments</span><span class="chapter-subtitle-text">PYQ Practice Sheet</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
             <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-05: Semiconductor Electronics: Materials Devices and Simple Circuits</span><span class="chapter-subtitle-text">PYQ Practice Sheet</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-06: Electric Charges and Fields</span><span class="chapter-subtitle-text">PYQ Practice Sheet ~ Physics</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-07: Atomic Physics</span><span class="chapter-subtitle-text">PYQ Practice Sheet ~ Physics</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-08: Electromagnetic Waves</span><span class="chapter-subtitle-text">PYQ Practice Sheet ~ Physics</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-09: Wave Optics</span><span class="chapter-subtitle-text">PYQ Practice Sheet ~ Physics</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-10: Nuclear Physics</span><span class="chapter-subtitle-text">PYQ Practice Sheet ~ Physics</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-11: Electromagnetic Induction</span><span class="chapter-subtitle-text">PYQ Practice Sheet ~ Physics</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-12: Magnetism and Matter</span><span class="chapter-subtitle-text">PYQ Practice Sheet ~ Physics</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-13: Alternating Current</span><span class="chapter-subtitle-text">PYQ Practice Sheet ~ Physics</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-14: Current Electricity</span><span class="chapter-subtitle-text">PYQ Practice Sheet ~ Physics</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
+            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-06: Electric Charges and Fields</span><span class="chapter-subtitle-text">PYQ Practice Sheet</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
+            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-07: Atomic Physics</span><span class="chapter-subtitle-text">PYQ Practice Sheet</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
+            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-08: Electromagnetic Waves</span><span class="chapter-subtitle-text">PYQ Practice Sheet</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
+            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-09: Wave Optics</span><span class="chapter-subtitle-text">PYQ Practice Sheet</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
+            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-10: Nuclear Physics</span><span class="chapter-subtitle-text">PYQ Practice Sheet</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
+            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-11: Electromagnetic Induction</span><span class="chapter-subtitle-text">PYQ Practice Sheet</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
+            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-12: Magnetism and Matter</span><span class="chapter-subtitle-text">PYQ Practice Sheet</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
+            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-13: Alternating Current</span><span class="chapter-subtitle-text">PYQ Practice Sheet</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
+            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-14: Current Electricity</span><span class="chapter-subtitle-text">PYQ Practice Sheet</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
         </div>
     </div>
 
-    <div id="chemistry" class="chapters-panel">
+    <!-- CHEMISTRY PANEL -->
+    <div id="chemistry" class="chapters-panel chemistry-view">
         <div class="panel-header">
-            <span class="panel-title" style="color: #f59e0b;">Chemistry Chapters</span>
+            <span class="panel-title" id="chemistry-panel-title" style="color: #f59e0b;">Chemistry Chapters</span>
             <span class="total-badge">10 Chapters</span>
         </div>
         <div class="chapter-list">
@@ -359,77 +384,116 @@
         </div>
     </div>
 
-    <div id="maths" class="chapters-panel">
+    <!-- MATHEMATICS PANEL -->
+    <div id="maths" class="chapters-panel maths-view">
         <div class="panel-header">
-            <span class="panel-title" style="color: #10b981;">Mathematics Chapters</span>
+            <span class="panel-title" id="maths-panel-title" style="color: #10b981;">Mathematics Chapters</span>
             <span class="total-badge">10 Chapters</span>
         </div>
         <div class="chapter-list">
             <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-01: Relations and Functions</span><span class="chapter-subtitle-text">Equivalence Relations, One-One & Onto Functions Mapping</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
             <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-02: Inverse Trigonometric Functions</span><span class="chapter-subtitle-text">Principal Value Branch Graphs, Domain, Range & Base Properties</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-03: Matrices</span><span class="chapter-subtitle-text">Types of Matrices, Matrix Operations, Symmetric & Skew-Symmetric Matrices</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-04: Determinants</span><span class="chapter-subtitle-text">Minors, Co-factors, Adjoint, Inverse & Cramer's Rule Linear Solutions</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-05: Continuity and Differentiability</span><span class="chapter-subtitle-text">Continuity Parameters, Implicit/Parametric Differentiation & MVT</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-06: Applications of Derivatives (AOD)</span><span class="chapter-subtitle-text">Rate Measurement, Tangents & Normals, Monotonicity & Maxima-Minima</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-07: Integrals</span><span class="chapter-subtitle-text">Indefinite Integral Methods, Definite Integrals & Base Properties Evaluations</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-08: Applications of Integrals (AOI)</span><span class="chapter-subtitle-text">Area Computation Bound Under Standard Curves, Parabolas & Circles</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-09: Differential Equations & Vectors</span><span class="chapter-subtitle-text">Variable Separable, Homogeneous/Linear Equations & Dot/Cross Products</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
-            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-10: Three Dimensional Geometry & Probability</span><span class="chapter-subtitle-text">Shortest Distance Lines, Planes Routing, Conditional Probability & Bayes Theorem</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
+            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-03: Matrices</span><span class="chapter-subtitle-text">Types of Matrices, Matrix Operations & Determinants</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
+            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-04: Continuity and Differentiability</span><span class="chapter-subtitle-text">Continuity Tests, Chain Rule, Parametric Forms & Rolle's Theorem</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
+            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-05: Application of Derivatives</span><span class="chapter-subtitle-text">Rate of Change, Increasing/Decreasing Functions, Maxima & Minima</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
+            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-06: Integrals</span><span class="chapter-subtitle-text">Definite & Indefinite Integrals, Substitution, Parts & Properties</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
+            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-07: Application of Integrals</span><span class="chapter-subtitle-text">Area Under Simple Curves, Lines & Parabolas</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
+            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-08: Differential Equations</span><span class="chapter-subtitle-text">Order & Degree, Variable Separable, Homogeneous & Linear Equations</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
+            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-09: Vector Algebra</span><span class="chapter-subtitle-text">Scalar & Vector Products, Direction Cosines & Position Vectors</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
+            <div class="chapter-item"><div class="chapter-details"><span class="chapter-title-text">CH-10: Three Dimensional Geometry</span><span class="chapter-subtitle-text">Direction Ratios, Shortest Distance Between Lines & Equations of Lines</span></div><a href="#" target="_blank" class="btn-download">Open PDF</a></div>
         </div>
     </div>
 
 </div>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const cards = document.querySelectorAll('.subject-card');
-        const panels = document.querySelectorAll('.chapters-panel');
-        const grid = document.getElementById('subject-grid');
-        const controlBar = document.getElementById('control-bar');
-        const backBtn = document.getElementById('back-btn');
+<script {RULE 1: STRICT COMPLETION}>
+    const subjectGrid = document.getElementById('subject-grid');
+    const optionsGrid = document.getElementById('options-grid');
+    const controlBar = document.getElementById('control-bar');
+    const backSubjBtn = document.getElementById('back-subj-btn');
+    const backOptBtn = document.getElementById('back-opt-btn');
+    const panels = document.querySelectorAll('.chapters-panel');
 
-        // Dynamic Open Animation Loop
-        cards.forEach(function (card) {
-            card.addEventListener('click', function () {
-                const targetId = card.getAttribute('data-target');
-                
-                grid.style.display = 'none';
-                
-                panels.forEach(function (panel) {
-                    if (panel.id === targetId) {
-                        panel.style.display = 'block';
-                        // Clean frame thread execution for hardware accelerated animation
-                        requestAnimationFrame(() => {
-                            panel.classList.add('active');
-                        });
-                    } else {
-                        panel.style.display = 'none';
-                        panel.classList.remove('active');
-                    }
-                });
-                
-                controlBar.style.display = 'block';
-                requestAnimationFrame(() => {
-                    controlBar.classList.add('active');
-                });
+    let currentSubject = '';
 
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
+    // Step 1: Click Subject Card
+    document.querySelectorAll('.subject-card').forEach(card => {
+        card.addEventListener('click', () => {
+            currentSubject = card.getAttribute('data-target');
+            renderOptions(currentSubject);
         });
+    });
 
-        // Safe Reset Navigation View Action
-        backBtn.addEventListener('click', function () {
-            panels.forEach(function (panel) {
-                panel.classList.remove('active');
-                panel.style.display = 'none';
+    // Render Options dynamically based on Subject
+    function renderOptions(subject) {
+        subjectGrid.style.display = 'none';
+        optionsGrid.innerHTML = '';
+        optionsGrid.style.display = 'grid';
+        
+        controlBar.classList.add('active');
+        backSubjBtn.style.display = 'inline-flex';
+        backOptBtn.style.display = 'none';
+
+        let options = [];
+        let color = '';
+        
+        if (subject === 'physics') {
+            options = ['Module', 'Arihant', 'Cengage'];
+            color = '#3b82f6';
+        } else if (subject === 'chemistry') {
+            options = ['Module', 'Arihant', 'Cengage'];
+            color = '#f59e0b';
+        } else if (subject === 'maths') {
+            options = ['Module', 'Arihant'];
+            color = '#10b981';
+        }
+
+        options.forEach((opt, idx) => {
+            const optCard = document.createElement('div');
+            optCard.className = 'option-card';
+            optCard.setAttribute('data-type', subject);
+            optCard.setAttribute('data-name', opt);
+            optCard.innerHTML = `
+                <span class="card-icon-tag">Resource 0${idx + 1}</span>
+                <span class="card-title" style="color: ${color};">${opt}</span>
+            `;
+            
+            // Step 2: Click Option Card
+            optCard.addEventListener('click', () => {
+                openChapters(subject, opt);
             });
-            
-            controlBar.classList.remove('active');
-            controlBar.style.display = 'none';
-            
-            grid.style.display = 'grid';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            optionsGrid.appendChild(optCard);
         });
+    }
+
+    // Step 3: Open Final Chapters Panel
+    function openChapters(subject, optionName) {
+        optionsGrid.style.display = 'none';
+        backSubjBtn.style.display = 'none';
+        backOptBtn.style.display = 'inline-flex';
+
+        // Update Panel Title
+        const panelTitle = document.getElementById(`${subject}-panel-title`);
+        let subNameFormatted = subject.charAt(0).toUpperCase() + subject.slice(1);
+        if(subNameFormatted === 'Maths') subNameFormatted = 'Mathematics';
+        panelTitle.innerText = `${subNameFormatted} (${optionName})`;
+
+        const targetPanel = document.getElementById(subject);
+        targetPanel.classList.add('active');
+    }
+
+    // Back to Subjects Action
+    backSubjBtn.addEventListener('click', () => {
+        optionsGrid.style.display = 'none';
+        controlBar.classList.remove('active');
+        subjectGrid.style.display = 'grid';
+    });
+
+    // Back to Options Action
+    backOptBtn.addEventListener('click', () => {
+        panels.forEach(p => p.classList.remove('active'));
+        renderOptions(currentSubject);
     });
 </script>
 
