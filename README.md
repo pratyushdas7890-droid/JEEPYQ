@@ -334,7 +334,6 @@
         
         let selectedSubject = "";
 
-        // Unit numbers removed, only names kept intact
         const chapterDatabase = {
             physics: [
                 { ch: "CH-01", name: "Electrostatics", sub: "PYQ Practice Sheet" },
@@ -384,19 +383,29 @@
                 subjectGrid.style.display = "none";
                 optionsGrid.innerHTML = ""; 
 
-                let books = ["Modules", "Arihant", "Cengage"];
+                // Configured text requirements next to the book names
+                let books = [
+                    { original: "Modules", display: "Modules (Practice)" },
+                    { original: "Arihant", display: "Arihant (PYQ)" },
+                    { original: "Cengage", display: "Cengage (Practice)" }
+                ];
+                
                 if (selectedSubject === "maths") {
-                    books = ["Modules", "Arihant"]; 
+                    books = [
+                        { original: "Modules", display: "Modules (Practice)" },
+                        { original: "Arihant", display: "Arihant (PYQ)" }
+                    ]; 
                 }
 
                 books.forEach((book, index) => {
                     const optionCard = document.createElement("div");
                     optionCard.className = "option-card";
                     optionCard.setAttribute("data-type", selectedSubject);
-                    optionCard.setAttribute("data-book", book);
+                    optionCard.setAttribute("data-book", book.original);
+                    optionCard.setAttribute("data-display-book", book.display);
                     optionCard.innerHTML = `
                         <span class="card-icon-tag">Resource 0${index + 1}</span>
-                        <span class="card-title">${book}</span>
+                        <span class="card-title">${book.display}</span>
                     `;
                     optionsGrid.appendChild(optionCard);
                 });
@@ -415,6 +424,7 @@
             document.querySelectorAll(".options-grid .option-card").forEach(card => {
                 card.addEventListener("click", function() {
                     const selectedBook = this.getAttribute("data-book");
+                    const displayBookName = this.getAttribute("data-display-book");
                     optionsGrid.style.display = "none";
 
                     let titleColor = "#3b82f6";
@@ -427,7 +437,7 @@
                     let chaptersHtml = `
                         <div id="active-panel" class="chapters-panel ${viewClass} active">
                             <div class="panel-header">
-                                <span class="panel-title" style="color: ${titleColor};">${selectedSubject.charAt(0).toUpperCase() + selectedSubject.slice(1)} - ${selectedBook}</span>
+                                <span class="panel-title" style="color: ${titleColor};">${selectedSubject.charAt(0).toUpperCase() + selectedSubject.slice(1)} - ${displayBookName}</span>
                                 <span class="total-badge">${chapters.length} Chapters</span>
                             </div>
                             <div class="chapter-list">
