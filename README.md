@@ -248,6 +248,13 @@
             font-weight: 500;
         }
 
+        /* Group for multiple download buttons if any */
+        .download-actions-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
         .btn-download {
             text-decoration: none;
             color: #ffffff;
@@ -278,6 +285,7 @@
             .chapters-panel { padding: 20px; }
             .panel-title { font-size: 24px; }
             .chapter-item { flex-direction: column; align-items: flex-start; gap: 16px; padding: 18px; }
+            .download-actions-group { width: 100%; }
             .btn-download { width: 100%; text-align: center; padding: 14px; }
         }
     </style>
@@ -334,17 +342,18 @@
         
         let selectedSubject = "";
 
+        // Added links arrays for Physics Modules custom parts requirement
         const chapterDatabase = {
             physics: [
-                { ch: "CH-01", name: "Electrostatics", sub: "PYQ Practice Sheet" },
-                { ch: "CH-02", name: "Current Electricity", sub: "PYQ Practice Sheet" },
-                { ch: "CH-03", name: "Magnetic Effects of Current and Magnetism", sub: "PYQ Practice Sheet" },
-                { ch: "CH-04", name: "Electromagnetic Induction and Alternating Currents", sub: "PYQ Practice Sheet" },
-                { ch: "CH-05", name: "Electromagnetic Waves", sub: "PYQ Practice Sheet" },
-                { ch: "CH-06", name: "Optics", sub: "PYQ Practice Sheet" },
-                { ch: "CH-07", name: "Dual Nature of Matter and Radiation", sub: "PYQ Practice Sheet" },
-                { ch: "CH-08", name: "Atoms and Nuclei", sub: "PYQ Practice Sheet" },
-                { ch: "CH-09", name: "Electronic Devices", sub: "PYQ Practice Sheet" }
+                { ch: "CH-01", name: "Electrostatics", sub: "PYQ Practice Sheet", moduleLinks: ["#link1", "#link2", "#link3"] }, // 1 2 3
+                { ch: "CH-02", name: "Current Electricity", sub: "PYQ Practice Sheet", moduleLinks: ["#link"] }, // Normal/Open PDF
+                { ch: "CH-03", name: "Magnetic Effects of Current and Magnetism", sub: "PYQ Practice Sheet", moduleLinks: ["#link1", "#link2"] }, // 1 2
+                { ch: "CH-04", name: "Electromagnetic Induction and Alternating Currents", sub: "PYQ Practice Sheet", moduleLinks: ["#link1", "#link2"] }, // 1 2
+                { ch: "CH-05", name: "Electromagnetic Waves", sub: "PYQ Practice Sheet", moduleLinks: ["#link"] }, // Normal
+                { ch: "CH-06", name: "Optics", sub: "PYQ Practice Sheet", moduleLinks: ["#link1", "#link2"] }, // 1 2
+                { ch: "CH-07", name: "Dual Nature of Matter and Radiation", sub: "PYQ Practice Sheet", moduleLinks: ["#link"] }, // Normal
+                { ch: "CH-08", name: "Atoms and Nuclei", sub: "PYQ Practice Sheet", moduleLinks: ["#link1", "#link2"] }, // 1 2
+                { ch: "CH-09", name: "Electronic Devices", sub: "PYQ Practice Sheet", moduleLinks: ["#link"] } // Normal
             ],
             chemistry: [
                 { ch: "CH-01", name: "Solutions", sub: "PYQ Practice Sheet" },
@@ -383,7 +392,6 @@
                 subjectGrid.style.display = "none";
                 optionsGrid.innerHTML = ""; 
 
-                // Configured text requirements next to the book names
                 let books = [
                     { original: "Modules", display: "Modules (Practice)" },
                     { original: "Arihant", display: "Arihant (PYQ)" },
@@ -450,7 +458,27 @@
                                     <span class="chapter-title-text">${item.ch}: ${item.name}</span>
                                     <span class="chapter-subtitle-text">${item.sub}</span>
                                 </div>
-                                <a href="#" target="_blank" class="btn-download">Open PDF</a>
+                                <div class="download-actions-group">
+                        `;
+
+                        // Custom action group rendering logic just for Physics Modules
+                        if (selectedSubject === "physics" && selectedBook === "Modules" && item.moduleLinks) {
+                            if (item.moduleLinks.length > 1) {
+                                // Renders Part 1, Part 2, Part 3 dynamically based on your request
+                                item.moduleLinks.forEach((link, idx) => {
+                                    chaptersHtml += `<a href="${link}" target="_blank" class="btn-download">Part ${idx + 1}</a>`;
+                                });
+                            } else {
+                                // Keeps normal single button intact
+                                chaptersHtml += `<a href="${item.moduleLinks[0]}" target="_blank" class="btn-download">Open PDF</a>`;
+                            }
+                        } else {
+                            // Default action for Arihant, Cengage, and other subjects
+                            chaptersHtml += `<a href="#" target="_blank" class="btn-download">Open PDF</a>`;
+                        }
+
+                        chaptersHtml += `
+                                </div>
                             </div>
                         `;
                     });
