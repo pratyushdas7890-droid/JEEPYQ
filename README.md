@@ -343,7 +343,7 @@
 
         const chapterDatabase = {
             physics: [
-                { ch: "CH-01", name: "Electrostatics", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1EHuENpJPugRugKawpIUW-4fOFKWlW4ZU/view?usp=drivesdk", "#link2", "#link3"] }, 
+                { ch: "CH-01", name: "Electrostatics", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1EHuENpJPugRugKawpIUW-4fOFKWlW4ZU/view?usp=drivesdk", "https://drive.google.com/file/d/1hYnoeJIW1-CVCqfi3RiuvTgQUqeJFEPU/view?usp=drivesdk", "#link3"] }, 
                 { ch: "CH-02", name: "Current Electricity", sub: "PYQ Practice Sheet", moduleLinks: ["#link"] }, 
                 { ch: "CH-03", name: "Magnetic Effects of Current and Magnetism", sub: "PYQ Practice Sheet", moduleLinks: ["#link1", "#link2"] }, 
                 { ch: "CH-04", name: "Electromagnetic Induction and Alternating Currents", sub: "PYQ Practice Sheet", moduleLinks: ["#link1", "#link2"] }, 
@@ -464,11 +464,11 @@
                                 item.moduleLinks.forEach((link, idx) => {
                                     chaptersHtml += `<a href="${link}" target="_blank" class="btn-download">Part ${idx + 1}</a>`;
                                 });
-                            } else {
-                                chaptersHtml += `<a href="${item.moduleLinks[0]}" target="_blank" class="btn-download">Open PDF</a>`;
+                            } else if (item.moduleLinks.length === 1) {
+                                chaptersHtml += `<a href="${item.moduleLinks[0]}" target="_blank" class="btn-download">Download PDF</a>`;
                             }
                         } else {
-                            chaptersHtml += `<a href="#" target="_blank" class="btn-download">Open PDF</a>`;
+                            chaptersHtml += `<a href="#download" class="btn-download">Download PDF</a>`;
                         }
 
                         chaptersHtml += `
@@ -477,30 +477,32 @@
                         `;
                     });
 
-                    chaptersHtml += `</div></div>`;
-                    chaptersContainer.innerHTML = chaptersHtml;
+                    chaptersHtml += `
+                            </div>
+                        </div>
+                    `;
 
+                    chaptersContainer.innerHTML = chaptersHtml;
                     backSubjBtn.style.display = "none";
                     backOptBtn.style.display = "inline-flex";
                 });
             });
         }
 
-        // Navigation Controllers
+        // Back Buttons Logic
         backSubjBtn.addEventListener("click", function() {
-            optionsGrid.style.display = "none";
             subjectGrid.style.display = "grid";
+            optionsGrid.style.display = "none";
             controlBar.classList.remove("active");
             backSubjBtn.style.display = "none";
         });
 
         backOptBtn.addEventListener("click", function() {
-            chaptersContainer.innerHTML = "";
             optionsGrid.style.display = "grid";
+            chaptersContainer.innerHTML = "";
             backSubjBtn.style.display = "inline-flex";
             backOptBtn.style.display = "none";
         });
     });
 </script>
-
 </body>
