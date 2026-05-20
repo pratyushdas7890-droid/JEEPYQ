@@ -45,100 +45,6 @@
             background-attachment: fixed;
         }
 
-        /* --- লক স্ক্রিন স্টাইল --- */
-        #lock-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: var(--bg-dark);
-            background-image: radial-gradient(at 50% 50%, rgba(59, 130, 246, 0.15) 0px, transparent 50%);
-            z-index: 99999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .lock-container {
-            background: var(--glass-card);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid var(--glass-border);
-            padding: 40px 30px;
-            border-radius: var(--radius-main);
-            max-width: 400px;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-        }
-
-        .lock-container h2 {
-            font-size: 28px;
-            font-weight: 800;
-            margin-bottom: 10px;
-            background: linear-gradient(to right, #ffffff, #a5f3fc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .lock-container p {
-            color: var(--text-muted);
-            font-size: 14px;
-            margin-bottom: 25px;
-        }
-
-        .lock-input {
-            width: 100%;
-            padding: 16px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius-btn);
-            color: white;
-            font-size: 16px;
-            text-align: center;
-            outline: none;
-            margin-bottom: 15px;
-            transition: border-color 0.3s;
-        }
-
-        .lock-input:focus {
-            border-color: #3b82f6;
-        }
-
-        .lock-btn {
-            width: 100%;
-            padding: 16px;
-            background: var(--physics-glow);
-            border: none;
-            border-radius: var(--radius-btn);
-            color: white;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
-            transition: transform 0.2s;
-        }
-
-        .lock-btn:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.1);
-        }
-
-        .error-msg {
-            color: #ef4444;
-            font-size: 13px;
-            font-weight: 600;
-            margin-top: 10px;
-            display: none;
-            line-height: 1.4;
-        }
-
-        #main-content {
-            display: none;
-        }
-
         .container {
             max-width: 850px;
             margin: 0 auto;
@@ -241,8 +147,8 @@
         }
 
         .subject-card[data-target="physics"]:hover, .option-card[data-type="physics"]:hover { border-color: #3b82f6; box-shadow: 0 0 30px rgba(59, 130, 246, 0.25); }
-        .subject-card[data-target="chemistry"]:hover, .option-card[data-type="chemistry"]:hover { border-color: #f59e0b; box-shadow: 0 0 30px rgba(245, 158, 11, 0.25); }
-        .subject-card[data-target="maths"]:hover, .option-card[data-type="maths"]:hover { border-color: #10b981; box-shadow: 0 0 30px rgba(16, 185, 129, 0.25); }
+        .subject-card[data-target="chemistry"]:hover, .option-card[data-type="chemistry"]:hover { border-color: #f59e0b; box-shadow: 0 0 30px rgba(245, 158, 11, 0.2); }
+        .subject-card[data-target="maths"]:hover, .option-card[data-type="maths"]:hover { border-color: #10b981; box-shadow: 0 0 30px rgba(16, 185, 129, 0.2); }
 
         .card-icon-tag {
             font-size: 11px;
@@ -393,19 +299,8 @@
 </head>
 <body>
 
-<!-- লক স্ক্রিন ইন্টারফেস -->
-<div id="lock-screen">
-    <div class="lock-container">
-        <h2>JEE PYQ</h2>
-        <p>Enter Password & Unlock</p>
-        <input type="password" id="vault-pass" class="lock-input" placeholder="Enter password">
-        <button id="unlock-btn" class="lock-btn">Unlock</button>
-        <div id="lock-error" class="error-msg">Wrong password or this password already registered in another device</div>
-    </div>
-</div>
-
-<!-- মূল কন্টেন্ট -->
-<div id="main-content" class="container">
+<div class="container">
+    
     <header id="main-header">
         <h1>JEE PYQ</h1>
         <p>Complete Chapter-wise Previous Year Questions for JEE Main & Advanced Entrance Preparation.</p>
@@ -425,6 +320,7 @@
     <div class="subject-grid" id="subject-grid">
         <div class="subject-card" data-target="physics">
             <span class="card-icon-tag">Subject 01</span>
+            <!-- Physics Atom/Orbit Logo -->
             <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <ellipse cx="12" cy="12" rx="3" ry="9" transform="rotate(45 12 12)"></ellipse>
                 <ellipse cx="12" cy="12" rx="3" ry="9" transform="rotate(-45 12 12)"></ellipse>
@@ -434,6 +330,7 @@
         </div>
         <div class="subject-card" data-target="chemistry">
             <span class="card-icon-tag">Subject 02</span>
+            <!-- Chemistry Flask Logo -->
             <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M6 3h12M14 3v5.5l5.5 10.3a2 2 0 0 1-1.7 2.9H6.2a2 2 0 0 1-1.7-2.9L10 8.5V3M8 14h8"></path>
             </svg>
@@ -441,6 +338,7 @@
         </div>
         <div class="subject-card" data-target="maths">
             <span class="card-icon-tag">Subject 03</span>
+            <!-- Maths Summation/Sigma Logo -->
             <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M18 4H6l7 8-7 8h12"></path>
             </svg>
@@ -449,153 +347,104 @@
     </div>
 
     <div class="options-grid" id="options-grid"></div>
+
     <div id="chapters-container"></div>
+
 </div>
 
 <script>
-    // ----------------------------------------------------
-    // 🔑 পাসওয়ার্ড বুক কনফিগারেশন (নতুন পাসওয়ার্ড যুক্ত করা হয়েছে)
-    // ----------------------------------------------------
-    const PASSWORD_BOOK = {
-        "ADMIN100": "Admin",
-        "PRATYUSH77": "Pratyush",
-        "ANISH55": "Anish",
-        "JEE2026": "Guest",
-        "1234": "pratyush",
-        "0000": "komol"
-    };
-
-    function checkSecurity() {
-        const lockScreen = document.getElementById("lock-screen");
-        const mainContent = document.getElementById("main-content");
-        const passInput = document.getElementById("vault-pass");
-        const unlockBtn = document.getElementById("unlock-btn");
-        const lockError = document.getElementById("lock-error");
-
-        // ইউজারের ব্রাউজার এবং স্ক্রিনের ডেটা মিলিয়ে একটি অনন্য ডিভাইস আইডি তৈরি করা হচ্ছে
-        const deviceFingerprint = btoa(navigator.userAgent + navigator.language + screen.colorDepth + (screen.width * screen.height));
-
-        // যদি অলরেডি লগইন করা থাকে এবং ডিভাইস টোকেন ম্যাচ করে
-        if (localStorage.getItem("vault_unlocked") === "true" && localStorage.getItem("registered_device") === deviceFingerprint) {
-            lockScreen.style.display = "none";
-            mainContent.style.display = "block";
-            return;
-        }
-
-        unlockBtn.addEventListener("click", function() {
-            const enteredPass = passInput.value.trim();
-
-            // চেক করা হচ্ছে টাইপ করা পাসওয়ার্ডটি আমাদের ডিকশনারিতে আছে কিনা
-            if (PASSWORD_BOOK.hasOwnProperty(enteredPass)) {
-                
-                // লোকাল স্টোরেজে চেক করা হচ্ছে এই নির্দিষ্ট পাসওয়ার্ডটি দিয়ে অন্য কোনো ডিভাইস অলরেডি রেজিস্টার করেছে কিনা
-                const savedTokenForThisPass = localStorage.getItem("token_" + enteredPass);
-
-                if (savedTokenForThisPass && savedTokenForThisPass !== deviceFingerprint) {
-                    lockError.innerHTML = "এই পাসওয়ার্ডটি অলরেডি অন্য ফোনে ব্যবহৃত হয়েছে! শেয়ারিং অনুমোদিত নয়।";
-                    lockError.style.display = "block";
-                    return;
-                }
-
-                // সফল লগইন: পাসওয়ার্ডের সাথে ইউজারের বর্তমান ডিভাইসটি চিরতরে লক করে দেওয়া হলো
-                localStorage.setItem("vault_unlocked", "true");
-                localStorage.setItem("registered_device", deviceFingerprint);
-                localStorage.setItem("token_" + enteredPass, deviceFingerprint); // পাসওয়ার্ড ম্যাপিং লক
-                
-                lockScreen.style.display = "none";
-                mainContent.style.display = "block";
-                renderApp(); // অ্যাপ্লিকেশন ইন্টারফেস লোড করার জন্য
-            } else {
-                lockError.innerHTML = "ভুল পাসওয়ার্ড! সঠিক পাসওয়ার্ডটি সাবধানে টাইপ করুন।";
-                lockError.style.display = "block";
-            }
-        });
-
-        passInput.addEventListener("keypress", function(e) {
-            if (e.key === "Enter") unlockBtn.click();
-        });
-    }
-
-    function renderApp() {
+    document.addEventListener("DOMContentLoaded", function() {
         const subjectGrid = document.getElementById("subject-grid");
         const optionsGrid = document.getElementById("options-grid");
         const controlBar = document.getElementById("control-bar");
         const backSubjBtn = document.getElementById("back-subj-btn");
+        const backOptBtn = document.getElementById("back-opt-btn");
         const chaptersContainer = document.getElementById("chapters-container");
         
         let selectedSubject = "";
 
         const chapterDatabase = {
             physics: [
-                { ch: "CH-01", name: "Electrostatics", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1EHuENpJPugRugKawpIUW-4fOFKWlW4ZU/view?usp=drivesdk", "https://drive.google.com/file/d/1hYnoeJIW1-CVCqfi3RiuvTgQUqeJFEPU/view?usp=drivesdk"] }
+                { ch: "CH-01", name: "Electrostatics", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1EHuENpJPugRugKawpIUW-4fOFKWlW4ZU/view?usp=drivesdk", "https://drive.google.com/file/d/1hYnoeJIW1-CVCqfi3RiuvTgQUqeJFEPU/view?usp=drivesdk", "https://drive.google.com/file/d/1AdLBI4vl7BUO5b9E5xwrJb6FfxdMzNDG/view?usp=drivesdk"] }, 
+                { ch: "CH-02", name: "Current Electricity", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1C-48MABN0F9VO0YmIw75pJH3Ryfc7NAu/view?usp=drivesdk"] }, 
+                { ch: "CH-03", name: "Magnetic Effects of Current and Magnetism", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1L_AP4uNfbgNbLCCBSRYwnQS9OEHPnTuL/view?usp=drivesdk", "https://drive.google.com/file/d/1IWol_bthljJwylCp48aqhPBbuhG8-n15/view?usp=drivesdk"] }, 
+                { ch: "CH-04", name: "Electromagnetic Induction and Alternating Currents", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/10KJcZudJUfzDI60GayixiQrZ3kFEE998/view?usp=drivesdk", "https://drive.google.com/file/d/1qUN4pWVnM2onNbVEL14a1MP9zDqBTNtU/view?usp=drivesdk"] }, 
+                { ch: "CH-05", name: "Electromagnetic Waves", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1DL7clF00NPmRCU2VwPK69IldAQxkZ7mE/view?usp=drivesdk"] }, 
+                { ch: "CH-06", name: "Optics", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1CXSEWSxPQWh08jpgmwefQ-TwN1ohMOis/view?usp=drivesdk", "https://drive.google.com/file/d/1vis8a41P_4WjmzqRN42zc0D0KLs56aXA/view?usp=drivesdk"] }, 
+                { ch: "CH-07", name: "Dual Nature of Matter and Radiation", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1g-OfaOASLIzs01N16aI5OTamgmEysWXv/view?usp=drivesdk"] }, 
+                { ch: "CH-08", name: "Atoms and Nuclei", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1Kqp4ecMeA0QnEmnZWAV4nl7NFP2nOmwy/view?usp=drivesdk", "https://drive.google.com/file/d/1uy9hDpsrId3f_8lwq_MZY_2VBA-Ca9qa/view?usp=drivesdk"] }, 
+                { ch: "CH-09", name: "Electronic Devices", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1lfKKYDt4b7g_v-NVMc3qlxIxR1z7KjCf/view?usp=drivesdk"] } 
             ],
             chemistry: [
-                { ch: "CH-01", name: "Solid State", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1AdLBI4vl7BUO5b9E5xwrJb6Ffxd"] }
+                { ch: "CH-01", name: "Solutions", sub: "PYQ Practice Sheet" },
+                { ch: "CH-02", name: "Electrochemistry", sub: "PYQ Practice Sheet" },
+                { ch: "CH-03", name: "Chemical Kinetics", sub: "PYQ Practice Sheet" },
+                { ch: "CH-04", name: "d- and f-Block Elements", sub: "PYQ Practice Sheet" },
+                { ch: "CH-05", name: "Coordination Compounds", sub: "PYQ Practice Sheet" },
+                { ch: "CH-06", name: "Haloalkanes and Haloarenes", sub: "PYQ Practice Sheet" },
+                { ch: "CH-07", name: "Alcohols, Phenols and Ethers", sub: "PYQ Practice Sheet" },
+                { ch: "CH-08", name: "Aldehydes, Ketones and Carboxylic Acids", sub: "PYQ Practice Sheet" },
+                { ch: "CH-09", name: "Amines", sub: "PYQ Practice Sheet" },
+                { ch: "CH-10", name: "Biomolecules", sub: "PYQ Practice Sheet" }
             ],
             maths: [
-                { ch: "CH-01", name: "Relations and Functions", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1AdLBI4vl7BUO5b9E5xwrJb6Ffxd"] }
+                { ch: "CH-01", name: "Relations and Functions", sub: "PYQ Practice Sheet" },
+                { ch: "CH-02", name: "Inverse Trigonometric Functions", sub: "PYQ Practice Sheet" },
+                { ch: "CH-03", name: "Matrices", sub: "PYQ Practice Sheet" },
+                { ch: "CH-04", name: "Determinants", sub: "PYQ Practice Sheet" },
+                { ch: "CH-05", name: "Continuity and Differentiability", sub: "PYQ Practice Sheet" },
+                { ch: "CH-06", name: "Application of Derivatives", sub: "PYQ Practice Sheet" },
+                { ch: "CH-07", name: "Integrals", sub: "PYQ Practice Sheet" },
+                { ch: "CH-08", name: "Application of Integrals", sub: "PYQ Practice Sheet" },
+                { ch: "CH-09", name: "Differential Equations", sub: "PYQ Practice Sheet" },
+                { ch: "CH-10", name: "Vector Algebra", sub: "PYQ Practice Sheet" },
+                { ch: "CH-11", name: "Three Dimensional Geometry", sub: "PYQ Practice Sheet" },
+                { ch: "CH-12", name: "Linear Programming", sub: "PYQ Practice Sheet" },
+                { ch: "CH-13", name: "Probability", sub: "PYQ Practice Sheet" }
             ]
         };
 
-        // সাবজেক্ট কার্ড ক্লিকে চ্যাপ্টার প্যানেল দেখানোর লজিক
-        document.querySelectorAll('.subject-card').forEach(card => {
-            card.addEventListener('click', function() {
-                selectedSubject = this.getAttribute('data-target');
-                subjectGrid.style.display = 'none';
-                controlBar.classList.add('active');
-                backSubjBtn.style.display = 'inline-flex';
+        // Step 1: Subject Selection (Tier 1 -> Tier 2)
+        document.querySelectorAll(".subject-grid .subject-card").forEach(card => {
+            card.addEventListener("click", function() {
+                selectedSubject = this.getAttribute("data-target");
                 
-                // ডাইনামিক ক্লাস অ্যাপ্লাই করার জন্য ভিউ কন্টেইনার তৈরি
-                chaptersContainer.className = selectedSubject + "-view";
+                subjectGrid.style.display = "none";
+                optionsGrid.innerHTML = ""; 
+
+                let books = [
+                    { original: "Modules", display: "Modules (Practice)" },
+                    { original: "Arihant", display: "Arihant (PYQ)" },
+                    { original: "Cengage", display: "Cengage (Practice)" }
+                ];
                 
-                let chaptersHtml = `
-                    <div class="chapters-panel active">
-                        <div class="panel-header">
-                            <span class="panel-title">${selectedSubject.charAt(0).toUpperCase() + selectedSubject.slice(1)} Chapters</span>
-                            <span class="total-badge">${chapterDatabase[selectedSubject].length} Modules Available</span>
-                        </div>
-                        <div class="chapter-list">
-                `;
+                if (selectedSubject === "maths") {
+                    books = [
+                        { original: "Modules", display: "Modules (Practice)" },
+                        { original: "Arihant", display: "Arihant (PYQ)" }
+                    ]; 
+                }
 
-                chapterDatabase[selectedSubject].forEach(chapter => {
-                    chaptersHtml += `
-                        <div class="chapter-item">
-                            <div class="chapter-details">
-                                <span class="chapter-title-text">${chapter.ch}: ${chapter.name}</span>
-                                <span class="chapter-subtitle-text">${chapter.sub}</span>
-                            </div>
-                            <div class="download-actions-group">
+                books.forEach((book, index) => {
+                    const optionCard = document.createElement("div");
+                    optionCard.className = "option-card";
+                    optionCard.setAttribute("data-type", selectedSubject);
+                    optionCard.setAttribute("data-book", book.original);
+                    optionCard.setAttribute("data-display-book", book.display);
+                    optionCard.innerHTML = `
+                        <span class="card-icon-tag">Resource 0${index + 1}</span>
+                        <span class="card-title">${book.display}</span>
                     `;
-                    
-                    chapter.moduleLinks.forEach((link, index) => {
-                        chaptersHtml += `<a href="${link}" target="_blank" class="btn-download">Download Part 0${index + 1}</a>`;
-                    });
-
-                    chaptersHtml += `
-                            </div>
-                        </div>
-                    `;
+                    optionsGrid.appendChild(optionCard);
                 });
 
-                chaptersHtml += `</div></div>`;
-                chaptersContainer.innerHTML = chaptersHtml;
+                optionsGrid.style.display = "grid";
+                controlBar.classList.add("active");
+                backSubjBtn.style.display = "inline-flex";
+                backOptBtn.style.display = "none";
+
+                setupBookCards();
             });
         });
 
-        // ব্যাক বাটনের ফাংশনালিটি
-        backSubjBtn.addEventListener('click', function() {
-            chaptersContainer.innerHTML = "";
-            controlBar.classList.remove('active');
-            backSubjBtn.style.display = 'none';
-            subjectGrid.style.display = 'grid';
-        });
-    }
-
-    document.addEventListener("DOMContentLoaded", function() {
-        checkSecurity();
-        if (localStorage.getItem("vault_unlocked") === "true") {
-            renderApp();
-        }
-    });
-</script>
-</body>
+        // Step 2: Book Selection (Tier 2 -> Ti
