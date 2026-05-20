@@ -1,3 +1,4 @@
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -20,7 +21,7 @@
             --maths-glow: linear-gradient(135deg, #10b981 0%, #059669 100%);
             
             --radius-main: 24px;
-            --radius-btn: 12px;
+            --radius-btn: 14px;
         }
 
         * {
@@ -58,7 +59,7 @@
             text-align: center;
             margin-bottom: 35px;
             border: 1px solid var(--glass-border);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.05);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
         }
 
         header h1 {
@@ -94,8 +95,8 @@
         }
 
         .btn-back {
-            background: linear-gradient(145deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.01) 100%);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--glass-border);
             color: var(--text-white);
             padding: 14px 28px;
             font-size: 14px;
@@ -106,14 +107,12 @@
             align-items: center;
             gap: 10px;
             transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         .btn-back:hover {
-            background: linear-gradient(145deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.03) 100%);
-            border-color: rgba(255, 255, 255, 0.25);
-            transform: translateX(-4px) translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.18);
+            transform: translateX(-4px);
         }
 
         .subject-grid, .options-grid {
@@ -128,92 +127,68 @@
         }
 
         .subject-card, .option-card {
-            background: linear-gradient(145deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: var(--glass-card);
+            border: 1px solid var(--glass-border);
             border-radius: var(--radius-main);
             padding: 50px 25px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.3s ease, box-shadow 0.3s ease;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 14px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2), inset 0 1px 1px rgba(255,255,255,0.1);
-            position: relative;
-            overflow: hidden; 
+            gap: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
         }
 
-        .subject-card::before, .option-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 50%; height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255,255,255,0.06), transparent);
-            transform: skewX(-25deg);
-            transition: 0.6s ease;
+        .subject-card:active, .option-card:active {
+            transform: scale(0.95);
         }
 
-        .subject-card:hover::before, .option-card:hover::before { left: 125%; }
-        .subject-card:hover, .option-card:hover { transform: translateY(-8px); }
-        .subject-card:active, .option-card:active { transform: translateY(2px) scale(0.96); }
-
-        .subject-card[data-target="physics"]:hover, .option-card[data-type="physics"]:hover { 
-            border-color: rgba(59, 130, 246, 0.5); 
-            background: linear-gradient(145deg, rgba(59, 130, 246, 0.08) 0%, rgba(255, 255, 255, 0.01) 100%);
-            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.15), inset 0 1px 1px rgba(255,255,255,0.2); 
-        }
-        
-        .subject-card[data-target="chemistry"]:hover, .option-card[data-type="chemistry"]:hover { 
-            border-color: rgba(245, 158, 11, 0.5); 
-            background: linear-gradient(145deg, rgba(245, 158, 11, 0.08) 0%, rgba(255, 255, 255, 0.01) 100%);
-            box-shadow: 0 20px 40px rgba(245, 158, 11, 0.15), inset 0 1px 1px rgba(255,255,255,0.2); 
-        }
-        
-        .subject-card[data-target="maths"]:hover, .option-card[data-type="maths"]:hover { 
-            border-color: rgba(16, 185, 129, 0.5); 
-            background: linear-gradient(145deg, rgba(16, 185, 129, 0.08) 0%, rgba(255, 255, 255, 0.01) 100%);
-            box-shadow: 0 20px 40px rgba(16, 185, 129, 0.15), inset 0 1px 1px rgba(255,255,255,0.2); 
-        }
-
-        .subject-card svg { filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4)); transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1); }
-        .subject-card:hover svg { transform: scale(1.15) translateY(-2px); }
+        .subject-card[data-target="physics"]:hover, .option-card[data-type="physics"]:hover { border-color: #3b82f6; box-shadow: 0 0 30px rgba(59, 130, 246, 0.25); }
+        .subject-card[data-target="chemistry"]:hover, .option-card[data-type="chemistry"]:hover { border-color: #f59e0b; box-shadow: 0 0 30px rgba(245, 158, 11, 0.2); }
+        .subject-card[data-target="maths"]:hover, .option-card[data-type="maths"]:hover { border-color: #10b981; box-shadow: 0 0 30px rgba(16, 185, 129, 0.2); }
 
         .card-icon-tag {
             font-size: 11px;
             font-weight: 700;
             color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 2.5px;
-            background: rgba(255,255,255,0.05);
-            padding: 4px 10px;
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.03);
+            letter-spacing: 2px;
         }
 
         .card-title {
             font-size: 26px;
             font-weight: 800;
             letter-spacing: -0.5px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .subject-card svg {
+            margin: 8px 0;
+            transition: transform 0.3s ease;
+        }
+        .subject-card:hover svg {
+            transform: scale(1.1) rotate(5deg);
         }
 
         .chapters-panel {
             display: none;
-            background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+            background: var(--glass-card);
             border: 1px solid var(--glass-border);
             border-radius: var(--radius-main);
             padding: 35px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.05);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
             opacity: 0;
             transform: translateY(24px);
             transition: opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1), transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        .chapters-panel.active { display: block; opacity: 1; transform: translateY(0); }
+        .chapters-panel.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
 
         .panel-header {
             display: flex;
@@ -228,90 +203,85 @@
             font-size: 28px;
             font-weight: 800;
             letter-spacing: -0.5px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
 
         .total-badge {
             font-size: 12px;
             font-weight: 700;
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.06);
             padding: 6px 14px;
             border-radius: 30px;
-            color: #ffffff;
-            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text-muted);
         }
 
-        .chapter-list { display: flex; flex-direction: column; gap: 15px; }
+        .chapter-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
 
         .chapter-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 20px 24px;
-            background: linear-gradient(90deg, rgba(255, 255, 255, 0.01) 0%, transparent 100%);
+            background: rgba(255, 255, 255, 0.005);
             border-radius: 16px;
             border: 1px solid var(--glass-border);
-            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: background 0.3s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.3s ease, transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .chapter-item:hover {
-            background: rgba(255, 255, 255, 0.04);
-            border-color: rgba(255, 255, 255, 0.2);
-            transform: translateX(6px);
-            box-shadow: -5px 5px 20px rgba(0,0,0,0.15);
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: scale(1.01);
         }
 
-        .chapter-details { display: flex; flex-direction: column; gap: 6px; padding-right: 20px; }
-        .chapter-title-text { font-size: 16px; font-weight: 700; color: var(--text-white); line-height: 1.4; }
-        .chapter-subtitle-text { font-size: 13px; color: var(--text-muted); font-weight: 600; }
+        .chapter-details {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            padding-right: 15px;
+        }
 
-        /* ----- Professional Button Alignment Fixes ----- */
-        .download-actions-group { 
-            display: flex; 
-            gap: 10px; 
-            flex-wrap: wrap; 
-            align-items: center; /* Ensures perfect vertical alignment */
-            justify-content: flex-end;
+        .chapter-title-text {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-white);
+        }
+
+        .chapter-subtitle-text {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .download-actions-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
         }
 
         .btn-download {
             text-decoration: none;
             color: #ffffff;
-            padding: 12px 22px;
-            font-size: 12px;
-            font-weight: 800;
+            padding: 12px 24px;
+            font-size: 13px;
+            font-weight: 700;
             border-radius: var(--radius-btn);
             white-space: nowrap;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.25);
-            display: inline-flex; /* Fixes block layout issues */
-            align-items: center;
-            justify-content: center;
-            height: 42px; /* Standardize button heights perfectly */
-            box-shadow: inset 0 1px 1px rgba(255,255,255,0.3), 0 4px 15px rgba(0,0,0,0.2);
-            backdrop-filter: blur(5px);
+            letter-spacing: 0.3px;
+            transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), filter 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .btn-download::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: 0.5s;
+        .btn-download:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.15);
         }
 
-        .btn-download:hover::before { left: 100%; }
-        .btn-download:hover { transform: translateY(-3px); filter: brightness(1.15); box-shadow: inset 0 1px 1px rgba(255,255,255,0.3), 0 8px 20px rgba(0,0,0,0.3); }
-        .btn-download:active { transform: translateY(1px); }
-
-        .physics-view .btn-download { background: var(--physics-glow); }
-        .chemistry-view .btn-download { background: var(--chemistry-glow); }
-        .maths-view .btn-download { background: var(--maths-glow); }
+        .physics-view .btn-download { background: var(--physics-glow); box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3); }
+        .chemistry-view .btn-download { background: var(--chemistry-glow); box-shadow: 0 4px 15px rgba(245, 158, 11, 0.25); }
+        .maths-view .btn-download { background: var(--maths-glow); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.25); }
 
         @media (max-width: 768px) {
             body { padding: 25px 12px; }
@@ -321,13 +291,9 @@
             .subject-card, .option-card { padding: 40px 20px; }
             .chapters-panel { padding: 20px; }
             .panel-title { font-size: 24px; }
-            
-            .chapter-item { flex-direction: column; align-items: flex-start; gap: 20px; padding: 20px; }
-            .download-actions-group { width: 100%; justify-content: flex-start; }
-            
-            /* On mobile, make buttons flexible but look organized */
-            .btn-download { flex: 1; min-width: calc(50% - 5px); }
-            /* If there are 3 parts, the 3rd one takes full width. 1 or 2 parts align perfectly side by side */
+            .chapter-item { flex-direction: column; align-items: flex-start; gap: 16px; padding: 18px; }
+            .download-actions-group { width: 100%; }
+            .btn-download { width: 100%; text-align: center; padding: 14px; }
         }
     </style>
 </head>
@@ -352,35 +318,32 @@
     </div>
 
     <div class="subject-grid" id="subject-grid">
-        
         <div class="subject-card" data-target="physics">
-            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="2"></circle>
-                <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(45 12 12)"></ellipse>
-                <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(-45 12 12)"></ellipse>
-            </svg>
             <span class="card-icon-tag">Subject 01</span>
+            <!-- Physics Atom/Orbit Logo -->
+            <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <ellipse cx="12" cy="12" rx="3" ry="9" transform="rotate(45 12 12)"></ellipse>
+                <ellipse cx="12" cy="12" rx="3" ry="9" transform="rotate(-45 12 12)"></ellipse>
+                <circle cx="12" cy="12" r="1" fill="#3b82f6"></circle>
+            </svg>
             <span class="card-title" style="color: #3b82f6;">Physics</span>
         </div>
-        
         <div class="subject-card" data-target="chemistry">
-            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M9 3H15"></path>
-                <path d="M10 15H14"></path>
-                <path d="M8.5 21H15.5C16.8807 21 18 19.8807 18 18.5V17L14.5 11V3H9.5V11L6 17V18.5C6 19.8807 7.11929 21 8.5 21Z"></path>
-            </svg>
             <span class="card-icon-tag">Subject 02</span>
+            <!-- Chemistry Flask Logo -->
+            <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 3h12M14 3v5.5l5.5 10.3a2 2 0 0 1-1.7 2.9H6.2a2 2 0 0 1-1.7-2.9L10 8.5V3M8 14h8"></path>
+            </svg>
             <span class="card-title" style="color: #f59e0b;">Chemistry</span>
         </div>
-        
         <div class="subject-card" data-target="maths">
-            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M18 7V4H6l6 8-6 8h12v-3"></path>
-            </svg>
             <span class="card-icon-tag">Subject 03</span>
+            <!-- Maths Summation/Sigma Logo -->
+            <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 4H6l7 8-7 8h12"></path>
+            </svg>
             <span class="card-title" style="color: #10b981;">Mathematics</span>
         </div>
-
     </div>
 
     <div class="options-grid" id="options-grid"></div>
@@ -408,9 +371,9 @@
                 { ch: "CH-04", name: "Electromagnetic Induction and Alternating Currents", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/10KJcZudJUfzDI60GayixiQrZ3kFEE998/view?usp=drivesdk", "https://drive.google.com/file/d/1qUN4pWVnM2onNbVEL14a1MP9zDqBTNtU/view?usp=drivesdk"] }, 
                 { ch: "CH-05", name: "Electromagnetic Waves", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1DL7clF00NPmRCU2VwPK69IldAQxkZ7mE/view?usp=drivesdk"] }, 
                 { ch: "CH-06", name: "Optics", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1CXSEWSxPQWh08jpgmwefQ-TwN1ohMOis/view?usp=drivesdk", "https://drive.google.com/file/d/1vis8a41P_4WjmzqRN42zc0D0KLs56aXA/view?usp=drivesdk"] }, 
-                { ch: "CH-07", name: "Dual Nature of Matter and Radiation", sub: "PYQ Practice Sheet", moduleLinks: ["#link"] }, 
-                { ch: "CH-08", name: "Atoms and Nuclei", sub: "PYQ Practice Sheet", moduleLinks: ["#link1", "#link2"] }, 
-                { ch: "CH-09", name: "Electronic Devices", sub: "PYQ Practice Sheet", moduleLinks: ["#link"] } 
+                { ch: "CH-07", name: "Dual Nature of Matter and Radiation", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1g-OfaOASLIzs01N16aI5OTamgmEysWXv/view?usp=drivesdk"] }, 
+                { ch: "CH-08", name: "Atoms and Nuclei", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1Kqp4ecMeA0QnEmnZWAV4nl7NFP2nOmwy/view?usp=drivesdk", "https://drive.google.com/file/d/1uy9hDpsrId3f_8lwq_MZY_2VBA-Ca9qa/view?usp=drivesdk"] }, 
+                { ch: "CH-09", name: "Electronic Devices", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1lfKKYDt4b7g_v-NVMc3qlxIxR1z7KjCf/view?usp=drivesdk"] } 
             ],
             chemistry: [
                 { ch: "CH-01", name: "Solutions", sub: "PYQ Practice Sheet" },
@@ -509,22 +472,6 @@
                     `;
 
                     chapters.forEach(item => {
-                        let buttonsHtml = '';
-
-                        // Only for Physics AND Modules, generate part-wise links
-                        if (selectedSubject === 'physics' && selectedBook === 'Modules' && item.moduleLinks && item.moduleLinks.length > 0) {
-                            if (item.moduleLinks.length === 1) {
-                                buttonsHtml = `<a href="${item.moduleLinks[0]}" class="btn-download" target="_blank">Download</a>`;
-                            } else {
-                                item.moduleLinks.forEach((link, idx) => {
-                                    buttonsHtml += `<a href="${link}" class="btn-download" target="_blank">Part ${idx + 1}</a>`;
-                                });
-                            }
-                        } else {
-                            // Normal single download button for everything else
-                            buttonsHtml = `<a href="#" class="btn-download">Download</a>`;
-                        }
-
                         chaptersHtml += `
                             <div class="chapter-item">
                                 <div class="chapter-details">
@@ -532,35 +479,51 @@
                                     <span class="chapter-subtitle-text">${item.sub}</span>
                                 </div>
                                 <div class="download-actions-group">
-                                    ${buttonsHtml}
+                        `;
+
+                        if (selectedSubject === "physics" && selectedBook === "Modules" && item.moduleLinks) {
+                            if (item.moduleLinks.length > 1) {
+                                item.moduleLinks.forEach((link, idx) => {
+                                    chaptersHtml += `<a href="${link}" target="_blank" class="btn-download">Part ${idx + 1}</a>`;
+                                });
+                            } else if (item.moduleLinks.length === 1) {
+                                chaptersHtml += `<a href="${item.moduleLinks[0]}" target="_blank" class="btn-download">Download PDF</a>`;
+                            }
+                        } else {
+                            chaptersHtml += `<a href="#download" class="btn-download">Download PDF</a>`;
+                        }
+
+                        chaptersHtml += `
                                 </div>
                             </div>
                         `;
                     });
 
-                    chaptersHtml += `</div></div>`;
+                    chaptersHtml += `
+                            </div>
+                        </div>
+                    `;
+
                     chaptersContainer.innerHTML = chaptersHtml;
-                    
                     backSubjBtn.style.display = "none";
                     backOptBtn.style.display = "inline-flex";
                 });
             });
         }
 
+        // Back Buttons Logic
         backSubjBtn.addEventListener("click", function() {
-            optionsGrid.style.display = "none";
             subjectGrid.style.display = "grid";
+            optionsGrid.style.display = "none";
             controlBar.classList.remove("active");
-            setTimeout(() => {
-                backSubjBtn.style.display = "none";
-            }, 400);
+            backSubjBtn.style.display = "none";
         });
 
         backOptBtn.addEventListener("click", function() {
-            chaptersContainer.innerHTML = "";
             optionsGrid.style.display = "grid";
-            backOptBtn.style.display = "none";
+            chaptersContainer.innerHTML = "";
             backSubjBtn.style.display = "inline-flex";
+            backOptBtn.style.display = "none";
         });
     });
 </script>
