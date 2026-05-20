@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JEE PYQ</title>
+    <title>Edufinity Vault Pro | JEE PYQ</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -447,4 +447,84 @@
             });
         });
 
-        // Step 2: Book Selection (Tier 2 -> Ti
+        // Step 2: Book Selection (Tier 2 -> Tier 3)
+        function setupBookCards() {
+            document.querySelectorAll(".options-grid .option-card").forEach(card => {
+                card.addEventListener("click", function() {
+                    const selectedBook = this.getAttribute("data-book");
+                    const displayBookName = this.getAttribute("data-display-book");
+                    optionsGrid.style.display = "none";
+
+                    let titleColor = "#3b82f6";
+                    let viewClass = "physics-view";
+                    if (selectedSubject === "chemistry") { titleColor = "#f59e0b"; viewClass = "chemistry-view"; }
+                    if (selectedSubject === "maths") { titleColor = "#10b981"; viewClass = "maths-view"; }
+
+                    const chapters = chapterDatabase[selectedSubject];
+
+                    let chaptersHtml = `
+                        <div id="active-panel" class="chapters-panel ${viewClass} active">
+                            <div class="panel-header">
+                                <span class="panel-title" style="color: ${titleColor};">${selectedSubject.charAt(0).toUpperCase() + selectedSubject.slice(1)} - ${displayBookName}</span>
+                                <span class="total-badge">${chapters.length} Chapters</span>
+                            </div>
+                            <div class="chapter-list">
+                    `;
+
+                    chapters.forEach(item => {
+                        chaptersHtml += `
+                            <div class="chapter-item">
+                                <div class="chapter-details">
+                                    <span class="chapter-title-text">${item.ch}: ${item.name}</span>
+                                    <span class="chapter-subtitle-text">${item.sub}</span>
+                                </div>
+                                <div class="download-actions-group">
+                        `;
+
+                        if (selectedSubject === "physics" && selectedBook === "Modules" && item.moduleLinks) {
+                            if (item.moduleLinks.length > 1) {
+                                item.moduleLinks.forEach((link, idx) => {
+                                    chaptersHtml += `<a href="${link}" target="_blank" class="btn-download">Part ${idx + 1}</a>`;
+                                });
+                            } else if (item.moduleLinks.length === 1) {
+                                chaptersHtml += `<a href="${item.moduleLinks[0]}" target="_blank" class="btn-download">Download PDF</a>`;
+                            }
+                        } else {
+                            chaptersHtml += `<a href="#download" class="btn-download">Download PDF</a>`;
+                        }
+
+                        chaptersHtml += `
+                                </div>
+                            </div>
+                        `;
+                    });
+
+                    chaptersHtml += `
+                            </div>
+                        </div>
+                    `;
+
+                    chaptersContainer.innerHTML = chaptersHtml;
+                    backSubjBtn.style.display = "none";
+                    backOptBtn.style.display = "inline-flex";
+                });
+            });
+        }
+
+        // Back Buttons Logic
+        backSubjBtn.addEventListener("click", function() {
+            subjectGrid.style.display = "grid";
+            optionsGrid.style.display = "none";
+            controlBar.classList.remove("active");
+            backSubjBtn.style.display = "none";
+        });
+
+        backOptBtn.addEventListener("click", function() {
+            optionsGrid.style.display = "grid";
+            chaptersContainer.innerHTML = "";
+            backSubjBtn.style.display = "inline-flex";
+            backOptBtn.style.display = "none";
+        });
+    });
+</script>
+</body>
