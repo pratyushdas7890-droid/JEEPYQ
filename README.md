@@ -1,4 +1,3 @@
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -372,10 +371,27 @@
                 { ch: "CH-05", name: "Electromagnetic Waves", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1DL7clF00NPmRCU2VwPK69IldAQxkZ7mE/view?usp=drivesdk"] }, 
                 { ch: "CH-06", name: "Optics", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1CXSEWSxPQWh08jpgmwefQ-TwN1ohMOis/view?usp=drivesdk", "https://drive.google.com/file/d/1vis8a41P_4WjmzqRN42zc0D0KLs56aXA/view?usp=drivesdk"] }, 
                 { ch: "CH-07", name: "Dual Nature of Matter and Radiation", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1g-OfaOASLIzs01N16aI5OTamgmEysWXv/view?usp=drivesdk"] }, 
-                { ch: "CH-08", name: "Atoms and Nuclei", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1uy9hDpsrId3f_8lwq_MZY_2VBA-Ca9qa/view?usp=drivesdk", "https://drive.google.com/file/d/1Kqp4ecMeA0QnEmnZWAV4nl7NFP2nOmwy/view?usp=drivesdk"] }, 
+                { ch: "CH-08", name: "Atoms and Nuclei", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1Kqp4ecMeA0QnEmnZWAV4nl7NFP2nOmwy/view?usp=drivesdk", "https://drive.google.com/file/d/1uy9hDpsrId3f_8lwq_MZY_2VBA-Ca9qa/view?usp=drivesdk"] }, 
                 { ch: "CH-09", name: "Electronic Devices", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1lfKKYDt4b7g_v-NVMc3qlxIxR1z7KjCf/view?usp=drivesdk"] } 
             ],
-            chemistry: [
+            chemistry_modules: [
+                { ch: "CH-01", name: "Solutions", sub: "PYQ Practice Sheet" },
+                { ch: "CH-02", name: "Chemical Kinetics", sub: "PYQ Practice Sheet" },
+                { ch: "CH-03", name: "Electrochemistry", sub: "PYQ Practice Sheet" },
+                { ch: "CH-04", name: "Optical Isomerism", sub: "PYQ Practice Sheet" },
+                { ch: "CH-05", name: "Hydrocarbons", sub: "PYQ Practice Sheet" },
+                { ch: "CH-06", name: "Haloalkanes and Haloarenes", sub: "PYQ Practice Sheet" },
+                { ch: "CH-07", name: "Alcohols, Phenols and Ethers", sub: "PYQ Practice Sheet" },
+                { ch: "CH-08", name: "Aldehydes, Ketones and Carboxylic Acids", sub: "PYQ Practice Sheet" },
+                { ch: "CH-09", name: "Amines", sub: "PYQ Practice Sheet" },
+                { ch: "CH-10", name: "Biomolecules", sub: "PYQ Practice Sheet" },
+                { ch: "CH-11", name: "Coordination Compounds", sub: "PYQ Practice Sheet" },
+                { ch: "CH-12", name: "p-Block Elements", sub: "PYQ Practice Sheet" },
+                { ch: "CH-13", name: "d- and f-Block Elements", sub: "PYQ Practice Sheet" },
+                { ch: "CH-14", name: "Principles of Qualitative Analysis (Salt Analysis)", sub: "PYQ Practice Sheet" },
+                { ch: "CH-15", name: "Nuclear Chemistry", sub: "PYQ Practice Sheet" }
+            ],
+            chemistry_others: [
                 { ch: "CH-01", name: "Solutions", sub: "PYQ Practice Sheet" },
                 { ch: "CH-02", name: "Electrochemistry", sub: "PYQ Practice Sheet" },
                 { ch: "CH-03", name: "Chemical Kinetics", sub: "PYQ Practice Sheet" },
@@ -404,7 +420,7 @@
             ]
         };
 
-        // Step 1: Subject Selection (Tier 1 -> Tier 2)
+        // Step 1: Subject Selection
         document.querySelectorAll(".subject-grid .subject-card").forEach(card => {
             card.addEventListener("click", function() {
                 selectedSubject = this.getAttribute("data-target");
@@ -447,81 +463,92 @@
             });
         });
 
-        // Step 2: Book Selection (Tier 2 -> Tier 3)
         function setupBookCards() {
             document.querySelectorAll(".options-grid .option-card").forEach(card => {
                 card.addEventListener("click", function() {
-                    const selectedBook = this.getAttribute("data-book");
-                    const displayBookName = this.getAttribute("data-display-book");
+                    const book = this.getAttribute("data-book");
+                    const displayBook = this.getAttribute("data-display-book");
+                    
                     optionsGrid.style.display = "none";
-
-                    let titleColor = "#3b82f6";
-                    let viewClass = "physics-view";
-                    if (selectedSubject === "chemistry") { titleColor = "#f59e0b"; viewClass = "chemistry-view"; }
-                    if (selectedSubject === "maths") { titleColor = "#10b981"; viewClass = "maths-view"; }
-
-                    const chapters = chapterDatabase[selectedSubject];
-
-                    let chaptersHtml = `
-                        <div id="active-panel" class="chapters-panel ${viewClass} active">
-                            <div class="panel-header">
-                                <span class="panel-title" style="color: ${titleColor};">${selectedSubject.charAt(0).toUpperCase() + selectedSubject.slice(1)} - ${displayBookName}</span>
-                                <span class="total-badge">${chapters.length} Chapters</span>
-                            </div>
-                            <div class="chapter-list">
-                    `;
-
-                    chapters.forEach(item => {
-                        chaptersHtml += `
-                            <div class="chapter-item">
-                                <div class="chapter-details">
-                                    <span class="chapter-title-text">${item.ch}: ${item.name}</span>
-                                    <span class="chapter-subtitle-text">${item.sub}</span>
-                                </div>
-                                <div class="download-actions-group">
-                        `;
-
-                        if (selectedSubject === "physics" && selectedBook === "Modules" && item.moduleLinks) {
-                            if (item.moduleLinks.length > 1) {
-                                item.moduleLinks.forEach((link, idx) => {
-                                    chaptersHtml += `<a href="${link}" target="_blank" class="btn-download">Part ${idx + 1}</a>`;
-                                });
-                            } else if (item.moduleLinks.length === 1) {
-                                chaptersHtml += `<a href="${item.moduleLinks[0]}" target="_blank" class="btn-download">Download PDF</a>`;
-                            }
-                        } else {
-                            chaptersHtml += `<a href="#download" class="btn-download">Download PDF</a>`;
-                        }
-
-                        chaptersHtml += `
-                                </div>
-                            </div>
-                        `;
-                    });
-
-                    chaptersHtml += `
-                            </div>
-                        </div>
-                    `;
-
-                    chaptersContainer.innerHTML = chaptersHtml;
                     backSubjBtn.style.display = "none";
                     backOptBtn.style.display = "inline-flex";
+
+                    renderChapters(selectedSubject, book, displayBook);
                 });
             });
         }
 
-        // Back Buttons Logic
+        function renderChapters(subject, book, displayBook) {
+            chaptersContainer.innerHTML = "";
+            
+            let dbKey = subject;
+            if (subject === "chemistry") {
+                if (book === "Modules") {
+                    dbKey = "chemistry_modules";
+                } else {
+                    dbKey = "chemistry_others";
+                }
+            }
+
+            const chapters = chapterDatabase[dbKey] || [];
+
+            const panel = document.createElement("div");
+            panel.className = `chapters-panel active ${subject}-view`;
+            
+            panel.innerHTML = `
+                <div class="panel-header">
+                    <span class="panel-title">${displayBook}</span>
+                    <span class="total-badge">${chapters.length} Chapters</span>
+                </div>
+                <div class="chapter-list"></div>
+            `;
+
+            const listContainer = panel.querySelector(".chapter-list");
+
+            chapters.forEach(ch => {
+                const item = document.createElement("div");
+                item.className = "chapter-item";
+                
+                let linksHtml = "";
+                
+                // কন্ডিশন: শুধুমাত্র ফিজিক্সের Modules এবং লিংকের সংখ্যা ১-এর বেশি হলে পার্ট-ওয়াইজ বাটন দেখাবে
+                if (subject === "physics" && book === "Modules" && ch.moduleLinks && ch.moduleLinks.length > 1) {
+                    ch.moduleLinks.forEach((link, i) => {
+                        linksHtml += `<a href="${link}" target="_blank" class="btn-download">Part ${i + 1}</a>`;
+                    });
+                } else if (subject === "physics" && book === "Modules" && ch.moduleLinks && ch.moduleLinks.length === 1) {
+                    // যদি ফিজিক্স মডিউলে কেবল একটা লিংক থাকে, তবে নরমাল ডাউনলোড বাটন
+                    linksHtml = `<a href="${ch.moduleLinks[0]}" target="_blank" class="btn-download">Download</a>`;
+                } else {
+                    // বাকি সব বুক ও সাবজেক্টের ক্ষেত্রে সাধারণ ডাউনলোড বাটন
+                    linksHtml = `<a href="#" class="btn-download">Download</a>`;
+                }
+
+                item.innerHTML = `
+                    <div class="chapter-details">
+                        <span class="chapter-subtitle-text">${ch.ch}</span>
+                        <span class="chapter-title-text">${ch.name}</span>
+                    </div>
+                    <div class="download-actions-group">
+                        ${linksHtml}
+                    </div>
+                `;
+                listContainer.appendChild(item);
+            });
+
+            chaptersContainer.appendChild(panel);
+        }
+
         backSubjBtn.addEventListener("click", function() {
-            subjectGrid.style.display = "grid";
             optionsGrid.style.display = "none";
             controlBar.classList.remove("active");
-            backSubjBtn.style.display = "none";
+            subjectGrid.style.display = "grid";
+            chaptersContainer.innerHTML = "";
         });
 
         backOptBtn.addEventListener("click", function() {
-            optionsGrid.style.display = "grid";
             chaptersContainer.innerHTML = "";
+            optionsGrid.style.display = "grid";
             backSubjBtn.style.display = "inline-flex";
             backOptBtn.style.display = "none";
         });
