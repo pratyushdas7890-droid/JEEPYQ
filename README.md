@@ -1,3 +1,4 @@
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -319,7 +320,6 @@
     <div class="subject-grid" id="subject-grid">
         <div class="subject-card" data-target="physics">
             <span class="card-icon-tag">Subject 01</span>
-            <!-- Physics Atom/Orbit Logo -->
             <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <ellipse cx="12" cy="12" rx="3" ry="9" transform="rotate(45 12 12)"></ellipse>
                 <ellipse cx="12" cy="12" rx="3" ry="9" transform="rotate(-45 12 12)"></ellipse>
@@ -329,7 +329,6 @@
         </div>
         <div class="subject-card" data-target="chemistry">
             <span class="card-icon-tag">Subject 02</span>
-            <!-- Chemistry Flask Logo -->
             <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M6 3h12M14 3v5.5l5.5 10.3a2 2 0 0 1-1.7 2.9H6.2a2 2 0 0 1-1.7-2.9L10 8.5V3M8 14h8"></path>
             </svg>
@@ -337,7 +336,6 @@
         </div>
         <div class="subject-card" data-target="maths">
             <span class="card-icon-tag">Subject 03</span>
-            <!-- Maths Summation/Sigma Logo -->
             <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M18 4H6l7 8-7 8h12"></path>
             </svg>
@@ -371,25 +369,25 @@
                 { ch: "CH-05", name: "Electromagnetic Waves", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1DL7clF00NPmRCU2VwPK69IldAQxkZ7mE/view?usp=drivesdk"] }, 
                 { ch: "CH-06", name: "Optics", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1CXSEWSxPQWh08jpgmwefQ-TwN1ohMOis/view?usp=drivesdk", "https://drive.google.com/file/d/1vis8a41P_4WjmzqRN42zc0D0KLs56aXA/view?usp=drivesdk"] }, 
                 { ch: "CH-07", name: "Dual Nature of Matter and Radiation", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1g-OfaOASLIzs01N16aI5OTamgmEysWXv/view?usp=drivesdk"] }, 
-                { ch: "CH-08", name: "Atoms and Nuclei", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1Kqp4ecMeA0QnEmnZWAV4nl7NFP2nOmwy/view?usp=drivesdk", "https://drive.google.com/file/d/1uy9hDpsrId3f_8lwq_MZY_2VBA-Ca9qa/view?usp=drivesdk"] }, 
+                { ch: "CH-08", name: "Atoms and Nuclei", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1uy9hDpsrId3f_8lwq_MZY_2VBA-Ca9qa/view?usp=drivesdk", "https://drive.google.com/file/d/1Kqp4ecMeA0QnEmnZWAV4nl7NFP2nOmwy/view?usp=drivesdk"] }, 
                 { ch: "CH-09", name: "Electronic Devices", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1lfKKYDt4b7g_v-NVMc3qlxIxR1z7KjCf/view?usp=drivesdk"] } 
             ],
             chemistry_modules: [
-                { ch: "CH-01", name: "Solutions", sub: "PYQ Practice Sheet" },
-                { ch: "CH-02", name: "Chemical Kinetics", sub: "PYQ Practice Sheet" },
-                { ch: "CH-03", name: "Electrochemistry", sub: "PYQ Practice Sheet" },
-                { ch: "CH-04", name: "Optical Isomerism", sub: "PYQ Practice Sheet" },
-                { ch: "CH-05", name: "Hydrocarbons", sub: "PYQ Practice Sheet" },
-                { ch: "CH-06", name: "Haloalkanes and Haloarenes", sub: "PYQ Practice Sheet" },
-                { ch: "CH-07", name: "Alcohols, Phenols and Ethers", sub: "PYQ Practice Sheet" },
-                { ch: "CH-08", name: "Aldehydes, Ketones and Carboxylic Acids", sub: "PYQ Practice Sheet" },
-                { ch: "CH-09", name: "Amines", sub: "PYQ Practice Sheet" },
-                { ch: "CH-10", name: "Biomolecules", sub: "PYQ Practice Sheet" },
-                { ch: "CH-11", name: "Coordination Compounds", sub: "PYQ Practice Sheet" },
-                { ch: "CH-12", name: "p-Block Elements", sub: "PYQ Practice Sheet" },
-                { ch: "CH-13", name: "d- and f-Block Elements", sub: "PYQ Practice Sheet" },
-                { ch: "CH-14", name: "Principles of Qualitative Analysis (Salt Analysis)", sub: "PYQ Practice Sheet" },
-                { ch: "CH-15", name: "Nuclear Chemistry", sub: "PYQ Practice Sheet" }
+                { ch: "CH-01", name: "Solutions", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/11SNYhgSwpNL8Y1-aRYo0mMlveuq9GwJY/view?usp=drivesdk"] },
+                { ch: "CH-02", name: "Chemical Kinetics", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1S5MsU3WZV7ZvHzPVyJ9fHkC2ILeYn_Cv/view?usp=drivesdk"] },
+                { ch: "CH-03", name: "Electrochemistry", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/15Rh_wCxcpf78T6R-Gxg9rfq_nxooeDPH/view?usp=drivesdk"] },
+                { ch: "CH-04", name: "Optical Isomerism", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1s5Krg3Yjd1gkZpjlfdYYkIwbS455Aw1B/view?usp=drivesdk"] },
+                { ch: "CH-05", name: "Hydrocarbons", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1mB86I1jSANgYZsAMw6kdkAnFJqz6Zjlb/view?usp=drivesdk"] },
+                { ch: "CH-06", name: "Haloalkanes and Haloarenes", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/19rQP0jsW9DmUvJQDcAvGs7KAxu1NlMKl/view?usp=drivesdk"] },
+                { ch: "CH-07", name: "Alcohols, Phenols and Ethers", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1dslvpha850z3kJJPMAZWftUPrXIQjAWX/view?usp=drivesdk"] },
+                { ch: "CH-08", name: "Aldehydes, Ketones and Carboxylic Acids", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1xP5vyVtyTMhYbzp3uv7l9giGdtlCluue/view?usp=drivesdk"] },
+                { ch: "CH-09", name: "Amines", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1cBRnPU7bGO3lbcD1-YaDCqSe9eaycBiS/view?usp=drivesdk"] },
+                { ch: "CH-10", name: "Biomolecules", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1xtQs4mMksgE90POtOU6slDFxOea3n7hh/view?usp=drivesdk"] },
+                { ch: "CH-11", name: "Coordination Compounds", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1TkOhAntnjlZ3QN7JBKxMH2QpFJb7ORbQ/view?usp=drivesdk"] },
+                { ch: "CH-12", name: "p-Block Elements", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1EuzFNBuBXk3gdgpmfuHdGGayGq5l6tr_/view?usp=drivesdk"] },
+                { ch: "CH-13", name: "d- and f-Block Elements", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1XIK5_RHip1IIVLzHTjERrnhLEnxI8soY/view?usp=drivesdk"] },
+                { ch: "CH-14", name: "Principles of Qualitative Analysis (Salt Analysis)", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1FHgnSukQk-N5QVQppfBedGFH_BM0L1jF/view?usp=drivesdk"] },
+                { ch: "CH-15", name: "Nuclear Chemistry", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1lQuSqJTpOnh8w1TMBD98RlcP7c4b3ofj/view?usp=drivesdk"] }
             ],
             chemistry_others: [
                 { ch: "CH-01", name: "Solutions", sub: "PYQ Practice Sheet" },
@@ -463,92 +461,88 @@
             });
         });
 
+        // Step 2: Book Selection
         function setupBookCards() {
             document.querySelectorAll(".options-grid .option-card").forEach(card => {
                 card.addEventListener("click", function() {
-                    const book = this.getAttribute("data-book");
-                    const displayBook = this.getAttribute("data-display-book");
-                    
+                    const selectedBook = this.getAttribute("data-book");
+                    const displayBookName = this.getAttribute("data-display-book");
                     optionsGrid.style.display = "none";
+
+                    let titleColor = "#3b82f6";
+                    let viewClass = "physics-view";
+                    if (selectedSubject === "chemistry") { titleColor = "#f59e0b"; viewClass = "chemistry-view"; }
+                    if (selectedSubject === "maths") { titleColor = "#10b981"; viewClass = "maths-view"; }
+
+                    // Fix: Dynamic database selection logic for Chemistry
+                    let chapters = [];
+                    if (selectedSubject === "chemistry") {
+                        chapters = selectedBook === "Modules" ? chapterDatabase.chemistry_modules : chapterDatabase.chemistry_others;
+                    } else {
+                        chapters = chapterDatabase[selectedSubject];
+                    }
+
+                    let chaptersHtml = `
+                        <div id="active-panel" class="chapters-panel ${viewClass} active">
+                            <div class="panel-header">
+                                <span class="panel-title" style="color: ${titleColor};">${selectedSubject.charAt(0).toUpperCase() + selectedSubject.slice(1)} - ${displayBookName}</span>
+                                <span class="total-badge">${chapters.length} Chapters</span>
+                            </div>
+                            <div class="chapter-list">
+                    `;
+
+                    chapters.forEach(item => {
+                        chaptersHtml += `
+                            <div class="chapter-item">
+                                <div class="chapter-details">
+                                    <span class="chapter-title-text">${item.ch}: ${item.name}</span>
+                                    <span class="chapter-subtitle-text">${item.sub}</span>
+                                </div>
+                                <div class="download-actions-group">
+                        `;
+
+                        // Render Logic for Download Buttons
+                        if (selectedBook === "Modules" && item.moduleLinks) {
+                            if (item.moduleLinks.length > 1) {
+                                item.moduleLinks.forEach((link, idx) => {
+                                    chaptersHtml += `<a href="${link}" target="_blank" class="btn-download">Part ${idx + 1}</a>`;
+                                });
+                            } else if (item.moduleLinks.length === 1) {
+                                chaptersHtml += `<a href="${item.moduleLinks[0]}" target="_blank" class="btn-download">Download PDF</a>`;
+                            }
+                        } else {
+                            chaptersHtml += `<a href="#download" class="btn-download">Download PDF</a>`;
+                        }
+
+                        chaptersHtml += `
+                                </div>
+                            </div>
+                        `;
+                    });
+
+                    chaptersHtml += `
+                            </div>
+                        </div>
+                    `;
+
+                    chaptersContainer.innerHTML = chaptersHtml;
                     backSubjBtn.style.display = "none";
                     backOptBtn.style.display = "inline-flex";
-
-                    renderChapters(selectedSubject, book, displayBook);
                 });
             });
         }
 
-        function renderChapters(subject, book, displayBook) {
-            chaptersContainer.innerHTML = "";
-            
-            let dbKey = subject;
-            if (subject === "chemistry") {
-                if (book === "Modules") {
-                    dbKey = "chemistry_modules";
-                } else {
-                    dbKey = "chemistry_others";
-                }
-            }
-
-            const chapters = chapterDatabase[dbKey] || [];
-
-            const panel = document.createElement("div");
-            panel.className = `chapters-panel active ${subject}-view`;
-            
-            panel.innerHTML = `
-                <div class="panel-header">
-                    <span class="panel-title">${displayBook}</span>
-                    <span class="total-badge">${chapters.length} Chapters</span>
-                </div>
-                <div class="chapter-list"></div>
-            `;
-
-            const listContainer = panel.querySelector(".chapter-list");
-
-            chapters.forEach(ch => {
-                const item = document.createElement("div");
-                item.className = "chapter-item";
-                
-                let linksHtml = "";
-                
-                // কন্ডিশন: শুধুমাত্র ফিজিক্সের Modules এবং লিংকের সংখ্যা ১-এর বেশি হলে পার্ট-ওয়াইজ বাটন দেখাবে
-                if (subject === "physics" && book === "Modules" && ch.moduleLinks && ch.moduleLinks.length > 1) {
-                    ch.moduleLinks.forEach((link, i) => {
-                        linksHtml += `<a href="${link}" target="_blank" class="btn-download">Part ${i + 1}</a>`;
-                    });
-                } else if (subject === "physics" && book === "Modules" && ch.moduleLinks && ch.moduleLinks.length === 1) {
-                    // যদি ফিজিক্স মডিউলে কেবল একটা লিংক থাকে, তবে নরমাল ডাউনলোড বাটন
-                    linksHtml = `<a href="${ch.moduleLinks[0]}" target="_blank" class="btn-download">Download</a>`;
-                } else {
-                    // বাকি সব বুক ও সাবজেক্টের ক্ষেত্রে সাধারণ ডাউনলোড বাটন
-                    linksHtml = `<a href="#" class="btn-download">Download</a>`;
-                }
-
-                item.innerHTML = `
-                    <div class="chapter-details">
-                        <span class="chapter-subtitle-text">${ch.ch}</span>
-                        <span class="chapter-title-text">${ch.name}</span>
-                    </div>
-                    <div class="download-actions-group">
-                        ${linksHtml}
-                    </div>
-                `;
-                listContainer.appendChild(item);
-            });
-
-            chaptersContainer.appendChild(panel);
-        }
-
+        // Back Buttons Logic
         backSubjBtn.addEventListener("click", function() {
+            subjectGrid.style.display = "grid";
             optionsGrid.style.display = "none";
             controlBar.classList.remove("active");
-            subjectGrid.style.display = "grid";
-            chaptersContainer.innerHTML = "";
+            backSubjBtn.style.display = "none";
         });
 
         backOptBtn.addEventListener("click", function() {
-            chaptersContainer.innerHTML = "";
             optionsGrid.style.display = "grid";
+            chaptersContainer.innerHTML = "";
             backSubjBtn.style.display = "inline-flex";
             backOptBtn.style.display = "none";
         });
