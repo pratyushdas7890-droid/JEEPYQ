@@ -6,7 +6,7 @@
     <title>JEE PYQ</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -43,103 +43,6 @@
                 radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.12) 0px, transparent 50%),
                 radial-gradient(at 50% 50%, rgba(245, 158, 11, 0.04) 0px, transparent 50%);
             background-attachment: fixed;
-        }
-
-        /* Secure Login Overlay */
-        #login-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--bg-dark);
-            background-image: radial-gradient(at 50% 50%, rgba(59, 130, 246, 0.15) 0px, transparent 50%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 10000;
-            padding: 20px;
-        }
-
-        .login-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid var(--glass-border);
-            padding: 40px 30px;
-            border-radius: var(--radius-main);
-            max-width: 400px;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-        }
-
-        .login-card h2 {
-            font-size: 28px;
-            font-weight: 800;
-            margin-bottom: 10px;
-            background: linear-gradient(to right, #ffffff, #a5f3fc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .login-card p {
-            color: var(--text-muted);
-            font-size: 14px;
-            margin-bottom: 25px;
-            line-height: 1.5;
-        }
-
-        .login-input {
-            width: 100%;
-            padding: 16px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius-btn);
-            color: var(--text-white);
-            font-size: 16px;
-            font-weight: 600;
-            text-align: center;
-            margin-bottom: 15px;
-            outline: none;
-            transition: border-color 0.3s;
-        }
-
-        .login-input:focus {
-            border-color: #3b82f6;
-        }
-
-        .btn-login {
-            width: 100%;
-            padding: 16px;
-            background: var(--physics-glow);
-            border: none;
-            border-radius: var(--radius-btn);
-            color: var(--text-white);
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
-            transition: transform 0.2s, filter 0.2s;
-        }
-
-        .btn-login:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.15);
-        }
-
-        .error-msg {
-            color: #ef4444;
-            font-size: 13px;
-            font-weight: 600;
-            margin-top: 15px;
-            display: none;
-            line-height: 1.4;
-        }
-
-        /* Main Application Hidden Container */
-        #main-content {
-            display: none;
         }
 
         .container {
@@ -396,131 +299,57 @@
 </head>
 <body>
 
-<div id="login-screen">
-    <div class="login-card">
-        <h2>Student Login</h2>
-        <p>Enter your authorized Name & Password. This account will lock to this specific browser upon first login.</p>
-        <input type="text" id="username-input" class="login-input" placeholder="Enter Your Name">
-        <input type="password" id="password-input" class="login-input" placeholder="Enter Password">
-        <button id="login-btn" class="btn-login">Verify & Enter</button>
-        <div id="error-message" class="error-msg">Incorrect Name or Password! Please try again.</div>
+<div class="container">
+    
+    <header id="main-header">
+        <h1>JEE PYQ</h1>
+        <p>Complete Chapter-wise Previous Year Questions for JEE Main & Advanced Entrance Preparation.</p>
+    </header>
+
+    <div class="control-bar" id="control-bar">
+        <button class="btn-back" id="back-subj-btn" style="display: none;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            Back to Subjects
+        </button>
+        <button class="btn-back" id="back-opt-btn" style="display: none;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            Back to Books
+        </button>
     </div>
-</div>
 
-<div id="main-content">
-    <div class="container">
-        
-        <header id="main-header">
-            <h1>JEE PYQ</h1>
-            <p>Complete Chapter-wise Previous Year Questions for JEE Main & Advanced Entrance Preparation.</p>
-        </header>
-
-        <div class="control-bar" id="control-bar">
-            <button class="btn-back" id="back-subj-btn" style="display: none;">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                Back to Subjects
-            </button>
-            <button class="btn-back" id="back-opt-btn" style="display: none;">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                Back to Books
-            </button>
+    <div class="subject-grid" id="subject-grid">
+        <div class="subject-card" data-target="physics">
+            <span class="card-icon-tag">Subject 01</span>
+            <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <ellipse cx="12" cy="12" rx="3" ry="9" transform="rotate(45 12 12)"></ellipse>
+                <ellipse cx="12" cy="12" rx="3" ry="9" transform="rotate(-45 12 12)"></ellipse>
+                <circle cx="12" cy="12" r="1" fill="#3b82f6"></circle>
+            </svg>
+            <span class="card-title" style="color: #3b82f6;">Physics</span>
         </div>
-
-        <div class="subject-grid" id="subject-grid">
-            <div class="subject-card" data-target="physics">
-                <span class="card-icon-tag">Subject 01</span>
-                <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <ellipse cx="12" cy="12" rx="3" ry="9" transform="rotate(45 12 12)"></ellipse>
-                    <ellipse cx="12" cy="12" rx="3" ry="9" transform="rotate(-45 12 12)"></ellipse>
-                    <circle cx="12" cy="12" r="1" fill="#3b82f6"></circle>
-                </svg>
-                <span class="card-title" style="color: #3b82f6;">Physics</span>
-            </div>
-            <div class="subject-card" data-target="chemistry">
-                <span class="card-icon-tag">Subject 02</span>
-                <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M6 3h12M14 3v5.5l5.5 10.3a2 2 0 0 1-1.7 2.9H6.2a2 2 0 0 1-1.7-2.9L10 8.5V3M8 14h8"></path>
-                </svg>
-                <span class="card-title" style="color: #f59e0b;">Chemistry</span>
-            </div>
-            <div class="subject-card" data-target="maths">
-                <span class="card-icon-tag">Subject 03</span>
-                <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M18 4H6l7 8-7 8h12"></path>
-                </svg>
-                <span class="card-title" style="color: #10b981;">Mathematics</span>
-            </div>
+        <div class="subject-card" data-target="chemistry">
+            <span class="card-icon-tag">Subject 02</span>
+            <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 3h12M14 3v5.5l5.5 10.3a2 2 0 0 1-1.7 2.9H6.2a2 2 0 0 1-1.7-2.9L10 8.5V3M8 14h8"></path>
+            </svg>
+            <span class="card-title" style="color: #f59e0b;">Chemistry</span>
         </div>
-
-        <div class="options-grid" id="options-grid"></div>
-
-        <div id="chapters-container"></div>
-
+        <div class="subject-card" data-target="maths">
+            <span class="card-icon-tag">Subject 03</span>
+            <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 4H6l7 8-7 8h12"></path>
+            </svg>
+            <span class="card-title" style="color: #10b981;">Mathematics</span>
+        </div>
     </div>
+
+    <div class="options-grid" id="options-grid"></div>
+
+    <div id="chapters-container"></div>
+
 </div>
 
 <script>
-    // --- USER DATABASE CONFIGURATION (FIXED & CONFIGURED BY YOU) ---
-    const STUDENT_CREDENTIALS = {
-        "anik": "0000",
-        "komol": "1111"
-    };
-
-    const loginScreen = document.getElementById("login-screen");
-    const mainContent = document.getElementById("main-content");
-    const usernameInput = document.getElementById("username-input");
-    const passwordInput = document.getElementById("password-input");
-    const loginBtn = document.getElementById("login-btn");
-    const errorMessage = document.getElementById("error-message");
-
-    // ব্রাউজারে আগে থেকেই সেশন লক করা থাকলে সরাসরি ফট করে পেজ ওপেন হবে
-    if (localStorage.getItem("jee_pyq_auth_success") === "true") {
-        loginScreen.style.display = "none";
-        mainContent.style.display = "block";
-    }
-
-    function executeLogin() {
-        const typedUser = usernameInput.value.trim().toLowerCase();
-        const typedPass = passwordInput.value.trim();
-
-        // নাম ও পাসওয়ার্ড মিলছে কি না চেক করা হচ্ছে
-        if (STUDENT_CREDENTIALS.hasOwnProperty(typedUser) && STUDENT_CREDENTIALS[typedUser] === typedPass) {
-            
-            // ফোন মেমোরিতে চেক করা হচ্ছে এই নির্দিষ্ট আইডিটি আগে অন্য ফোনে লক হয়েছে কি না তা ট্র্যাকিংয়ের জন্য
-            const savedBoundUser = localStorage.getItem("device_bound_user");
-
-            if (!savedBoundUser) {
-                // ফার্স্ট টাইম লগইন: এই ব্রাউজার ফোনে এই প্রথম এই আইডি বাইন্ড হলো
-                localStorage.setItem("device_bound_user", typedUser);
-                localStorage.setItem("jee_pyq_auth_success", "true");
-                
-                loginScreen.style.display = "none";
-                mainContent.style.display = "block";
-            } else if (savedBoundUser === typedUser) {
-                // এই ফোনে এই ইউজারটিই অলরেডি লকড করা আছে, তাই এক্সেস দেওয়া হলো
-                localStorage.setItem("jee_pyq_auth_success", "true");
-                
-                loginScreen.style.display = "none";
-                mainContent.style.display = "block";
-            } else {
-                // যদি এই ফোনে অলরেডি অন্য কোনো স্টুডেন্টের আইডি ফিক্সড করা থাকে
-                errorMessage.textContent = "Access Denied! This device is registered to another student profile.";
-                errorMessage.style.display = "block";
-                passwordInput.value = "";
-            }
-        } else {
-            errorMessage.textContent = "Incorrect Name or Password! Please try again.";
-            errorMessage.style.display = "block";
-            passwordInput.value = "";
-        }
-    }
-
-    loginBtn.addEventListener("click", executeLogin);
-    passwordInput.addEventListener("keypress", function(e) { if (e.key === "Enter") executeLogin(); });
-    usernameInput.addEventListener("keypress", function(e) { if (e.key === "Enter") executeLogin(); });
-
-
-    // --- YOUR ORIGINAL WEBSITE JS LOGIC (COMPLETELY UNTOUCHED & RESTORED ALL DRIVES) ---
     document.addEventListener("DOMContentLoaded", function() {
         const subjectGrid = document.getElementById("subject-grid");
         const optionsGrid = document.getElementById("options-grid");
@@ -577,120 +406,4 @@
                 { ch: "CH-02", name: "Inverse Trigonometric Functions", sub: "PYQ Practice Sheet" },
                 { ch: "CH-03", name: "Matrices", sub: "PYQ Practice Sheet" },
                 { ch: "CH-04", name: "Determinants", sub: "PYQ Practice Sheet" },
-            ]
-        };
-
-        function showSubjectGrid() {
-            subjectGrid.style.display = "grid";
-            optionsGrid.style.display = "none";
-            controlBar.classList.remove("active");
-            backSubjBtn.style.display = "none";
-            backOptBtn.style.display = "none";
-            chaptersContainer.innerHTML = "";
-            document.body.className = "";
-        }
-
-        function showOptionsGrid(subject) {
-            selectedSubject = subject;
-            subjectGrid.style.display = "none";
-            optionsGrid.style.display = "grid";
-            controlBar.classList.add("active");
-            backSubjBtn.style.display = "inline-flex";
-            backOptBtn.style.display = "none";
-            chaptersContainer.innerHTML = "";
-
-            if (subject === "chemistry") {
-                optionsGrid.innerHTML = `
-                    <div class="option-card" data-type="chemistry" data-target="chemistry_modules">
-                        <span class="card-icon-tag">Option A</span>
-                        <span class="card-title" style="color: #f59e0b;">Modules / Sheets</span>
-                    </div>
-                    <div class="option-card" data-type="chemistry" data-target="chemistry_others">
-                        <span class="card-icon-tag">Option B</span>
-                        <span class="card-title" style="color: #f59e0b;">Other Books</span>
-                    </div>
-                `;
-                
-                document.querySelectorAll(".option-card").forEach(card => {
-                    card.addEventListener("click", function() {
-                        renderChapters(this.getAttribute("data-target"), "chemistry");
-                    });
-                });
-            } else {
-                renderChapters(subject, subject);
-            }
-        }
-
-        function renderChapters(dbKey, themeClass) {
-            subjectGrid.style.display = "none";
-            optionsGrid.style.display = "none";
-            controlBar.classList.add("active");
-            
-            if (themeClass === "chemistry" && dbKey !== "chemistry") {
-                backSubjBtn.style.display = "none";
-                backOptBtn.style.display = "inline-flex";
-            } else {
-                backSubjBtn.style.display = "inline-flex";
-                backOptBtn.style.display = "none";
-            }
-
-            document.body.className = themeClass + "-view";
-            const chapters = chapterDatabase[dbKey] || [];
-            
-            let titleText = themeClass.charAt(0).toUpperCase() + themeClass.slice(1);
-            if(dbKey === "chemistry_modules") titleText += " (Modules)";
-            if(dbKey === "chemistry_others") titleText += " (Other Books)";
-
-            let html = `
-                <div class="chapters-panel active">
-                    <div class="panel-header">
-                        <span class="panel-title">${titleText}</span>
-                        <span class="total-badge">${chapters.length} Chapters</span>
-                    </div>
-                    <div class="chapter-list">
-            `;
-
-            chapters.forEach(chapter => {
-                let actionHtml = "";
-                if (chapter.moduleLinks && chapter.moduleLinks.length > 0) {
-                    actionHtml = '<div class="download-actions-group">';
-                    chapter.moduleLinks.forEach((link, index) => {
-                        actionHtml += `<a href="${link}" target="_blank" class="btn-download">Part 0${index + 1}</a>`;
-                    });
-                    actionHtml += '</div>';
-                } else {
-                    actionHtml = `<a href="#" class="btn-download" onclick="alert('Coming Soon!'); return false;">Download</a>`;
-                }
-
-                html += `
-                    <div class="chapter-item">
-                        <div class="chapter-details">
-                            <span class="chapter-title-text">${chapter.ch}: ${chapter.name}</span>
-                            <span class="chapter-subtitle-text">${chapter.sub}</span>
-                        </div>
-                        ${actionHtml}
-                    </div>
-                `;
-            });
-
-            html += `</div></div>`;
-            chaptersContainer.innerHTML = html;
-        }
-
-        document.querySelectorAll(".subject-card").forEach(card => {
-            card.addEventListener("click", function() {
-                const target = this.getAttribute("data-target");
-                if (target === "chemistry") {
-                    showOptionsGrid("chemistry");
-                } else {
-                    renderChapters(target, target);
-                }
-            });
-        });
-
-        backSubjBtn.addEventListener("click", showSubjectGrid);
-        backOptBtn.addEventListener("click", function() {
-            showOptionsGrid("chemistry");
-        });
-    });
-</
+  
