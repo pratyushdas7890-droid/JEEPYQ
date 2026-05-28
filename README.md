@@ -137,7 +137,7 @@
             line-height: 1.4;
         }
 
-        /* Main Application Hidden State */
+        /* Main Application Layout Container */
         #main-content {
             display: none;
         }
@@ -399,7 +399,7 @@
 <div id="login-screen">
     <div class="login-card">
         <h2>Student Login</h2>
-        <p>Enter your authorized Name & Password to access your resources.</p>
+        <p>Enter your authorized Name & Password. Note: This phone will lock to this specific user account permanently.</p>
         <input type="text" id="username-input" class="login-input" placeholder="Enter Your Name">
         <input type="password" id="password-input" class="login-input" placeholder="Enter Password">
         <button id="login-btn" class="btn-login">Verify & Enter</button>
@@ -461,8 +461,6 @@
 
 <script>
     // --- USER DATABASE CONFIGURATION ---
-    // এখানে আপনার স্টুডেন্টদের নাম ও পাসওয়ার্ড লিস্ট করা আছে। 
-    // বামের নাম অবশ্যই ছোট হাতের অক্ষরে লিখবেন, ডানের পাসওয়ার্ড আপনার ইচ্ছেমতো ছোট/বড় অক্ষরে দিতে পারেন।
     const STUDENT_CREDENTIALS = {
         "Anik": "a0000",
         "Komol": "k1111",
@@ -476,39 +474,43 @@
     const loginBtn = document.getElementById("login-btn");
     const errorMessage = document.getElementById("error-message");
 
-    // ব্রাউজারে আগে থেকেই সেশন ভেরিফাইড থাকলে ডিরেক্ট পেজ ওপেন হবে
+    // এই ফোন ব্রাউজারে আগে থেকেই কোনো সেশন লক বা ভেরিফাইড করা থাকলে সরাসরি ফট করে ওপেন হবে
     if (localStorage.getItem("jee_pyq_auth_success") === "true") {
         loginScreen.style.display = "none";
         mainContent.style.display = "block";
     }
 
     function executeLogin() {
-        // ইনপুট ভ্যালু ক্লিন করা (নাম ও পাসওয়ার্ড কেস-সেন্সিটিভ ফিক্স করা হয়েছে)
         const typedUser = usernameInput.value.trim().toLowerCase();
         const typedPass = passwordInput.value.trim();
 
-        // ১. ক্রেডেনশিয়াল চেক করা হচ্ছে
+        // ১. চেক করা হচ্ছে ইনপুট দেওয়া নাম ও পাসওয়ার্ড লিস্টের সাথে মিলছে কি না
         if (STUDENT_CREDENTIALS.hasOwnProperty(typedUser) && STUDENT_CREDENTIALS[typedUser] === typedPass) {
             
-            // স্থানীয় ব্রাউজার ডিভাইস অথরাইজেশন চেক
-            const deviceBindingToken = localStorage.getItem("device_bound_user");
+            // ফোন মেমোরি থেকে চেক করা হচ্ছে এই ফোনে আগে কোনো ইউজার লক হয়েছে কি না
+            const boundUser = localStorage.getItem("device_bound_user");
 
-            if (!deviceBindingToken || deviceBindingToken === typedUser) {
-                // ফার্স্ট টাইম লগইন অথবা সঠিক ডিভাইস সেশন রি-এন্ট্রি হলে
+            if (!boundUser) {
+                // এই ফোনে এই প্রথম কোনো আইডি খোলা হলো, তাই চিরকালের জন্য লক করে দেওয়া হলো
                 localStorage.setItem("device_bound_user", typedUser);
                 localStorage.setItem("jee_pyq_auth_success", "true");
                 
-                // ফট করে ওয়েবসাইট ওপেন হবে
+                loginScreen.style.display = "none";
+                mainContent.style.display = "block";
+            } else if (boundUser === typedUser) {
+                // এই ফোনে অলরেডি এই ইউজারটিই লক করা আছে, তাই এক্সেস দেওয়া হলো
+                localStorage.setItem("jee_pyq_auth_success", "true");
+                
                 loginScreen.style.display = "none";
                 mainContent.style.display = "block";
             } else {
-                // পাসওয়ার্ড সঠিক কিন্তু এই ব্রাউজার অন্য ইউজারের জন্য অলরেডি রিজার্ভড
-                errorMessage.textContent = "Access Denied! This device is registered to another user.";
+                // যদি এই ফোনে অলরেডি অন্য কোনো স্টুডেন্টের আইডি লক করা থাকে (যেমন 'rahul' লকড, কিন্তু এখন 'amit' ঢুকতে চাইছে)
+                errorMessage.textContent = "Access Denied! This device is permanently locked to another user profile.";
                 errorMessage.style.display = "block";
                 passwordInput.value = "";
             }
         } else {
-            // ভুল নাম বা পাসওয়ার্ড টাইপ করলে
+            // ভুল নাম বা পাসওয়ার্ড দিলে
             errorMessage.textContent = "Incorrect Name or Password! Please try again.";
             errorMessage.style.display = "block";
             passwordInput.value = "";
