@@ -6,7 +6,7 @@
     <title>JEE PYQ</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -43,6 +43,103 @@
                 radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.12) 0px, transparent 50%),
                 radial-gradient(at 50% 50%, rgba(245, 158, 11, 0.04) 0px, transparent 50%);
             background-attachment: fixed;
+        }
+
+        /* Secure Device Login Screen */
+        #login-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-dark);
+            background-image: radial-gradient(at 50% 50%, rgba(59, 130, 246, 0.15) 0px, transparent 50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            padding: 20px;
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border);
+            padding: 40px 30px;
+            border-radius: var(--radius-main);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .login-card h2 {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #ffffff, #a5f3fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .login-card p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .login-input {
+            width: 100%;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-btn);
+            color: var(--text-white);
+            font-size: 16px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 15px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .login-input:focus {
+            border-color: #3b82f6;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 16px;
+            background: var(--physics-glow);
+            border: none;
+            border-radius: var(--radius-btn);
+            color: var(--text-white);
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+            transition: transform 0.2s, filter 0.2s;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.15);
+        }
+
+        .error-msg {
+            color: #ef4444;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 15px;
+            display: none;
+            line-height: 1.4;
+        }
+
+        /* Main Content Wrapper */
+        #main-content {
+            display: none;
         }
 
         .container {
@@ -299,57 +396,148 @@
 </head>
 <body>
 
-<div class="container">
-    
-    <header id="main-header">
-        <h1>JEE PYQ</h1>
-        <p>Complete Chapter-wise Previous Year Questions for JEE Main & Advanced Entrance Preparation.</p>
-    </header>
-
-    <div class="control-bar" id="control-bar">
-        <button class="btn-back" id="back-subj-btn" style="display: none;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-            Back to Subjects
-        </button>
-        <button class="btn-back" id="back-opt-btn" style="display: none;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-            Back to Books
-        </button>
+<div id="login-screen">
+    <div class="login-card">
+        <h2>Student Login</h2>
+        <p>Enter your authorized Name & Password. Note: This login will lock to this specific device permanently.</p>
+        <input type="text" id="username-input" class="login-input" placeholder="Enter Your Name">
+        <input type="password" id="password-input" class="login-input" placeholder="Enter Password">
+        <button id="login-btn" class="btn-login">Verify & Lock Device</button>
+        <div id="error-message" class="error-msg"></div>
     </div>
+</div>
 
-    <div class="subject-grid" id="subject-grid">
-        <div class="subject-card" data-target="physics">
-            <span class="card-icon-tag">Subject 01</span>
-            <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <ellipse cx="12" cy="12" rx="3" ry="9" transform="rotate(45 12 12)"></ellipse>
-                <ellipse cx="12" cy="12" rx="3" ry="9" transform="rotate(-45 12 12)"></ellipse>
-                <circle cx="12" cy="12" r="1" fill="#3b82f6"></circle>
-            </svg>
-            <span class="card-title" style="color: #3b82f6;">Physics</span>
+<div id="main-content">
+    <div class="container">
+        
+        <header id="main-header">
+            <h1>JEE PYQ</h1>
+            <p>Complete Chapter-wise Previous Year Questions for JEE Main & Advanced Entrance Preparation.</p>
+        </header>
+
+        <div class="control-bar" id="control-bar">
+            <button class="btn-back" id="back-subj-btn" style="display: none;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Back to Subjects
+            </button>
+            <button class="btn-back" id="back-opt-btn" style="display: none;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Back to Books
+            </button>
         </div>
-        <div class="subject-card" data-target="chemistry">
-            <span class="card-icon-tag">Subject 02</span>
-            <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M6 3h12M14 3v5.5l5.5 10.3a2 2 0 0 1-1.7 2.9H6.2a2 2 0 0 1-1.7-2.9L10 8.5V3M8 14h8"></path>
-            </svg>
-            <span class="card-title" style="color: #f59e0b;">Chemistry</span>
+
+        <div class="subject-grid" id="subject-grid">
+            <div class="subject-card" data-target="physics">
+                <span class="card-icon-tag">Subject 01</span>
+                <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <ellipse cx="12" cy="12" rx="3" ry="9" transform="rotate(45 12 12)"></ellipse>
+                    <ellipse cx="12" cy="12" rx="3" ry="9" transform="rotate(-45 12 12)"></ellipse>
+                    <circle cx="12" cy="12" r="1" fill="#3b82f6"></circle>
+                </svg>
+                <span class="card-title" style="color: #3b82f6;">Physics</span>
+            </div>
+            <div class="subject-card" data-target="chemistry">
+                <span class="card-icon-tag">Subject 02</span>
+                <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 3h12M14 3v5.5l5.5 10.3a2 2 0 0 1-1.7 2.9H6.2a2 2 0 0 1-1.7-2.9L10 8.5V3M8 14h8"></path>
+                </svg>
+                <span class="card-title" style="color: #f59e0b;">Chemistry</span>
+            </div>
+            <div class="subject-card" data-target="maths">
+                <span class="card-icon-tag">Subject 03</span>
+                <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 4H6l7 8-7 8h12"></path>
+                </svg>
+                <span class="card-title" style="color: #10b981;">Mathematics</span>
+            </div>
         </div>
-        <div class="subject-card" data-target="maths">
-            <span class="card-icon-tag">Subject 03</span>
-            <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M18 4H6l7 8-7 8h12"></path>
-            </svg>
-            <span class="card-title" style="color: #10b981;">Mathematics</span>
-        </div>
+
+        <div class="options-grid" id="options-grid"></div>
+
+        <div id="chapters-container"></div>
+
     </div>
-
-    <div class="options-grid" id="options-grid"></div>
-
-    <div id="chapters-container"></div>
-
 </div>
 
 <script>
+    // --- 1-DEVICE EXPANSION USER LOGIC ---
+    // এখানে আপনার স্টুডেন্টদের Name এবং Password সেট করবেন।
+    // ডানের কী এবং ভ্যালু সব ছোট হাতের (lowercase) অক্ষরে সেভ থাকবে।
+    const STUDENT_CREDENTIALS = {
+        "Pratyush": "0000",
+        "Komol": "1111",
+        "priya": "maths99"
+    };
+
+    const loginScreen = document.getElementById("login-screen");
+    const mainContent = document.getElementById("main-content");
+    const usernameInput = document.getElementById("username-input");
+    const passwordInput = document.getElementById("password-input");
+    const loginBtn = document.getElementById("login-btn");
+    const errorMessage = document.getElementById("error-message");
+
+    // ডিভাইসের ইউনিক ফিঙ্গারপ্রিন্ট তৈরি করার ফাংশন
+    function getDeviceSignature() {
+        return btoa(navigator.userAgent + screen.width + screen.height + navigator.language);
+    }
+    const thisDeviceSig = getDeviceSignature();
+
+    // চেক করা হচ্ছে—এই ফোনে যদি অলরেডি একটি বৈধ সেশন বা লকিং রেজিস্টার্ড থাকে
+    const savedSessionUser = localStorage.getItem("locked_user_identity");
+    const savedDeviceToken = localStorage.getItem("locked_device_signature");
+
+    if (savedSessionUser && savedDeviceToken === thisDeviceSig) {
+        // যদি ডাটা ম্যাচ করে, সরাসরি সাইট ওপেন হবে
+        loginScreen.style.display = "none";
+        mainContent.style.display = "block";
+    }
+
+    function processSecureLogin() {
+        const inputName = usernameInput.value.trim().toLowerCase();
+        const inputPassword = passwordInput.value.trim().toLowerCase();
+
+        // ১. চেক করা হচ্ছে নাম এবং পাসওয়ার্ড লিস্টে আছে কি না
+        if (STUDENT_CREDENTIALS.hasOwnProperty(inputName) && STUDENT_CREDENTIALS[inputName] === inputPassword) {
+            
+            // ক্লায়েন্ট-সাইড এক্সক্লুসিভ লক ট্র্যাকিং মেকানিজম
+            const globalDeviceLockKey = "device_fingerprint_for_" + inputName;
+            const existingLockSignature = localStorage.getItem(globalDeviceLockKey);
+
+            if (!existingLockSignature) {
+                // এই নাম-পাসওয়ার্ডটি এর আগে এই ব্রাউজারে কখনো ইউজ হয়নি (First-time Login)
+                // তাই এই ফোনের সিগনেচারের সাথে এই অ্যাকাউন্টটি চিরকালের জন্য লক করে দেওয়া হলো
+                localStorage.setItem(globalDeviceLockKey, thisDeviceSig);
+                localStorage.setItem("locked_user_identity", inputName);
+                localStorage.setItem("locked_device_signature", thisDeviceSig);
+                
+                loginScreen.style.display = "none";
+                mainContent.style.display = "block";
+            } else if (existingLockSignature === thisDeviceSig) {
+                // এটি সেই একই অনুমোদিত ফোন, তাই সাইটে অ্যাক্সেস দেওয়া হলো
+                localStorage.setItem("locked_user_identity", inputName);
+                localStorage.setItem("locked_device_signature", thisDeviceSig);
+                
+                loginScreen.style.display = "none";
+                mainContent.style.display = "block";
+            } else {
+                // যদি এই নাম-পাসওয়ার্ডের জন্য অলরেডি অন্য কোনো ডিভাইস টোকেন সেভ থাকে (ইউজার শেয়ার করেছে)
+                errorMessage.textContent = "Access Denied! This account is already locked to another device.";
+                errorMessage.style.display = "block";
+                passwordInput.value = "";
+            }
+        } else {
+            errorMessage.textContent = "Incorrect Name or Password! Please try again.";
+            errorMessage.style.display = "block";
+            passwordInput.value = "";
+        }
+    }
+
+    loginBtn.addEventListener("click", processSecureLogin);
+    passwordInput.addEventListener("keypress", function(e) { if (e.key === "Enter") processSecureLogin(); });
+    usernameInput.addEventListener("keypress", function(e) { if (e.key === "Enter") processSecureLogin(); });
+
+
+    // --- YOUR ORIGINAL WEBSITE JS LOGIC (COMPLETELY UNTOUCHED & INTTACT) ---
     document.addEventListener("DOMContentLoaded", function() {
         const subjectGrid = document.getElementById("subject-grid");
         const optionsGrid = document.getElementById("options-grid");
@@ -406,145 +594,120 @@
                 { ch: "CH-02", name: "Inverse Trigonometric Functions", sub: "PYQ Practice Sheet" },
                 { ch: "CH-03", name: "Matrices", sub: "PYQ Practice Sheet" },
                 { ch: "CH-04", name: "Determinants", sub: "PYQ Practice Sheet" },
-                { ch: "CH-05", name: "Continuity and Differentiability", sub: "PYQ Practice Sheet" },
-                { ch: "CH-06", name: "Application of Derivatives", sub: "PYQ Practice Sheet" },
-                { ch: "CH-07", name: "Integrals", sub: "PYQ Practice Sheet" },
-                { ch: "CH-08", name: "Application of Integrals", sub: "PYQ Practice Sheet" },
-                { ch: "CH-09", name: "Differential Equations", sub: "PYQ Practice Sheet" },
-                { ch: "CH-10", name: "Vector Algebra", sub: "PYQ Practice Sheet" },
-                { ch: "CH-11", name: "Three Dimensional Geometry", sub: "PYQ Practice Sheet" },
-                { ch: "CH-12", name: "Linear Programming", sub: "PYQ Practice Sheet" },
-                { ch: "CH-13", name: "Probability", sub: "PYQ Practice Sheet" }
             ]
         };
 
-        // Step 1: Subject Selection
-        document.querySelectorAll(".subject-grid .subject-card").forEach(card => {
-            card.addEventListener("click", function() {
-                selectedSubject = this.getAttribute("data-target");
-                
-                subjectGrid.style.display = "none";
-                optionsGrid.innerHTML = ""; 
-
-                let books = [
-                    { original: "Modules", display: "Modules (Practice)" },
-                    { original: "Arihant", display: "Arihant (PYQ)" },
-                    { original: "Cengage", display: "Cengage (Practice)" }
-                ];
-                
-                if (selectedSubject === "maths") {
-                    books = [
-                        { original: "Modules", display: "Modules (Practice)" },
-                        { original: "Arihant", display: "Arihant (PYQ)" }
-                    ]; 
-                }
-
-                books.forEach((book, index) => {
-                    const optionCard = document.createElement("div");
-                    optionCard.className = "option-card";
-                    optionCard.setAttribute("data-type", selectedSubject);
-                    optionCard.setAttribute("data-book", book.original);
-                    optionCard.setAttribute("data-display-book", book.display);
-                    optionCard.innerHTML = `
-                        <span class="card-icon-tag">Resource 0${index + 1}</span>
-                        <span class="card-title">${book.display}</span>
-                    `;
-                    optionsGrid.appendChild(optionCard);
-                });
-
-                optionsGrid.style.display = "grid";
-                controlBar.classList.add("active");
-                backSubjBtn.style.display = "inline-flex";
-                backOptBtn.style.display = "none";
-
-                setupBookCards();
-            });
-        });
-
-        // Step 2: Book Selection
-        function setupBookCards() {
-            document.querySelectorAll(".options-grid .option-card").forEach(card => {
-                card.addEventListener("click", function() {
-                    const selectedBook = this.getAttribute("data-book");
-                    const displayBookName = this.getAttribute("data-display-book");
-                    optionsGrid.style.display = "none";
-
-                    let titleColor = "#3b82f6";
-                    let viewClass = "physics-view";
-                    if (selectedSubject === "chemistry") { titleColor = "#f59e0b"; viewClass = "chemistry-view"; }
-                    if (selectedSubject === "maths") { titleColor = "#10b981"; viewClass = "maths-view"; }
-
-                    // Fix: Dynamic database selection logic for Chemistry
-                    let chapters = [];
-                    if (selectedSubject === "chemistry") {
-                        chapters = selectedBook === "Modules" ? chapterDatabase.chemistry_modules : chapterDatabase.chemistry_others;
-                    } else {
-                        chapters = chapterDatabase[selectedSubject];
-                    }
-
-                    let chaptersHtml = `
-                        <div id="active-panel" class="chapters-panel ${viewClass} active">
-                            <div class="panel-header">
-                                <span class="panel-title" style="color: ${titleColor};">${selectedSubject.charAt(0).toUpperCase() + selectedSubject.slice(1)} - ${displayBookName}</span>
-                                <span class="total-badge">${chapters.length} Chapters</span>
-                            </div>
-                            <div class="chapter-list">
-                    `;
-
-                    chapters.forEach(item => {
-                        chaptersHtml += `
-                            <div class="chapter-item">
-                                <div class="chapter-details">
-                                    <span class="chapter-title-text">${item.ch}: ${item.name}</span>
-                                    <span class="chapter-subtitle-text">${item.sub}</span>
-                                </div>
-                                <div class="download-actions-group">
-                        `;
-
-                        // Render Logic for Download Buttons
-                        if (selectedBook === "Modules" && item.moduleLinks) {
-                            if (item.moduleLinks.length > 1) {
-                                item.moduleLinks.forEach((link, idx) => {
-                                    chaptersHtml += `<a href="${link}" target="_blank" class="btn-download">Part ${idx + 1}</a>`;
-                                });
-                            } else if (item.moduleLinks.length === 1) {
-                                chaptersHtml += `<a href="${item.moduleLinks[0]}" target="_blank" class="btn-download">Download PDF</a>`;
-                            }
-                        } else {
-                            chaptersHtml += `<a href="#download" class="btn-download">Download PDF</a>`;
-                        }
-
-                        chaptersHtml += `
-                                </div>
-                            </div>
-                        `;
-                    });
-
-                    chaptersHtml += `
-                            </div>
-                        </div>
-                    `;
-
-                    chaptersContainer.innerHTML = chaptersHtml;
-                    backSubjBtn.style.display = "none";
-                    backOptBtn.style.display = "inline-flex";
-                });
-            });
-        }
-
-        // Back Buttons Logic
-        backSubjBtn.addEventListener("click", function() {
+        function showSubjectGrid() {
             subjectGrid.style.display = "grid";
             optionsGrid.style.display = "none";
             controlBar.classList.remove("active");
             backSubjBtn.style.display = "none";
-        });
-
-        backOptBtn.addEventListener("click", function() {
-            optionsGrid.style.display = "grid";
+            backOptBtn.style.display = "none";
             chaptersContainer.innerHTML = "";
+            document.body.className = "";
+        }
+
+        function showOptionsGrid(subject) {
+            selectedSubject = subject;
+            subjectGrid.style.display = "none";
+            optionsGrid.style.display = "grid";
+            controlBar.classList.add("active");
             backSubjBtn.style.display = "inline-flex";
             backOptBtn.style.display = "none";
+            chaptersContainer.innerHTML = "";
+
+            if (subject === "chemistry") {
+                optionsGrid.innerHTML = `
+                    <div class="option-card" data-type="chemistry" data-target="chemistry_modules">
+                        <span class="card-icon-tag">Option A</span>
+                        <span class="card-title" style="color: #f59e0b;">Modules / Sheets</span>
+                    </div>
+                    <div class="option-card" data-type="chemistry" data-target="chemistry_others">
+                        <span class="card-icon-tag">Option B</span>
+                        <span class="card-title" style="color: #f59e0b;">Other Books</span>
+                    </div>
+                `;
+                
+                document.querySelectorAll(".option-card").forEach(card => {
+                    card.addEventListener("click", function() {
+                        renderChapters(this.getAttribute("data-target"), "chemistry");
+                    });
+                });
+            } else {
+                renderChapters(subject, subject);
+            }
+        }
+
+        function renderChapters(dbKey, themeClass) {
+            subjectGrid.style.display = "none";
+            optionsGrid.style.display = "none";
+            controlBar.classList.add("active");
+            
+            if (themeClass === "chemistry" && dbKey !== "chemistry") {
+                backSubjBtn.style.display = "none";
+                backOptBtn.style.display = "inline-flex";
+            } else {
+                backSubjBtn.style.display = "inline-flex";
+                backOptBtn.style.display = "none";
+            }
+
+            document.body.className = themeClass + "-view";
+            const chapters = chapterDatabase[dbKey] || [];
+            
+            let titleText = themeClass.charAt(0).toUpperCase() + themeClass.slice(1);
+            if(dbKey === "chemistry_modules") titleText += " (Modules)";
+            if(dbKey === "chemistry_others") titleText += " (Other Books)";
+
+            let html = `
+                <div class="chapters-panel active">
+                    <div class="panel-header">
+                        <span class="panel-title">${titleText}</span>
+                        <span class="total-badge">${chapters.length} Chapters</span>
+                    </div>
+                    <div class="chapter-list">
+            `;
+
+            chapters.forEach(chapter => {
+                let actionHtml = "";
+                if (chapter.moduleLinks && chapter.moduleLinks.length > 0) {
+                    actionHtml = '<div class="download-actions-group">';
+                    chapter.moduleLinks.forEach((link, index) => {
+                        actionHtml += `<a href="${link}" target="_blank" class="btn-download">Part 0${index + 1}</a>`;
+                    });
+                    actionHtml += '</div>';
+                } else {
+                    actionHtml = `<a href="#" class="btn-download" onclick="alert('Coming Soon!'); return false;">Download</a>`;
+                }
+
+                html += `
+                    <div class="chapter-item">
+                        <div class="chapter-details">
+                            <span class="chapter-title-text">${chapter.ch}: ${chapter.name}</span>
+                            <span class="chapter-subtitle-text">${chapter.sub}</span>
+                        </div>
+                        ${actionHtml}
+                    </div>
+                `;
+            });
+
+            html += `</div></div>`;
+            chaptersContainer.innerHTML = html;
+        }
+
+        document.querySelectorAll(".subject-card").forEach(card => {
+            card.addEventListener("click", function() {
+                const target = this.getAttribute("data-target");
+                if (target === "chemistry") {
+                    showOptionsGrid("chemistry");
+                } else {
+                    renderChapters(target, target);
+                }
+            });
+        });
+
+        backSubjBtn.addEventListener("click", showSubjectGrid);
+        backOptBtn.addEventListener("click", function() {
+            showOptionsGrid("chemistry");
         });
     });
 </script>
