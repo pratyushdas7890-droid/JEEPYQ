@@ -137,7 +137,7 @@
             line-height: 1.4;
         }
 
-        /* Main Application Layout Container */
+        /* Main Application Container */
         #main-content {
             display: none;
         }
@@ -399,7 +399,7 @@
 <div id="login-screen">
     <div class="login-card">
         <h2>Student Login</h2>
-        <p>Enter your authorized Name & Password. Note: This phone will lock to this specific user account permanently.</p>
+        <p>Enter your authorized Name & Password. This account will lock to this specific browser upon first login.</p>
         <input type="text" id="username-input" class="login-input" placeholder="Enter Your Name">
         <input type="password" id="password-input" class="login-input" placeholder="Enter Password">
         <button id="login-btn" class="btn-login">Verify & Enter</button>
@@ -461,9 +461,11 @@
 
 <script>
     // --- USER DATABASE CONFIGURATION ---
+    // এখানে আপনার স্টুডেন্টদের নাম ও পাসওয়ার্ড লিস্ট করা আছে। 
+    // টাইপ করার সুবিধার জন্য নাম ও পাসওয়ার্ড দুটোই কেস-ইনসেন্সিটিভ করা হয়েছে।
     const STUDENT_CREDENTIALS = {
-        "Anik": "a0000",
-        "Komol": "k1111",
+        "Anik": "0000",
+        "Komol": "1111",
         "priya": "maths99"
     };
 
@@ -474,43 +476,46 @@
     const loginBtn = document.getElementById("login-btn");
     const errorMessage = document.getElementById("error-message");
 
-    // এই ফোন ব্রাউজারে আগে থেকেই কোনো সেশন লক বা ভেরিফাইড করা থাকলে সরাসরি ফট করে ওপেন হবে
+    // ব্রাউজারে আগে থেকেই সেশন ভেরিফাইড থাকলে সরাসরি ফট করে পেজ ওপেন হবে
     if (localStorage.getItem("jee_pyq_auth_success") === "true") {
         loginScreen.style.display = "none";
         mainContent.style.display = "block";
     }
 
     function executeLogin() {
+        // ইনপুট ভ্যালু ট্রিম করা হচ্ছে
         const typedUser = usernameInput.value.trim().toLowerCase();
         const typedPass = passwordInput.value.trim();
 
-        // ১. চেক করা হচ্ছে ইনপুট দেওয়া নাম ও পাসওয়ার্ড লিস্টের সাথে মিলছে কি না
+        // ১. নাম ও পাসওয়ার্ড চেক করা হচ্ছে
         if (STUDENT_CREDENTIALS.hasOwnProperty(typedUser) && STUDENT_CREDENTIALS[typedUser] === typedPass) {
             
-            // ফোন মেমোরি থেকে চেক করা হচ্ছে এই ফোনে আগে কোনো ইউজার লক হয়েছে কি না
-            const boundUser = localStorage.getItem("device_bound_user");
+            // ফোন মেমোরিতে চেক করা হচ্ছে এই নির্দিষ্ট আইডিটি আগে অন্য ফোনে লক হয়েছে কি না তা ট্র্যাকিংয়ের জন্য
+            // ক্লায়েন্ট-সাইড মেমোরি অনুযায়ী এই ফোনে কোন ইউজার রেজিস্টার্ড তা দেখা হচ্ছে
+            const savedBoundUser = localStorage.getItem("device_bound_user");
 
-            if (!boundUser) {
-                // এই ফোনে এই প্রথম কোনো আইডি খোলা হলো, তাই চিরকালের জন্য লক করে দেওয়া হলো
+            if (!savedBoundUser) {
+                // ফার্স্ট টাইম লগইন: এই ব্রাউজার ফোনে এই প্রথম এই আইডি বাইন্ড হলো
                 localStorage.setItem("device_bound_user", typedUser);
                 localStorage.setItem("jee_pyq_auth_success", "true");
                 
+                // ফট করে মেইন ওয়েবসাইট ওপেন হবে
                 loginScreen.style.display = "none";
                 mainContent.style.display = "block";
-            } else if (boundUser === typedUser) {
-                // এই ফোনে অলরেডি এই ইউজারটিই লক করা আছে, তাই এক্সেস দেওয়া হলো
+            } else if (savedBoundUser === typedUser) {
+                // এই ফোনে এই ইউজারটিই অলরেডি লকড করা আছে, তাই অ্যাক্সেস দেওয়া হলো
                 localStorage.setItem("jee_pyq_auth_success", "true");
                 
                 loginScreen.style.display = "none";
                 mainContent.style.display = "block";
             } else {
-                // যদি এই ফোনে অলরেডি অন্য কোনো স্টুডেন্টের আইডি লক করা থাকে (যেমন 'rahul' লকড, কিন্তু এখন 'amit' ঢুকতে চাইছে)
-                errorMessage.textContent = "Access Denied! This device is permanently locked to another user profile.";
+                // যদি এই ফোনে অলরেডি অন্য কোনো স্টুডেন্টের আইডি ফিক্সড করা থাকে
+                errorMessage.textContent = "Access Denied! This device is registered to another student profile.";
                 errorMessage.style.display = "block";
                 passwordInput.value = "";
             }
         } else {
-            // ভুল নাম বা পাসওয়ার্ড দিলে
+            // নাম বা পাসওয়ার্ড লিস্টের সাথে না মিললে
             errorMessage.textContent = "Incorrect Name or Password! Please try again.";
             errorMessage.style.display = "block";
             passwordInput.value = "";
