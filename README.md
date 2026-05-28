@@ -45,7 +45,7 @@
             background-attachment: fixed;
         }
 
-        /* Secure 1-Device Login Screen Overlay */
+        /* Secure Login Overlay */
         #login-screen {
             position: fixed;
             top: 0;
@@ -137,7 +137,7 @@
             line-height: 1.4;
         }
 
-        /* Main Content Wrapper */
+        /* Main Application Hidden State */
         #main-content {
             display: none;
         }
@@ -399,11 +399,11 @@
 <div id="login-screen">
     <div class="login-card">
         <h2>Student Login</h2>
-        <p>Enter your authorized Name & Password. Note: This login will lock to this specific device permanently.</p>
+        <p>Enter your authorized Name & Password to access your resources.</p>
         <input type="text" id="username-input" class="login-input" placeholder="Enter Your Name">
         <input type="password" id="password-input" class="login-input" placeholder="Enter Password">
-        <button id="login-btn" class="btn-login">Verify & Lock Device</button>
-        <div id="error-message" class="error-msg"></div>
+        <button id="login-btn" class="btn-login">Verify & Enter</button>
+        <div id="error-message" class="error-msg">Incorrect Name or Password! Please try again.</div>
     </div>
 </div>
 
@@ -460,12 +460,12 @@
 </div>
 
 <script>
-    // --- 1-DEVICE USER DATABASE ---
-    // আপনি এখানে আপনার মতো করে স্টুডেন্টদের Name এবং Password সেট করে দিন।
-    // সুরক্ষার জন্য Name সব ছোট হাতের (lowercase) অক্ষরে লিখবেন, এবং পাসওয়ার্ড আপনি যেভাবে চান (ছোট/বড় হাত) সেভাবেই হুবহু লিখবেন।
+    // --- USER DATABASE CONFIGURATION ---
+    // এখানে আপনার স্টুডেন্টদের নাম ও পাসওয়ার্ড লিস্ট করা আছে। 
+    // বামের নাম অবশ্যই ছোট হাতের অক্ষরে লিখবেন, ডানের পাসওয়ার্ড আপনার ইচ্ছেমতো ছোট/বড় অক্ষরে দিতে পারেন।
     const STUDENT_CREDENTIALS = {
-        "Pratyush": "anik0000",
-        "Komol": "Kml1111",
+        "Anik": "a0000",
+        "Komol": "k1111",
         "priya": "maths99"
     };
 
@@ -476,65 +476,48 @@
     const loginBtn = document.getElementById("login-btn");
     const errorMessage = document.getElementById("error-message");
 
-    // ডিভাইসের ইউনিক ফিঙ্গারপ্রিন্ট তৈরি করার ফাংশন
-    function getDeviceSignature() {
-        return btoa(navigator.userAgent + screen.width + screen.height + navigator.language);
-    }
-    const thisDeviceSig = getDeviceSignature();
-
-    // চেক করা হচ্ছে—এই ফোনে অলরেডি কোনো অ্যাকাউন্ট লক করা আছে কি না
-    const savedSessionUser = localStorage.getItem("locked_user_identity");
-    const savedDeviceToken = localStorage.getItem("locked_device_signature");
-
-    if (savedSessionUser && savedDeviceToken === thisDeviceSig) {
+    // ব্রাউজারে আগে থেকেই সেশন ভেরিফাইড থাকলে ডিরেক্ট পেজ ওপেন হবে
+    if (localStorage.getItem("jee_pyq_auth_success") === "true") {
         loginScreen.style.display = "none";
         mainContent.style.display = "block";
     }
 
-    function processSecureLogin() {
-        const inputName = usernameInput.value.trim().toLowerCase();
-        const inputPassword = passwordInput.value.trim(); // এখানে .toLowerCase() রিমুভ করে ফিক্স করা হয়েছে
+    function executeLogin() {
+        // ইনপুট ভ্যালু ক্লিন করা (নাম ও পাসওয়ার্ড কেস-সেন্সিটিভ ফিক্স করা হয়েছে)
+        const typedUser = usernameInput.value.trim().toLowerCase();
+        const typedPass = passwordInput.value.trim();
 
-        // ১. চেক করা হচ্ছে নাম এবং পাসওয়ার্ড ডেটাবেসের সাথে হুবহু মিলছে কি না
-        if (STUDENT_CREDENTIALS.hasOwnProperty(inputName) && STUDENT_CREDENTIALS[inputName] === inputPassword) {
+        // ১. ক্রেডেনশিয়াল চেক করা হচ্ছে
+        if (STUDENT_CREDENTIALS.hasOwnProperty(typedUser) && STUDENT_CREDENTIALS[typedUser] === typedPass) {
             
-            // অ্যাকাউন্টটি কোন ব্রাউজার ডিভাইসে প্রথমবার সেট হয়েছিল তা ট্র্যাক করার কি (Key)
-            const globalDeviceLockKey = "device_fingerprint_for_" + inputName;
-            const existingLockSignature = localStorage.getItem(globalDeviceLockKey);
+            // স্থানীয় ব্রাউজার ডিভাইস অথরাইজেশন চেক
+            const deviceBindingToken = localStorage.getItem("device_bound_user");
 
-            if (!existingLockSignature) {
-                // ফার্স্ট-টাইম লগইন: এই নাম-পাসওয়ার্ডটি এই ব্রাউজারে প্রথমবার সফলভাবে ইউজ হলো।
-                // অ্যাকাউন্টটি চিরকালের জন্য শুধু এই ফোনের সাথেই লক (Lock) হয়ে গেল।
-                localStorage.setItem(globalDeviceLockKey, thisDeviceSig);
-                localStorage.setItem("locked_user_identity", inputName);
-                localStorage.setItem("locked_device_signature", thisDeviceSig);
+            if (!deviceBindingToken || deviceBindingToken === typedUser) {
+                // ফার্স্ট টাইম লগইন অথবা সঠিক ডিভাইস সেশন রি-এন্ট্রি হলে
+                localStorage.setItem("device_bound_user", typedUser);
+                localStorage.setItem("jee_pyq_auth_success", "true");
                 
-                loginScreen.style.display = "none";
-                mainContent.style.display = "block";
-            } else if (existingLockSignature === thisDeviceSig) {
-                // এটি সেই একই রেজিস্টার্ড ফোন, তাই সরাসরি ওয়েবসাইট খুলবে
-                localStorage.setItem("locked_user_identity", inputName);
-                localStorage.setItem("locked_device_signature", thisDeviceSig);
-                
+                // ফট করে ওয়েবসাইট ওপেন হবে
                 loginScreen.style.display = "none";
                 mainContent.style.display = "block";
             } else {
-                // পাসওয়ার্ড সঠিক দিলেও যদি অন্য ফোন থেকে কেউ ট্রাই করে (ইউজার অ্যাকাউন্ট শেয়ার করেছে)
-                errorMessage.textContent = "Access Denied! This account is already locked to another device.";
+                // পাসওয়ার্ড সঠিক কিন্তু এই ব্রাউজার অন্য ইউজারের জন্য অলরেডি রিজার্ভড
+                errorMessage.textContent = "Access Denied! This device is registered to another user.";
                 errorMessage.style.display = "block";
                 passwordInput.value = "";
             }
         } else {
-            // নাম বা পাসওয়ার্ড টাইপ করতে ভুল করলে
+            // ভুল নাম বা পাসওয়ার্ড টাইপ করলে
             errorMessage.textContent = "Incorrect Name or Password! Please try again.";
             errorMessage.style.display = "block";
             passwordInput.value = "";
         }
     }
 
-    loginBtn.addEventListener("click", processSecureLogin);
-    passwordInput.addEventListener("keypress", function(e) { if (e.key === "Enter") processSecureLogin(); });
-    usernameInput.addEventListener("keypress", function(e) { if (e.key === "Enter") processSecureLogin(); });
+    loginBtn.addEventListener("click", executeLogin);
+    passwordInput.addEventListener("keypress", function(e) { if (e.key === "Enter") executeLogin(); });
+    usernameInput.addEventListener("keypress", function(e) { if (e.key === "Enter") executeLogin(); });
 
 
     // --- YOUR ORIGINAL WEBSITE JS LOGIC (COMPLETELY UNTOUCHED) ---
