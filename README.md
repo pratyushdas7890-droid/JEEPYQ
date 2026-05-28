@@ -406,4 +406,146 @@
                 { ch: "CH-02", name: "Inverse Trigonometric Functions", sub: "PYQ Practice Sheet" },
                 { ch: "CH-03", name: "Matrices", sub: "PYQ Practice Sheet" },
                 { ch: "CH-04", name: "Determinants", sub: "PYQ Practice Sheet" },
-  
+                { ch: "CH-05", name: "Continuity and Differentiability", sub: "PYQ Practice Sheet" },
+                { ch: "CH-06", name: "Application of Derivatives", sub: "PYQ Practice Sheet" },
+                { ch: "CH-07", name: "Integrals", sub: "PYQ Practice Sheet" },
+                { ch: "CH-08", name: "Application of Integrals", sub: "PYQ Practice Sheet" },
+                { ch: "CH-09", name: "Differential Equations", sub: "PYQ Practice Sheet" },
+                { ch: "CH-10", name: "Vector Algebra", sub: "PYQ Practice Sheet" },
+                { ch: "CH-11", name: "Three Dimensional Geometry", sub: "PYQ Practice Sheet" },
+                { ch: "CH-12", name: "Linear Programming", sub: "PYQ Practice Sheet" },
+                { ch: "CH-13", name: "Probability", sub: "PYQ Practice Sheet" }
+            ]
+        };
+
+        // Step 1: Subject Selection
+        document.querySelectorAll(".subject-grid .subject-card").forEach(card => {
+            card.addEventListener("click", function() {
+                selectedSubject = this.getAttribute("data-target");
+                
+                subjectGrid.style.display = "none";
+                optionsGrid.innerHTML = ""; 
+
+                let books = [
+                    { original: "Modules", display: "Modules (Practice)" },
+                    { original: "Arihant", display: "Arihant (PYQ)" },
+                    { original: "Cengage", display: "Cengage (Practice)" }
+                ];
+                
+                if (selectedSubject === "maths") {
+                    books = [
+                        { original: "Modules", display: "Modules (Practice)" },
+                        { original: "Arihant", display: "Arihant (PYQ)" }
+                    ]; 
+                }
+
+                books.forEach((book, index) => {
+                    const optionCard = document.createElement("div");
+                    optionCard.className = "option-card";
+                    optionCard.setAttribute("data-type", selectedSubject);
+                    optionCard.setAttribute("data-book", book.original);
+                    optionCard.setAttribute("data-display-book", book.display);
+                    optionCard.innerHTML = `
+                        <span class="card-icon-tag">Resource 0${index + 1}</span>
+                        <span class="card-title">${book.display}</span>
+                    `;
+                    optionsGrid.appendChild(optionCard);
+                });
+
+                optionsGrid.style.display = "grid";
+                controlBar.classList.add("active");
+                backSubjBtn.style.display = "inline-flex";
+                backOptBtn.style.display = "none";
+
+                setupBookCards();
+            });
+        });
+
+        // Step 2: Book Selection
+        function setupBookCards() {
+            document.querySelectorAll(".options-grid .option-card").forEach(card => {
+                card.addEventListener("click", function() {
+                    const selectedBook = this.getAttribute("data-book");
+                    const displayBookName = this.getAttribute("data-display-book");
+                    optionsGrid.style.display = "none";
+
+                    let titleColor = "#3b82f6";
+                    let viewClass = "physics-view";
+                    if (selectedSubject === "chemistry") { titleColor = "#f59e0b"; viewClass = "chemistry-view"; }
+                    if (selectedSubject === "maths") { titleColor = "#10b981"; viewClass = "maths-view"; }
+
+                    // Fix: Dynamic database selection logic for Chemistry
+                    let chapters = [];
+                    if (selectedSubject === "chemistry") {
+                        chapters = selectedBook === "Modules" ? chapterDatabase.chemistry_modules : chapterDatabase.chemistry_others;
+                    } else {
+                        chapters = chapterDatabase[selectedSubject];
+                    }
+
+                    let chaptersHtml = `
+                        <div id="active-panel" class="chapters-panel ${viewClass} active">
+                            <div class="panel-header">
+                                <span class="panel-title" style="color: ${titleColor};">${selectedSubject.charAt(0).toUpperCase() + selectedSubject.slice(1)} - ${displayBookName}</span>
+                                <span class="total-badge">${chapters.length} Chapters</span>
+                            </div>
+                            <div class="chapter-list">
+                    `;
+
+                    chapters.forEach(item => {
+                        chaptersHtml += `
+                            <div class="chapter-item">
+                                <div class="chapter-details">
+                                    <span class="chapter-title-text">${item.ch}: ${item.name}</span>
+                                    <span class="chapter-subtitle-text">${item.sub}</span>
+                                </div>
+                                <div class="download-actions-group">
+                        `;
+
+                        // Render Logic for Download Buttons
+                        if (selectedBook === "Modules" && item.moduleLinks) {
+                            if (item.moduleLinks.length > 1) {
+                                item.moduleLinks.forEach((link, idx) => {
+                                    chaptersHtml += `<a href="${link}" target="_blank" class="btn-download">Part ${idx + 1}</a>`;
+                                });
+                            } else if (item.moduleLinks.length === 1) {
+                                chaptersHtml += `<a href="${item.moduleLinks[0]}" target="_blank" class="btn-download">Download PDF</a>`;
+                            }
+                        } else {
+                            chaptersHtml += `<a href="#download" class="btn-download">Download PDF</a>`;
+                        }
+
+                        chaptersHtml += `
+                                </div>
+                            </div>
+                        `;
+                    });
+
+                    chaptersHtml += `
+                            </div>
+                        </div>
+                    `;
+
+                    chaptersContainer.innerHTML = chaptersHtml;
+                    backSubjBtn.style.display = "none";
+                    backOptBtn.style.display = "inline-flex";
+                });
+            });
+        }
+
+        // Back Buttons Logic
+        backSubjBtn.addEventListener("click", function() {
+            subjectGrid.style.display = "grid";
+            optionsGrid.style.display = "none";
+            controlBar.classList.remove("active");
+            backSubjBtn.style.display = "none";
+        });
+
+        backOptBtn.addEventListener("click", function() {
+            optionsGrid.style.display = "grid";
+            chaptersContainer.innerHTML = "";
+            backSubjBtn.style.display = "inline-flex";
+            backOptBtn.style.display = "none";
+        });
+    });
+</script>
+</body>
