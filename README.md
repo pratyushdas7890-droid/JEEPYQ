@@ -45,7 +45,7 @@
             background-attachment: fixed;
         }
 
-        /* Secure Device Login Screen */
+        /* Secure 1-Device Login Screen Overlay */
         #login-screen {
             position: fixed;
             top: 0;
@@ -460,9 +460,9 @@
 </div>
 
 <script>
-    // --- 1-DEVICE EXPANSION USER LOGIC ---
-    // এখানে আপনার স্টুডেন্টদের Name এবং Password সেট করবেন।
-    // ডানের কী এবং ভ্যালু সব ছোট হাতের (lowercase) অক্ষরে সেভ থাকবে।
+    // --- 1-DEVICE USER DATABASE ---
+    // আপনি এখানে আপনার মতো করে স্টুডেন্টদের Name এবং Password সেট করে দিন।
+    // সুরক্ষার জন্য Name সব ছোট হাতের (lowercase) অক্ষরে লিখবেন, এবং পাসওয়ার্ড আপনি যেভাবে চান (ছোট/বড় হাত) সেভাবেই হুবহু লিখবেন।
     const STUDENT_CREDENTIALS = {
         "Pratyush": "0000",
         "Komol": "1111",
@@ -482,30 +482,29 @@
     }
     const thisDeviceSig = getDeviceSignature();
 
-    // চেক করা হচ্ছে—এই ফোনে যদি অলরেডি একটি বৈধ সেশন বা লকিং রেজিস্টার্ড থাকে
+    // চেক করা হচ্ছে—এই ফোনে অলরেডি কোনো অ্যাকাউন্ট লক করা আছে কি না
     const savedSessionUser = localStorage.getItem("locked_user_identity");
     const savedDeviceToken = localStorage.getItem("locked_device_signature");
 
     if (savedSessionUser && savedDeviceToken === thisDeviceSig) {
-        // যদি ডাটা ম্যাচ করে, সরাসরি সাইট ওপেন হবে
         loginScreen.style.display = "none";
         mainContent.style.display = "block";
     }
 
     function processSecureLogin() {
         const inputName = usernameInput.value.trim().toLowerCase();
-        const inputPassword = passwordInput.value.trim().toLowerCase();
+        const inputPassword = passwordInput.value.trim(); // এখানে .toLowerCase() রিমুভ করে ফিক্স করা হয়েছে
 
-        // ১. চেক করা হচ্ছে নাম এবং পাসওয়ার্ড লিস্টে আছে কি না
+        // ১. চেক করা হচ্ছে নাম এবং পাসওয়ার্ড ডেটাবেসের সাথে হুবহু মিলছে কি না
         if (STUDENT_CREDENTIALS.hasOwnProperty(inputName) && STUDENT_CREDENTIALS[inputName] === inputPassword) {
             
-            // ক্লায়েন্ট-সাইড এক্সক্লুসিভ লক ট্র্যাকিং মেকানিজম
+            // অ্যাকাউন্টটি কোন ব্রাউজার ডিভাইসে প্রথমবার সেট হয়েছিল তা ট্র্যাক করার কি (Key)
             const globalDeviceLockKey = "device_fingerprint_for_" + inputName;
             const existingLockSignature = localStorage.getItem(globalDeviceLockKey);
 
             if (!existingLockSignature) {
-                // এই নাম-পাসওয়ার্ডটি এর আগে এই ব্রাউজারে কখনো ইউজ হয়নি (First-time Login)
-                // তাই এই ফোনের সিগনেচারের সাথে এই অ্যাকাউন্টটি চিরকালের জন্য লক করে দেওয়া হলো
+                // ফার্স্ট-টাইম লগইন: এই নাম-পাসওয়ার্ডটি এই ব্রাউজারে প্রথমবার সফলভাবে ইউজ হলো।
+                // অ্যাকাউন্টটি চিরকালের জন্য শুধু এই ফোনের সাথেই লক (Lock) হয়ে গেল।
                 localStorage.setItem(globalDeviceLockKey, thisDeviceSig);
                 localStorage.setItem("locked_user_identity", inputName);
                 localStorage.setItem("locked_device_signature", thisDeviceSig);
@@ -513,19 +512,20 @@
                 loginScreen.style.display = "none";
                 mainContent.style.display = "block";
             } else if (existingLockSignature === thisDeviceSig) {
-                // এটি সেই একই অনুমোদিত ফোন, তাই সাইটে অ্যাক্সেস দেওয়া হলো
+                // এটি সেই একই রেজিস্টার্ড ফোন, তাই সরাসরি ওয়েবসাইট খুলবে
                 localStorage.setItem("locked_user_identity", inputName);
                 localStorage.setItem("locked_device_signature", thisDeviceSig);
                 
                 loginScreen.style.display = "none";
                 mainContent.style.display = "block";
             } else {
-                // যদি এই নাম-পাসওয়ার্ডের জন্য অলরেডি অন্য কোনো ডিভাইস টোকেন সেভ থাকে (ইউজার শেয়ার করেছে)
+                // পাসওয়ার্ড সঠিক দিলেও যদি অন্য ফোন থেকে কেউ ট্রাই করে (ইউজার অ্যাকাউন্ট শেয়ার করেছে)
                 errorMessage.textContent = "Access Denied! This account is already locked to another device.";
                 errorMessage.style.display = "block";
                 passwordInput.value = "";
             }
         } else {
+            // নাম বা পাসওয়ার্ড টাইপ করতে ভুল করলে
             errorMessage.textContent = "Incorrect Name or Password! Please try again.";
             errorMessage.style.display = "block";
             passwordInput.value = "";
@@ -537,7 +537,7 @@
     usernameInput.addEventListener("keypress", function(e) { if (e.key === "Enter") processSecureLogin(); });
 
 
-    // --- YOUR ORIGINAL WEBSITE JS LOGIC (COMPLETELY UNTOUCHED & INTTACT) ---
+    // --- YOUR ORIGINAL WEBSITE JS LOGIC (COMPLETELY UNTOUCHED) ---
     document.addEventListener("DOMContentLoaded", function() {
         const subjectGrid = document.getElementById("subject-grid");
         const optionsGrid = document.getElementById("options-grid");
