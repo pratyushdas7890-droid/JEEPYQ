@@ -137,7 +137,7 @@
             line-height: 1.4;
         }
 
-        /* Main Application Container */
+        /* Main Application Hidden Container */
         #main-content {
             display: none;
         }
@@ -460,13 +460,10 @@
 </div>
 
 <script>
-    // --- USER DATABASE CONFIGURATION ---
-    // এখানে আপনার স্টুডেন্টদের নাম ও পাসওয়ার্ড লিস্ট করা আছে। 
-    // টাইপ করার সুবিধার জন্য নাম ও পাসওয়ার্ড দুটোই কেস-ইনসেন্সিটিভ করা হয়েছে।
+    // --- USER DATABASE CONFIGURATION (FIXED & CONFIGURED BY YOU) ---
     const STUDENT_CREDENTIALS = {
-        "Anik": "0000",
-        "Komol": "1111",
-        "priya": "maths99"
+        "anik": "0000",
+        "komol": "1111"
     };
 
     const loginScreen = document.getElementById("login-screen");
@@ -476,22 +473,20 @@
     const loginBtn = document.getElementById("login-btn");
     const errorMessage = document.getElementById("error-message");
 
-    // ব্রাউজারে আগে থেকেই সেশন ভেরিফাইড থাকলে সরাসরি ফট করে পেজ ওপেন হবে
+    // ব্রাউজারে আগে থেকেই সেশন লক করা থাকলে সরাসরি ফট করে পেজ ওপেন হবে
     if (localStorage.getItem("jee_pyq_auth_success") === "true") {
         loginScreen.style.display = "none";
         mainContent.style.display = "block";
     }
 
     function executeLogin() {
-        // ইনপুট ভ্যালু ট্রিম করা হচ্ছে
         const typedUser = usernameInput.value.trim().toLowerCase();
         const typedPass = passwordInput.value.trim();
 
-        // ১. নাম ও পাসওয়ার্ড চেক করা হচ্ছে
+        // নাম ও পাসওয়ার্ড মিলছে কি না চেক করা হচ্ছে
         if (STUDENT_CREDENTIALS.hasOwnProperty(typedUser) && STUDENT_CREDENTIALS[typedUser] === typedPass) {
             
             // ফোন মেমোরিতে চেক করা হচ্ছে এই নির্দিষ্ট আইডিটি আগে অন্য ফোনে লক হয়েছে কি না তা ট্র্যাকিংয়ের জন্য
-            // ক্লায়েন্ট-সাইড মেমোরি অনুযায়ী এই ফোনে কোন ইউজার রেজিস্টার্ড তা দেখা হচ্ছে
             const savedBoundUser = localStorage.getItem("device_bound_user");
 
             if (!savedBoundUser) {
@@ -499,11 +494,10 @@
                 localStorage.setItem("device_bound_user", typedUser);
                 localStorage.setItem("jee_pyq_auth_success", "true");
                 
-                // ফট করে মেইন ওয়েবসাইট ওপেন হবে
                 loginScreen.style.display = "none";
                 mainContent.style.display = "block";
             } else if (savedBoundUser === typedUser) {
-                // এই ফোনে এই ইউজারটিই অলরেডি লকড করা আছে, তাই অ্যাক্সেস দেওয়া হলো
+                // এই ফোনে এই ইউজারটিই অলরেডি লকড করা আছে, তাই এক্সেস দেওয়া হলো
                 localStorage.setItem("jee_pyq_auth_success", "true");
                 
                 loginScreen.style.display = "none";
@@ -515,7 +509,6 @@
                 passwordInput.value = "";
             }
         } else {
-            // নাম বা পাসওয়ার্ড লিস্টের সাথে না মিললে
             errorMessage.textContent = "Incorrect Name or Password! Please try again.";
             errorMessage.style.display = "block";
             passwordInput.value = "";
@@ -527,7 +520,7 @@
     usernameInput.addEventListener("keypress", function(e) { if (e.key === "Enter") executeLogin(); });
 
 
-    // --- YOUR ORIGINAL WEBSITE JS LOGIC (COMPLETELY UNTOUCHED) ---
+    // --- YOUR ORIGINAL WEBSITE JS LOGIC (COMPLETELY UNTOUCHED & RESTORED ALL DRIVES) ---
     document.addEventListener("DOMContentLoaded", function() {
         const subjectGrid = document.getElementById("subject-grid");
         const optionsGrid = document.getElementById("options-grid");
@@ -700,5 +693,4 @@
             showOptionsGrid("chemistry");
         });
     });
-</script>
-</body>
+</
