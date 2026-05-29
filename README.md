@@ -301,8 +301,8 @@
     // ===== SECURE LOGIN SYSTEM =====
 
     const users = {
-        "anik": "0000",
-        "komol": "1111"
+        "pratyush": "1111",
+        "komol": "2222"
     };
 
     const currentDevice =
