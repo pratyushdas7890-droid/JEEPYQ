@@ -749,7 +749,24 @@
 
                         return;
                     }
+                    if (!/^[0-9]{10}$/.test(phone)) {
 
+    alert(
+        "Phone number must be exactly 10 digits"
+    );
+
+    return;
+}
+                    if (
+    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+) {
+
+    alert(
+        "Enter a valid email address"
+    );
+
+    return;
+}
                     const userData = {
                         name,
                         phone,
@@ -759,14 +776,11 @@
 
                     let users = getUsers();
 
-                    const alreadyExists =
-                        users.find(
-                            u => u.device === currentDevice
-                        );
+                users = users.filter(
+    u => u.device !== currentDevice
+);
 
-                    if (!alreadyExists) {
-                        users.push(userData);
-                    }
+users.push(userData);
 
                     saveUsers(users);
 
