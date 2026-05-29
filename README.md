@@ -300,220 +300,274 @@
 <script>
 (() => {
 
-    const users = {
-        "pratyush": "1111",
-        "komol": "2222"
-    };
+    const ADMIN_PASSWORD = "0000";
 
-    function getFingerprint() {
+    function getDeviceId() {
         return btoa(
             navigator.userAgent +
             navigator.platform +
-            navigator.language +
             screen.width +
             screen.height +
-            screen.colorDepth +
             new Date().getTimezoneOffset()
         );
     }
 
-    const currentDevice = getFingerprint();
+    const currentDevice = getDeviceId();
+
+    function getUsers() {
+        return JSON.parse(localStorage.getItem("jee_users") || "[]");
+    }
+
+    function saveUsers(users) {
+        localStorage.setItem("jee_users", JSON.stringify(users));
+    }
+
+    function getBlockedUsers() {
+        return JSON.parse(localStorage.getItem("jee_blocked_users") || "[]");
+    }
+
+    function saveBlockedUsers(users) {
+        localStorage.setItem("jee_blocked_users", JSON.stringify(users));
+    }
+
+    function renderAdminPanel() {
+
+        const users = getUsers();
+        const blocked = getBlockedUsers();
+
+        const adminHTML = `
+            <div id="adminPanelOverlay" style="
+                position:fixed;
+                inset:0;
+                background:rgba(0,0,0,0.65);
+                z-index:99999;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                padding:20px;
+            ">
+
+                <div style="
+                    width:100%;
+                    max-width:700px;
+                    max-height:90vh;
+                    overflow:auto;
+                    background:#101827;
+                    border:1px solid rgba(255,255,255,0.08);
+                    border-radius:28px;
+                    padding:30px;
+                    color:white;
+                    font-family:'Plus Jakarta Sans',sans-serif;
+                ">
+
+                    <div style="
+                        display:flex;
+                        justify-content:space-between;
+                        align-items:center;
+                        margin-bottom:25px;
+                    ">
+                        <h1 style="font-size:32px;font-weight:800;">
+                            Admin Panel
+                        </h1>
+
+                        <button id="closeAdminPanel" style="
+                            background:none;
+                            border:none;
+                            color:white;
+                            font-size:28px;
+                            cursor:pointer;
+                        ">
+                            ×
+                        </button>
+                    </div>
+
+                    <div style="
+                        display:flex;
+                        flex-direction:column;
+                        gap:15px;
+                    ">
+
+                        ${users.map((u, index) => `
+
+                            <div style="
+                                padding:20px;
+                                border-radius:20px;
+                                background:rgba(255,255,255,0.04);
+                                border:1px solid rgba(255,255,255,0.08);
+                            ">
+
+                                <div style="margin-bottom:8px;">
+                                    <b>Name:</b> ${u.name}
+                                </div>
+
+                                <div style="margin-bottom:8px;">
+                                    <b>Phone:</b> ${u.phone}
+                                </div>
+
+                                <div style="margin-bottom:15px;">
+                                    <b>Email:</b> ${u.email}
+                                </div>
+
+                                ${
+                                    blocked.includes(u.device)
+                                    ?
+                                    `
+                                    <button 
+                                        class="unblockUserBtn"
+                                        data-device="${u.device}"
+                                        style="
+                                            padding:12px 20px;
+                                            border:none;
+                                            border-radius:12px;
+                                            background:#10b981;
+                                            color:white;
+                                            font-weight:700;
+                                            cursor:pointer;
+                                        "
+                                    >
+                                        Unblock User
+                                    </button>
+                                    `
+                                    :
+                                    `
+                                    <button 
+                                        class="blockUserBtn"
+                                        data-device="${u.device}"
+                                        style="
+                                            padding:12px 20px;
+                                            border:none;
+                                            border-radius:12px;
+                                            background:#ef4444;
+                                            color:white;
+                                            font-weight:700;
+                                            cursor:pointer;
+                                        "
+                                    >
+                                        Remove Access
+                                    </button>
+                                    `
+                                }
+
+                            </div>
+
+                        `).join("")}
+
+                    </div>
+
+                </div>
+
+            </div>
+        `;
+
+        document.body.insertAdjacentHTML("beforeend", adminHTML);
+
+        document
+            .getElementById("closeAdminPanel")
+            .addEventListener("click", () => {
+
+                document
+                    .getElementById("adminPanelOverlay")
+                    .remove();
+            });
+
+        document
+            .querySelectorAll(".blockUserBtn")
+            .forEach(btn => {
+
+                btn.addEventListener("click", () => {
+
+                    const device =
+                        btn.getAttribute("data-device");
+
+                    let blockedUsers =
+                        getBlockedUsers();
+
+                    blockedUsers.push(device);
+
+                    saveBlockedUsers(blockedUsers);
+
+                    location.reload();
+                });
+            });
+
+        document
+            .querySelectorAll(".unblockUserBtn")
+            .forEach(btn => {
+
+                btn.addEventListener("click", () => {
+
+                    const device =
+                        btn.getAttribute("data-device");
+
+                    let blockedUsers =
+                        getBlockedUsers();
+
+                    blockedUsers =
+                        blockedUsers.filter(
+                            d => d !== device
+                        );
+
+                    saveBlockedUsers(blockedUsers);
+
+                    location.reload();
+                });
+            });
+    }
 
     document.addEventListener("DOMContentLoaded", () => {
 
-        const savedUser =
-            localStorage.getItem("jee_user");
+        const blockedUsers = getBlockedUsers();
 
-        const savedDevice =
-            localStorage.getItem("jee_device");
-
-        // ===== BLOCK OTHER DEVICES =====
-        if (
-            savedUser &&
-            savedDevice &&
-            savedDevice !== currentDevice
-        ) {
+        if (blockedUsers.includes(currentDevice)) {
 
             document.body.innerHTML = `
                 <div style="
-                    height:100vh;
+                    min-height:100vh;
                     display:flex;
                     align-items:center;
                     justify-content:center;
                     background:#0a0f1d;
-                    color:white;
-                    font-family:'Plus Jakarta Sans',sans-serif;
                     padding:20px;
+                    font-family:'Plus Jakarta Sans',sans-serif;
                 ">
+
                     <div style="
-                        background:rgba(255,255,255,0.05);
-                        border:1px solid rgba(255,255,255,0.08);
-                        border-radius:24px;
-                        padding:40px;
-                        max-width:420px;
                         width:100%;
+                        max-width:420px;
+                        background:rgba(255,255,255,0.04);
+                        border:1px solid rgba(255,255,255,0.08);
+                        border-radius:28px;
+                        padding:40px 30px;
                         text-align:center;
-                        backdrop-filter:blur(20px);
+                        color:white;
                     ">
+
                         <h1 style="
                             font-size:38px;
-                            margin-bottom:10px;
+                            margin-bottom:15px;
                         ">
-                            Access Blocked
+                            Access Removed
                         </h1>
 
                         <p style="
                             color:#8a99ad;
                             line-height:1.7;
                         ">
-                            This account is already locked to another device.
+                            Admin has removed your access.
                         </p>
+
                     </div>
+
                 </div>
             `;
 
             return;
         }
 
-        // ===== HIDE WEBSITE BEFORE LOGIN =====
-        document.body.style.display = "none";
+        const loggedIn =
+            localStorage.getItem("jee_logged_in");
 
-        // ===== PASSWORD ONLY LOGIN =====
-        if (savedUser) {
-
-            document.body.innerHTML = `
-                <div style="
-                    min-height:100vh;
-                    display:flex;
-                    align-items:center;
-                    justify-content:center;
-                    background:#0a0f1d;
-                    padding:20px;
-                    font-family:'Plus Jakarta Sans',sans-serif;
-                ">
-
-                    <div style="
-                        width:100%;
-                        max-width:420px;
-                        background:rgba(255,255,255,0.04);
-                        border:1px solid rgba(255,255,255,0.08);
-                        border-radius:28px;
-                        padding:40px 30px;
-                        backdrop-filter:blur(25px);
-                        box-shadow:0 25px 50px rgba(0,0,0,0.35);
-                    ">
-
-                        <h1 style="
-                            color:white;
-                            font-size:38px;
-                            text-align:center;
-                            margin-bottom:10px;
-                            font-weight:800;
-                        ">
-                            Welcome Back
-                        </h1>
-
-                        <p style="
-                            text-align:center;
-                            color:#8a99ad;
-                            margin-bottom:35px;
-                        ">
-                            ${savedUser}
-                        </p>
-
-                        <input 
-                            type="password"
-                            id="passwordOnly"
-                            placeholder="Enter Password"
-                            style="
-                                width:100%;
-                                padding:16px;
-                                margin-bottom:22px;
-                                border-radius:14px;
-                                border:none;
-                                outline:none;
-                                background:rgba(255,255,255,0.06);
-                                color:white;
-                                font-size:15px;
-                            "
-                        >
-
-                        <button 
-                            id="passLoginBtn"
-                            style="
-                                width:100%;
-                                padding:16px;
-                                border:none;
-                                border-radius:14px;
-                                background:linear-gradient(135deg,#3b82f6,#1d4ed8);
-                                color:white;
-                                font-size:15px;
-                                font-weight:700;
-                                cursor:pointer;
-                            "
-                        >
-                            Continue
-                        </button>
-
-                        <p 
-                            id="errorText"
-                            style="
-                                color:#ff6b6b;
-                                text-align:center;
-                                margin-top:18px;
-                                display:none;
-                            "
-                        >
-                            Wrong Password
-                        </p>
-
-                    </div>
-                </div>
-            `;
-
-            document.body.style.display = "block";
-
-            document
-                .getElementById("passLoginBtn")
-                .addEventListener("click", () => {
-
-                    const enteredPassword =
-                        document.getElementById(
-                            "passwordOnly"
-                        ).value;
-
-                    if (
-                        users[savedUser] ===
-                        enteredPassword
-                    ) {
-
-                        sessionStorage.setItem(
-                            "jee_access",
-                            "true"
-                        );
-
-                        location.reload();
-
-                    } else {
-
-                        document.getElementById(
-                            "errorText"
-                        ).style.display = "block";
-                    }
-                });
-
-            // STOP WEBSITE
-            if (
-                sessionStorage.getItem(
-                    "jee_access"
-                ) !== "true"
-            ) {
-                return;
-            }
-        }
-
-        // ===== FIRST LOGIN =====
-        if (!savedUser) {
+        if (!loggedIn) {
 
             document.body.innerHTML = `
                 <div style="
@@ -534,13 +588,12 @@
                         border-radius:28px;
                         padding:40px 30px;
                         backdrop-filter:blur(25px);
-                        box-shadow:0 25px 50px rgba(0,0,0,0.35);
+                        color:white;
                     ">
 
                         <h1 style="
-                            color:white;
-                            font-size:38px;
                             text-align:center;
+                            font-size:38px;
                             margin-bottom:10px;
                             font-weight:800;
                         ">
@@ -552,13 +605,13 @@
                             color:#8a99ad;
                             margin-bottom:35px;
                         ">
-                            Secure Student Access
+                            Student Login
                         </p>
 
                         <input 
                             type="text"
-                            id="username"
-                            placeholder="Username"
+                            id="loginName"
+                            placeholder="Full Name"
                             style="
                                 width:100%;
                                 padding:16px;
@@ -568,14 +621,29 @@
                                 outline:none;
                                 background:rgba(255,255,255,0.06);
                                 color:white;
-                                font-size:15px;
                             "
                         >
 
                         <input 
-                            type="password"
-                            id="password"
-                            placeholder="Password"
+                            type="tel"
+                            id="loginPhone"
+                            placeholder="Phone Number"
+                            style="
+                                width:100%;
+                                padding:16px;
+                                margin-bottom:18px;
+                                border-radius:14px;
+                                border:none;
+                                outline:none;
+                                background:rgba(255,255,255,0.06);
+                                color:white;
+                            "
+                        >
+
+                        <input 
+                            type="email"
+                            id="loginEmail"
+                            placeholder="Email Address"
                             style="
                                 width:100%;
                                 padding:16px;
@@ -585,12 +653,11 @@
                                 outline:none;
                                 background:rgba(255,255,255,0.06);
                                 color:white;
-                                font-size:15px;
                             "
                         >
 
                         <button 
-                            id="loginBtn"
+                            id="enterWebsiteBtn"
                             style="
                                 width:100%;
                                 padding:16px;
@@ -603,76 +670,201 @@
                                 cursor:pointer;
                             "
                         >
-                            Login
+                            Enter Website
                         </button>
 
-                        <p 
-                            id="loginError"
-                            style="
-                                color:#ff6b6b;
-                                text-align:center;
-                                margin-top:18px;
-                                display:none;
-                            "
-                        >
-                            Invalid Username or Password
-                        </p>
-
                     </div>
+
                 </div>
             `;
 
-            document.body.style.display = "block";
-
             document
-                .getElementById("loginBtn")
+                .getElementById("enterWebsiteBtn")
                 .addEventListener("click", () => {
 
-                    const username =
-                        document.getElementById(
-                            "username"
-                        ).value;
+                    const name =
+                        document
+                        .getElementById("loginName")
+                        .value.trim();
 
-                    const password =
-                        document.getElementById(
-                            "password"
-                        ).value;
+                    const phone =
+                        document
+                        .getElementById("loginPhone")
+                        .value.trim();
 
-                    if (
-                        users[username] &&
-                        users[username] === password
-                    ) {
+                    const email =
+                        document
+                        .getElementById("loginEmail")
+                        .value.trim();
 
-                        localStorage.setItem(
-                            "jee_user",
-                            username
+                    if (!name || !phone || !email) {
+
+                        alert(
+                            "Please fill all details"
                         );
 
-                        localStorage.setItem(
-                            "jee_device",
-                            currentDevice
-                        );
-
-                        sessionStorage.setItem(
-                            "jee_access",
-                            "true"
-                        );
-
-                        location.reload();
-
-                    } else {
-
-                        document.getElementById(
-                            "loginError"
-                        ).style.display = "block";
+                        return;
                     }
+
+                    const userData = {
+                        name,
+                        phone,
+                        email,
+                        device: currentDevice
+                    };
+
+                    let users = getUsers();
+
+                    const alreadyExists =
+                        users.find(
+                            u => u.device === currentDevice
+                        );
+
+                    if (!alreadyExists) {
+                        users.push(userData);
+                    }
+
+                    saveUsers(users);
+
+                    localStorage.setItem(
+                        "jee_logged_in",
+                        "true"
+                    );
+
+                    localStorage.setItem(
+                        "jee_profile",
+                        JSON.stringify(userData)
+                    );
+
+                    location.reload();
                 });
 
             return;
         }
 
-        // ===== SHOW WEBSITE =====
+        // ===== WEBSITE SHOW =====
         document.body.style.display = "block";
+
+        // ===== 3 DOT MENU =====
+        const profile =
+            JSON.parse(
+                localStorage.getItem("jee_profile")
+            );
+
+        const menuHTML = `
+            <div style="
+                position:fixed;
+                top:18px;
+                right:18px;
+                z-index:9999;
+            ">
+
+                <button 
+                    id="menuBtn"
+                    style="
+                        width:52px;
+                        height:52px;
+                        border:none;
+                        border-radius:16px;
+                        background:rgba(255,255,255,0.06);
+                        backdrop-filter:blur(20px);
+                        color:white;
+                        font-size:24px;
+                        cursor:pointer;
+                    "
+                >
+                    ⋮
+                </button>
+
+                <div 
+                    id="menuDropdown"
+                    style="
+                        position:absolute;
+                        right:0;
+                        top:65px;
+                        width:280px;
+                        background:#101827;
+                        border:1px solid rgba(255,255,255,0.08);
+                        border-radius:22px;
+                        padding:20px;
+                        display:none;
+                        color:white;
+                        font-family:'Plus Jakarta Sans',sans-serif;
+                    "
+                >
+
+                    <div style="margin-bottom:8px;">
+                        <b>${profile.name}</b>
+                    </div>
+
+                    <div style="
+                        color:#8a99ad;
+                        font-size:14px;
+                        margin-bottom:5px;
+                    ">
+                        ${profile.phone}
+                    </div>
+
+                    <div style="
+                        color:#8a99ad;
+                        font-size:14px;
+                        margin-bottom:25px;
+                    ">
+                        ${profile.email}
+                    </div>
+
+                    <div 
+                        id="adminLoginBtn"
+                        style="
+                            font-size:11px;
+                            color:#6b7280;
+                            cursor:pointer;
+                            text-align:center;
+                        "
+                    >
+                        Admin Login
+                    </div>
+
+                </div>
+
+            </div>
+        `;
+
+        document.body.insertAdjacentHTML(
+            "beforeend",
+            menuHTML
+        );
+
+        const menuBtn =
+            document.getElementById("menuBtn");
+
+        const menuDropdown =
+            document.getElementById("menuDropdown");
+
+        menuBtn.addEventListener("click", () => {
+
+            menuDropdown.style.display =
+                menuDropdown.style.display === "block"
+                ? "none"
+                : "block";
+        });
+
+        document
+            .getElementById("adminLoginBtn")
+            .addEventListener("click", () => {
+
+                const pass =
+                    prompt("Enter Admin Password");
+
+                if (pass === ADMIN_PASSWORD) {
+
+                    renderAdminPanel();
+
+                } else {
+
+                    alert("Wrong Password");
+                }
+            });
 
     });
 
