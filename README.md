@@ -776,10 +776,32 @@
 
                     let users = getUsers();
 
-                users = users.filter(
-    u => u.device !== currentDevice
+                const alreadyUsed = users.find(
+    u =>
+        u.phone === phone ||
+        u.email === email
 );
 
+if (
+    alreadyUsed &&
+    alreadyUsed.device !== currentDevice
+) {
+
+    alert(
+        "Phone number or email already registered on another device"
+    );
+
+    return;
+}
+   
+        const alreadyExists =
+    users.find(
+        u => u.device === currentDevice
+    );
+
+if (!alreadyExists) {
+    users.push(userData);
+}
 users.push(userData);
 
                     saveUsers(users);
