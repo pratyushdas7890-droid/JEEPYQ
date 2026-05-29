@@ -298,79 +298,223 @@
     </style>
 </head>
 <script>
-    // ===== SECURE LOGIN SYSTEM =====
+(() => {
 
     const users = {
         "pratyush": "1111",
         "komol": "2222"
     };
 
-    const currentDevice =
-        navigator.userAgent +
-        screen.width +
-        screen.height;
+    function getFingerprint() {
+        return btoa(
+            navigator.userAgent +
+            navigator.platform +
+            navigator.language +
+            screen.width +
+            screen.height +
+            screen.colorDepth +
+            new Date().getTimezoneOffset()
+        );
+    }
 
-    const savedUser =
-        localStorage.getItem("jee_user");
+    const currentDevice = getFingerprint();
 
-    document.addEventListener(
-        "DOMContentLoaded",
-        function () {
+    document.addEventListener("DOMContentLoaded", () => {
 
-            // ===== BLOCK OTHER DEVICES =====
-            if (
-                savedUser &&
-                localStorage.getItem(
-                    "lock_" + savedUser
-                ) !== currentDevice
-            ) {
+        const savedUser =
+            localStorage.getItem("jee_user");
 
-                document.body.innerHTML = `
+        const savedDevice =
+            localStorage.getItem("jee_device");
+
+        // ===== BLOCK OTHER DEVICES =====
+        if (
+            savedUser &&
+            savedDevice &&
+            savedDevice !== currentDevice
+        ) {
+
+            document.body.innerHTML = `
+                <div style="
+                    height:100vh;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    background:#0a0f1d;
+                    color:white;
+                    font-family:'Plus Jakarta Sans',sans-serif;
+                    padding:20px;
+                ">
                     <div style="
-                        height:100vh;
-                        display:flex;
-                        align-items:center;
-                        justify-content:center;
-                        background:#0a0f1d;
-                        color:white;
-                        font-family:'Plus Jakarta Sans',sans-serif;
-                        flex-direction:column;
+                        background:rgba(255,255,255,0.05);
+                        border:1px solid rgba(255,255,255,0.08);
+                        border-radius:24px;
+                        padding:40px;
+                        max-width:420px;
+                        width:100%;
                         text-align:center;
-                        padding:20px;
+                        backdrop-filter:blur(20px);
                     ">
-                        <div style="
-                            background:rgba(255,255,255,0.05);
-                            border:1px solid rgba(255,255,255,0.08);
-                            padding:40px;
-                            border-radius:24px;
-                            backdrop-filter:blur(20px);
-                            max-width:400px;
-                            width:100%;
+                        <h1 style="
+                            font-size:38px;
+                            margin-bottom:10px;
                         ">
-                            <h1 style="
-                                font-size:38px;
-                                margin-bottom:10px;
-                            ">
-                                Access Blocked
-                            </h1>
+                            Access Blocked
+                        </h1>
 
-                            <p style="
-                                color:#8a99ad;
-                                line-height:1.6;
-                            ">
-                                This account is already active on another device.
-                            </p>
-                        </div>
+                        <p style="
+                            color:#8a99ad;
+                            line-height:1.7;
+                        ">
+                            This account is already locked to another device.
+                        </p>
                     </div>
-                `;
+                </div>
+            `;
 
+            return;
+        }
+
+        // ===== HIDE WEBSITE BEFORE LOGIN =====
+        document.body.style.display = "none";
+
+        // ===== PASSWORD ONLY LOGIN =====
+        if (savedUser) {
+
+            document.body.innerHTML = `
+                <div style="
+                    min-height:100vh;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    background:#0a0f1d;
+                    padding:20px;
+                    font-family:'Plus Jakarta Sans',sans-serif;
+                ">
+
+                    <div style="
+                        width:100%;
+                        max-width:420px;
+                        background:rgba(255,255,255,0.04);
+                        border:1px solid rgba(255,255,255,0.08);
+                        border-radius:28px;
+                        padding:40px 30px;
+                        backdrop-filter:blur(25px);
+                        box-shadow:0 25px 50px rgba(0,0,0,0.35);
+                    ">
+
+                        <h1 style="
+                            color:white;
+                            font-size:38px;
+                            text-align:center;
+                            margin-bottom:10px;
+                            font-weight:800;
+                        ">
+                            Welcome Back
+                        </h1>
+
+                        <p style="
+                            text-align:center;
+                            color:#8a99ad;
+                            margin-bottom:35px;
+                        ">
+                            ${savedUser}
+                        </p>
+
+                        <input 
+                            type="password"
+                            id="passwordOnly"
+                            placeholder="Enter Password"
+                            style="
+                                width:100%;
+                                padding:16px;
+                                margin-bottom:22px;
+                                border-radius:14px;
+                                border:none;
+                                outline:none;
+                                background:rgba(255,255,255,0.06);
+                                color:white;
+                                font-size:15px;
+                            "
+                        >
+
+                        <button 
+                            id="passLoginBtn"
+                            style="
+                                width:100%;
+                                padding:16px;
+                                border:none;
+                                border-radius:14px;
+                                background:linear-gradient(135deg,#3b82f6,#1d4ed8);
+                                color:white;
+                                font-size:15px;
+                                font-weight:700;
+                                cursor:pointer;
+                            "
+                        >
+                            Continue
+                        </button>
+
+                        <p 
+                            id="errorText"
+                            style="
+                                color:#ff6b6b;
+                                text-align:center;
+                                margin-top:18px;
+                                display:none;
+                            "
+                        >
+                            Wrong Password
+                        </p>
+
+                    </div>
+                </div>
+            `;
+
+            document.body.style.display = "block";
+
+            document
+                .getElementById("passLoginBtn")
+                .addEventListener("click", () => {
+
+                    const enteredPassword =
+                        document.getElementById(
+                            "passwordOnly"
+                        ).value;
+
+                    if (
+                        users[savedUser] ===
+                        enteredPassword
+                    ) {
+
+                        sessionStorage.setItem(
+                            "jee_access",
+                            "true"
+                        );
+
+                        location.reload();
+
+                    } else {
+
+                        document.getElementById(
+                            "errorText"
+                        ).style.display = "block";
+                    }
+                });
+
+            // STOP WEBSITE
+            if (
+                sessionStorage.getItem(
+                    "jee_access"
+                ) !== "true"
+            ) {
                 return;
             }
+        }
 
-            // ===== ALREADY LOGGED IN =====
-            if (savedUser) return;
+        // ===== FIRST LOGIN =====
+        if (!savedUser) {
 
-            // ===== LOGIN SCREEN =====
             document.body.innerHTML = `
                 <div style="
                     min-height:100vh;
@@ -407,13 +551,12 @@
                             text-align:center;
                             color:#8a99ad;
                             margin-bottom:35px;
-                            line-height:1.6;
                         ">
-                            Secure Access Portal
+                            Secure Student Access
                         </p>
 
                         <input 
-                            type="text" 
+                            type="text"
                             id="username"
                             placeholder="Username"
                             style="
@@ -464,7 +607,7 @@
                         </button>
 
                         <p 
-                            id="errorText"
+                            id="loginError"
                             style="
                                 color:#ff6b6b;
                                 text-align:center;
@@ -479,76 +622,61 @@
                 </div>
             `;
 
-            // ===== LOGIN BUTTON =====
+            document.body.style.display = "block";
+
             document
                 .getElementById("loginBtn")
-                .addEventListener(
-                    "click",
-                    function () {
+                .addEventListener("click", () => {
 
-                        const username =
-                            document.getElementById(
-                                "username"
-                            ).value;
+                    const username =
+                        document.getElementById(
+                            "username"
+                        ).value;
 
-                        const password =
-                            document.getElementById(
-                                "password"
-                            ).value;
+                    const password =
+                        document.getElementById(
+                            "password"
+                        ).value;
 
-                        if (
-                            users[username] &&
-                            users[username] === password
-                        ) {
+                    if (
+                        users[username] &&
+                        users[username] === password
+                    ) {
 
-                            // CHECK IF ACCOUNT ALREADY USED
-                            const existingDevice =
-                                localStorage.getItem(
-                                    "lock_" + username
-                                );
+                        localStorage.setItem(
+                            "jee_user",
+                            username
+                        );
 
-                            if (
-                                existingDevice &&
-                                existingDevice !== currentDevice
-                            ) {
+                        localStorage.setItem(
+                            "jee_device",
+                            currentDevice
+                        );
 
-                                document.getElementById(
-                                    "errorText"
-                                ).style.display =
-                                    "block";
+                        sessionStorage.setItem(
+                            "jee_access",
+                            "true"
+                        );
 
-                                document.getElementById(
-                                    "errorText"
-                                ).innerText =
-                                    "Account already active on another device.";
+                        location.reload();
 
-                                return;
-                            }
+                    } else {
 
-                            // SAVE LOGIN
-                            localStorage.setItem(
-                                "jee_user",
-                                username
-                            );
-
-                            localStorage.setItem(
-                                "lock_" + username,
-                                currentDevice
-                            );
-
-                            location.reload();
-
-                        } else {
-
-                            document.getElementById(
-                                "errorText"
-                            ).style.display =
-                                "block";
-                        }
+                        document.getElementById(
+                            "loginError"
+                        ).style.display = "block";
                     }
-                );
+                });
+
+            return;
         }
-    );
+
+        // ===== SHOW WEBSITE =====
+        document.body.style.display = "block";
+
+    });
+
+})();
 </script>
 <body>
 <div class="container">
