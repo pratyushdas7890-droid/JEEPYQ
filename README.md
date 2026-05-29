@@ -724,7 +724,7 @@
 
             document
                 .getElementById("enterWebsiteBtn")
-                .addEventListener("click", () => {
+                .addEventListener("click", async () => {
 
                     const name =
                         document
@@ -805,7 +805,15 @@ if (!alreadyExists) {
 users.push(userData);
 
                     saveUsers(users);
-
+                    await addDoc(
+    collection(db, "users"),
+    {
+        name,
+        phone,
+        email,
+        device: currentDevice
+    }
+);
                     localStorage.setItem(
                         "jee_logged_in",
                         "true"
@@ -1199,5 +1207,46 @@ users.push(userData);
             backOptBtn.style.display = "none";
         });
     });
+</script>
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+getFirestore,
+collection,
+addDoc,
+getDocs
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+
+  apiKey: "AIzaSyCcbzH6wI67FWlYidFPBnx7lqAu-F8ZRTI",
+
+  authDomain: "jeepyq-33b6c.firebaseapp.com",
+
+  projectId: "jeepyq-33b6c",
+
+  storageBucket: "jeepyq-33b6c.firebasestorage.app",
+
+  messagingSenderId: "457689692756",
+
+  appId: "1:457689692756:web:b76684ecd4475a31470bc1"
+
+};
+
+const app =
+    initializeApp(firebaseConfig);
+
+const db =
+    getFirestore(app);
+
+window.db = db;
+window.collection = collection;
+window.addDoc = addDoc;
+window.getDocs = getDocs;
+
 </script>
 </body>
