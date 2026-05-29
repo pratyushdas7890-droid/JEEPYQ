@@ -310,207 +310,247 @@
         screen.width +
         screen.height;
 
-    const savedDevice = localStorage.getItem("jee_device");
-    const savedUser = localStorage.getItem("jee_user");
+    const savedUser =
+        localStorage.getItem("jee_user");
 
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener(
+        "DOMContentLoaded",
+        function () {
 
-        // ===== BLOCK OTHER DEVICES =====
-        if (savedDevice && savedDevice !== currentDevice) {
+            // ===== BLOCK OTHER DEVICES =====
+            if (
+                savedUser &&
+                localStorage.getItem(
+                    "lock_" + savedUser
+                ) !== currentDevice
+            ) {
 
+                document.body.innerHTML = `
+                    <div style="
+                        height:100vh;
+                        display:flex;
+                        align-items:center;
+                        justify-content:center;
+                        background:#0a0f1d;
+                        color:white;
+                        font-family:'Plus Jakarta Sans',sans-serif;
+                        flex-direction:column;
+                        text-align:center;
+                        padding:20px;
+                    ">
+                        <div style="
+                            background:rgba(255,255,255,0.05);
+                            border:1px solid rgba(255,255,255,0.08);
+                            padding:40px;
+                            border-radius:24px;
+                            backdrop-filter:blur(20px);
+                            max-width:400px;
+                            width:100%;
+                        ">
+                            <h1 style="
+                                font-size:38px;
+                                margin-bottom:10px;
+                            ">
+                                Access Blocked
+                            </h1>
+
+                            <p style="
+                                color:#8a99ad;
+                                line-height:1.6;
+                            ">
+                                This account is already active on another device.
+                            </p>
+                        </div>
+                    </div>
+                `;
+
+                return;
+            }
+
+            // ===== ALREADY LOGGED IN =====
+            if (savedUser) return;
+
+            // ===== LOGIN SCREEN =====
             document.body.innerHTML = `
                 <div style="
-                    height:100vh;
+                    min-height:100vh;
                     display:flex;
                     align-items:center;
                     justify-content:center;
                     background:#0a0f1d;
-                    color:white;
-                    font-family:'Plus Jakarta Sans',sans-serif;
-                    flex-direction:column;
-                    text-align:center;
                     padding:20px;
+                    font-family:'Plus Jakarta Sans',sans-serif;
                 ">
+
                     <div style="
-                        background:rgba(255,255,255,0.05);
-                        border:1px solid rgba(255,255,255,0.08);
-                        padding:40px;
-                        border-radius:24px;
-                        backdrop-filter:blur(20px);
-                        max-width:400px;
                         width:100%;
+                        max-width:420px;
+                        background:rgba(255,255,255,0.04);
+                        border:1px solid rgba(255,255,255,0.08);
+                        border-radius:28px;
+                        padding:40px 30px;
+                        backdrop-filter:blur(25px);
+                        box-shadow:0 25px 50px rgba(0,0,0,0.35);
                     ">
+
                         <h1 style="
+                            color:white;
                             font-size:38px;
+                            text-align:center;
                             margin-bottom:10px;
+                            font-weight:800;
                         ">
-                            Access Blocked
+                            JEE PYQ
                         </h1>
 
                         <p style="
+                            text-align:center;
                             color:#8a99ad;
+                            margin-bottom:35px;
                             line-height:1.6;
                         ">
-                            This account is already active on another device.
+                            Secure Access Portal
                         </p>
+
+                        <input 
+                            type="text" 
+                            id="username"
+                            placeholder="Username"
+                            style="
+                                width:100%;
+                                padding:16px;
+                                margin-bottom:18px;
+                                border-radius:14px;
+                                border:none;
+                                outline:none;
+                                background:rgba(255,255,255,0.06);
+                                color:white;
+                                font-size:15px;
+                            "
+                        >
+
+                        <input 
+                            type="password"
+                            id="password"
+                            placeholder="Password"
+                            style="
+                                width:100%;
+                                padding:16px;
+                                margin-bottom:22px;
+                                border-radius:14px;
+                                border:none;
+                                outline:none;
+                                background:rgba(255,255,255,0.06);
+                                color:white;
+                                font-size:15px;
+                            "
+                        >
+
+                        <button 
+                            id="loginBtn"
+                            style="
+                                width:100%;
+                                padding:16px;
+                                border:none;
+                                border-radius:14px;
+                                background:linear-gradient(135deg,#3b82f6,#1d4ed8);
+                                color:white;
+                                font-size:15px;
+                                font-weight:700;
+                                cursor:pointer;
+                            "
+                        >
+                            Login
+                        </button>
+
+                        <p 
+                            id="errorText"
+                            style="
+                                color:#ff6b6b;
+                                text-align:center;
+                                margin-top:18px;
+                                display:none;
+                            "
+                        >
+                            Invalid Username or Password
+                        </p>
+
                     </div>
                 </div>
             `;
 
-            return;
+            // ===== LOGIN BUTTON =====
+            document
+                .getElementById("loginBtn")
+                .addEventListener(
+                    "click",
+                    function () {
+
+                        const username =
+                            document.getElementById(
+                                "username"
+                            ).value;
+
+                        const password =
+                            document.getElementById(
+                                "password"
+                            ).value;
+
+                        if (
+                            users[username] &&
+                            users[username] === password
+                        ) {
+
+                            // CHECK IF ACCOUNT ALREADY USED
+                            const existingDevice =
+                                localStorage.getItem(
+                                    "lock_" + username
+                                );
+
+                            if (
+                                existingDevice &&
+                                existingDevice !== currentDevice
+                            ) {
+
+                                document.getElementById(
+                                    "errorText"
+                                ).style.display =
+                                    "block";
+
+                                document.getElementById(
+                                    "errorText"
+                                ).innerText =
+                                    "Account already active on another device.";
+
+                                return;
+                            }
+
+                            // SAVE LOGIN
+                            localStorage.setItem(
+                                "jee_user",
+                                username
+                            );
+
+                            localStorage.setItem(
+                                "lock_" + username,
+                                currentDevice
+                            );
+
+                            location.reload();
+
+                        } else {
+
+                            document.getElementById(
+                                "errorText"
+                            ).style.display =
+                                "block";
+                        }
+                    }
+                );
         }
-
-        // ===== ALREADY LOGGED IN =====
-        if (savedUser) return;
-
-        // ===== LOGIN SCREEN =====
-        document.body.innerHTML = `
-            <div style="
-                min-height:100vh;
-                display:flex;
-                align-items:center;
-                justify-content:center;
-                background:#0a0f1d;
-                padding:20px;
-                font-family:'Plus Jakarta Sans',sans-serif;
-            ">
-
-                <div style="
-                    width:100%;
-                    max-width:420px;
-                    background:rgba(255,255,255,0.04);
-                    border:1px solid rgba(255,255,255,0.08);
-                    border-radius:28px;
-                    padding:40px 30px;
-                    backdrop-filter:blur(25px);
-                    box-shadow:0 25px 50px rgba(0,0,0,0.35);
-                ">
-
-                    <h1 style="
-                        color:white;
-                        font-size:38px;
-                        text-align:center;
-                        margin-bottom:10px;
-                        font-weight:800;
-                    ">
-                        JEE PYQ
-                    </h1>
-
-                    <p style="
-                        text-align:center;
-                        color:#8a99ad;
-                        margin-bottom:35px;
-                        line-height:1.6;
-                    ">
-                        Secure Access Portal
-                    </p>
-
-                    <input 
-                        type="text" 
-                        id="username"
-                        placeholder="Username"
-                        style="
-                            width:100%;
-                            padding:16px;
-                            margin-bottom:18px;
-                            border-radius:14px;
-                            border:none;
-                            outline:none;
-                            background:rgba(255,255,255,0.06);
-                            color:white;
-                            font-size:15px;
-                        "
-                    >
-
-                    <input 
-                        type="password"
-                        id="password"
-                        placeholder="Password"
-                        style="
-                            width:100%;
-                            padding:16px;
-                            margin-bottom:22px;
-                            border-radius:14px;
-                            border:none;
-                            outline:none;
-                            background:rgba(255,255,255,0.06);
-                            color:white;
-                            font-size:15px;
-                        "
-                    >
-
-                    <button 
-                        id="loginBtn"
-                        style="
-                            width:100%;
-                            padding:16px;
-                            border:none;
-                            border-radius:14px;
-                            background:linear-gradient(135deg,#3b82f6,#1d4ed8);
-                            color:white;
-                            font-size:15px;
-                            font-weight:700;
-                            cursor:pointer;
-                        "
-                    >
-                        Login
-                    </button>
-
-                    <p 
-                        id="errorText"
-                        style="
-                            color:#ff6b6b;
-                            text-align:center;
-                            margin-top:18px;
-                            display:none;
-                        "
-                    >
-                        Invalid Username or Password
-                    </p>
-
-                </div>
-            </div>
-        `;
-
-        // ===== LOGIN BUTTON =====
-        document
-            .getElementById("loginBtn")
-            .addEventListener("click", function () {
-
-                const username =
-                    document.getElementById("username").value;
-
-                const password =
-                    document.getElementById("password").value;
-
-                if (
-                    users[username] &&
-                    users[username] === password
-                ) {
-
-                    localStorage.setItem(
-                        "jee_user",
-                        username
-                    );
-
-                    localStorage.setItem(
-                        "jee_device",
-                        currentDevice
-                    );
-
-                    location.reload();
-
-                } else {
-
-                    document.getElementById(
-                        "errorText"
-                    ).style.display = "block";
-                }
-            });
-    });
-</script>>
+    );
+</script>
 <body>
-
 <div class="container">
     
     <header id="main-header">
