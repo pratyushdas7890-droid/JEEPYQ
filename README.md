@@ -518,51 +518,95 @@
 
         const blockedUsers = getBlockedUsers();
 
-        if (blockedUsers.includes(currentDevice)) {
+      if (blockedUsers.includes(currentDevice)) {
 
-            document.body.innerHTML = `
-                <div style="
-                    min-height:100vh;
-                    display:flex;
-                    align-items:center;
-                    justify-content:center;
-                    background:#0a0f1d;
-                    padding:20px;
-                    font-family:'Plus Jakarta Sans',sans-serif;
+    document.body.innerHTML = `
+        <div style="
+            min-height:100vh;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            background:#0a0f1d;
+            padding:20px;
+            font-family:'Plus Jakarta Sans',sans-serif;
+        ">
+
+            <div style="
+                width:100%;
+                max-width:420px;
+                background:rgba(255,255,255,0.04);
+                border:1px solid rgba(255,255,255,0.08);
+                border-radius:28px;
+                padding:40px 30px;
+                text-align:center;
+                color:white;
+            ">
+
+                <h1 style="
+                    font-size:38px;
+                    margin-bottom:15px;
+                    font-weight:800;
                 ">
+                    Access Removed
+                </h1>
 
-                    <div style="
+                <p style="
+                    color:#8a99ad;
+                    line-height:1.7;
+                    margin-bottom:28px;
+                ">
+                    Your access was removed by admin.
+                </p>
+
+                <button 
+                    id="loginAgainBtn"
+                    style="
                         width:100%;
-                        max-width:420px;
-                        background:rgba(255,255,255,0.04);
-                        border:1px solid rgba(255,255,255,0.08);
-                        border-radius:28px;
-                        padding:40px 30px;
-                        text-align:center;
+                        padding:15px;
+                        border:none;
+                        border-radius:14px;
+                        background:linear-gradient(135deg,#3b82f6,#1d4ed8);
                         color:white;
-                    ">
+                        font-size:15px;
+                        font-weight:700;
+                        cursor:pointer;
+                    "
+                >
+                    Login Again
+                </button>
 
-                        <h1 style="
-                            font-size:38px;
-                            margin-bottom:15px;
-                        ">
-                            Access Removed
-                        </h1>
+            </div>
 
-                        <p style="
-                            color:#8a99ad;
-                            line-height:1.7;
-                        ">
-                            Admin has removed your access.
-                        </p>
+        </div>
+    `;
 
-                    </div>
+    document
+        .getElementById("loginAgainBtn")
+        .addEventListener("click", () => {
 
-                </div>
-            `;
+            let blocked =
+                getBlockedUsers();
 
-            return;
-        }
+            blocked =
+                blocked.filter(
+                    d => d !== currentDevice
+                );
+
+            saveBlockedUsers(blocked);
+
+            localStorage.removeItem(
+                "jee_logged_in"
+            );
+
+            localStorage.removeItem(
+                "jee_profile"
+            );
+
+            location.reload();
+        });
+
+    return;
+}
 
         const loggedIn =
             localStorage.getItem("jee_logged_in");
