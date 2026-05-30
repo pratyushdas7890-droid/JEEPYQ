@@ -604,7 +604,7 @@
                         <p><strong>Email:</strong> <span id="menu-email"></span></p>
                     </div>
                     <div class="menu-divider"></div>
-                    <button class="admin-login-btn" id="admin-login-trigger;">Admin Login</button>
+                    <button class="admin-login-btn" id="admin-login-trigger">Admin Login</button>
                     <button class="logout-btn" id="session-logout">Reset Device</button>
                 </div>
             </div>
