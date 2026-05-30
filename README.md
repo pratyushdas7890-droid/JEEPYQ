@@ -970,11 +970,11 @@
                 { ch: "CH-07", name: "Integrals", sub: "PYQ Practice Sheet",moduleLinks:
 ["https://drive.google.com/file/d/19ywNjZEVCUQmmc9W9vYeV-WIfThbPtmQ/view?usp=drivesdk"] },
                 { ch: "CH-08", name: "Application of Integrals", sub: "PYQ Practice Sheet",moduleLinks: ["https://drive.google.com/file/d/1wvwoH57ohnQZaupJw84KbXvpZXXZbiS3/view?usp=drivesdk"]},
-                { ch: "CH-09", name: "Differential Equations", sub: "PYQ Practice Sheet" },
-                { ch: "CH-10", name: "Vector Algebra", sub: "PYQ Practice Sheet" },
-                { ch: "CH-11", name: "Three Dimensional Geometry", sub: "PYQ Practice Sheet" },
-                { ch: "CH-12", name: "Linear Programming", sub: "PYQ Practice Sheet" },
-                { ch: "CH-13", name: "Probability", sub: "PYQ Practice Sheet" }
+                { ch: "CH-09", name: "Differential Equations", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/12sC2-JkDhiYLR_euEC9Exf4QDsRJIZu4/view?usp=drivesdk"]},
+                { ch: "CH-10", name: "Vector Algebra", sub: "PYQ Practice Sheet",moduleLinks:["https://drive.google.com/file/d/1p-MGbT0WI4ORBJNI-OnJUj86jRtvp48y/view?usp=drivesdk"] },
+                { ch: "CH-11", name: "Three Dimensional Geometry", sub: "PYQ Practice Sheet",moduleLinks: ["https://drive.google.com/file/d/1sPAd7AGJ3iKjVUfeN1kenb_-5waVaxZT/view?usp=drivesdk"] },
+                { ch: "CH-12", name: "Linear Programming", sub: "PYQ Practice Sheet",moduleLinks: ["https://drive.google.com/file/d/1PZAwJPbSMGJbWRJScTWMRtTtb65YsXuz/view?usp=drivesdk"] },
+                { ch: "CH-13", name: "Probability", sub: "PYQ Practice Sheet",moduleLinks: ["https://drive.google.com/file/d/1wWN-CbPDd3hIKZ06dWEIukVne06YiijT/view?usp=drivesdk"] }
             ]
         };
 
