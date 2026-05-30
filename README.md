@@ -998,6 +998,57 @@ users.push(userData);
     <header id="main-header">
         <h1>JEE PYQ</h1>
         <p>Complete Chapter-wise Previous Year Questions for JEE Main & Advanced Entrance Preparation.</p>
+
+<div id="menuWrap" style="position:absolute; top:15px; right:15px;">
+
+    <!-- 3 dot button -->
+    <button id="dotBtn" style="
+        background:none;
+        border:none;
+        font-size:28px;
+        color:white;
+        cursor:pointer;
+    ">⋮</button>
+
+    <!-- dropdown -->
+    <div id="menuBox" style="
+        display:none;
+        position:absolute;
+        right:0;
+        margin-top:10px;
+        width:230px;
+        padding:15px;
+        border-radius:14px;
+        background:rgba(0,0,0,0.85);
+        border:1px solid rgba(255,255,255,0.1);
+        backdrop-filter:blur(10px);
+        color:white;
+    ">
+
+        <!-- PROFILE -->
+        <div id="profileSection"></div>
+
+        <hr style="margin:10px 0; opacity:0.2;">
+
+        <!-- ADMIN -->
+        <p style="font-size:12px;opacity:0.7;">Admin Login</p>
+
+        <input type="password" id="adminPass" placeholder="Enter password"
+        style="width:100%;padding:8px;border-radius:8px;border:none;margin-top:5px;">
+
+        <button onclick="checkAdmin()" style="
+            width:100%;
+            margin-top:8px;
+            padding:8px;
+            border:none;
+            border-radius:8px;
+            background:#3b82f6;
+            color:white;
+            cursor:pointer;
+        ">Login</button>
+
+    </div>
+</div>
     </header>
 
     <div class="control-bar" id="control-bar">
@@ -1253,7 +1304,8 @@ collection,
 addDoc,
 onSnapshot,
 deleteDoc,
-doc 
+doc,
+getDocs 
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
@@ -1284,5 +1336,25 @@ window.collection = collection;
 window.addDoc = addDoc;
 window.getDocs = getDocs;
 
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    document.getElementById("dotBtn").addEventListener("click", () => {
+
+        const box = document.getElementById("menuBox");
+        box.style.display = box.style.display === "block" ? "none" : "block";
+
+        const name = localStorage.getItem("jee_name");
+        const phone = localStorage.getItem("jee_phone");
+        const email = localStorage.getItem("jee_email");
+
+        document.getElementById("profileSection").innerHTML = `
+            <p>Name: ${name || "N/A"}</p>
+            <p>Phone: ${phone || "N/A"}</p>
+            <p>Email: ${email || "N/A"}</p>
+        `;
+    });
+
+});
 </script>
 </body>
