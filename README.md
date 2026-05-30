@@ -699,7 +699,7 @@
         // =================================================================
         const USER_PASSWORD_DATABASE = {
             "anik": "1111",
-            "komol": "2222",
+            "komol": "1234",
             "arkaprava": "jee2026",
             "testuser": "pass123",
             "sayandip": "sayan5566",
@@ -962,9 +962,9 @@
             ],
             maths: [
                 { ch: "CH-01", name: "Relations and Functions", sub: "PYQ Practice Sheet" ,moduleLinks: ["https://drive.google.com/file/d/1lYAgHgFzxmRkrtLC3Kkw9h3QeqXzm4GE/view?usp=drivesdk"]},
-                { ch: "CH-02", name: "Inverse Trigonometric Functions", sub: "PYQ Practice Sheet" },
-                { ch: "CH-03", name: "Matrices", sub: "PYQ Practice Sheet" },
-                { ch: "CH-04", name: "Determinants", sub: "PYQ Practice Sheet" },
+                { ch: "CH-02", name: "Inverse Trigonometric Functions", sub: "PYQ Practice Sheet",moduleLinks: ["https://drive.google.com/file/d/1ziOEOnneeecOLdFPCb15QhguYnpy-9vC/view?usp=drivesdk"]},
+                { ch: "CH-03", name: "Matrices", sub: "PYQ Practice Sheet",moduleLinks: ["https://drive.google.com/file/d/1yRfjMFABIsX0AZ0n_kbGhF8OoiFII074/view?usp=drivesdk"]},
+                { ch: "CH-04", name: "Determinants", sub: "PYQ Practice Sheet",moduleLinks: ["https://drive.google.com/file/d/1idI9bnxoUi1Uf-G-m5NPaFV2ZETrNxx0/view?usp=drivesdk"]},
                 { ch: "CH-05", name: "Continuity and Differentiability", sub: "PYQ Practice Sheet" },
                 { ch: "CH-06", name: "Application of Derivatives", sub: "PYQ Practice Sheet" },
                 { ch: "CH-07", name: "Integrals", sub: "PYQ Practice Sheet" },
