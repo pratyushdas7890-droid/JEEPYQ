@@ -961,7 +961,7 @@
                 { ch: "CH-10", name: "Biomolecules", sub: "PYQ Practice Sheet" }
             ],
             maths: [
-                { ch: "CH-01", name: "Relations and Functions", sub: "PYQ Practice Sheet" },
+                { ch: "CH-01", name: "Relations and Functions", sub: "PYQ Practice Sheet" ,moduleLinks: ["https://drive.google.com/file/d/1lYAgHgFzxmRkrtLC3Kkw9h3QeqXzm4GE/view?usp=drivesdk"]},
                 { ch: "CH-02", name: "Inverse Trigonometric Functions", sub: "PYQ Practice Sheet" },
                 { ch: "CH-03", name: "Matrices", sub: "PYQ Practice Sheet" },
                 { ch: "CH-04", name: "Determinants", sub: "PYQ Practice Sheet" },
