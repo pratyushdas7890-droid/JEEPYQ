@@ -330,7 +330,28 @@
         localStorage.setItem("jee_blocked_users", JSON.stringify(users));
     }
 
-    function renderAdminPanel() {
+    function loadUsersRealtime() {
+
+    onSnapshot(collection(db, "users"), (snapshot) => {
+
+        let html = "";
+
+        snapshot.forEach(doc => {
+
+            const user = doc.data();
+
+            html += `
+                <div class="user-card">
+                    <p><b>Name:</b> ${user.name}</p>
+                    <p><b>Phone:</b> ${user.phone}</p>
+                    <p><b>Email:</b> ${user.email}</p>
+                </div>
+            `;
+        });
+
+        document.getElementById("adminUsers").innerHTML = html;
+    });
+}
 
         const users = getUsers();
         const blocked = getBlockedUsers();
@@ -947,7 +968,7 @@ users.push(userData);
                 if (pass === ADMIN_PASSWORD) {
 
                     renderAdminPanel();
-
+                    loadUsersRealtime();
                 } else {
 
                     alert("Wrong Password");
@@ -1217,7 +1238,7 @@ import {
 getFirestore,
 collection,
 addDoc,
-getDocs
+onSnapshot
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
