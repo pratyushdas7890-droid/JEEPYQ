@@ -339,12 +339,25 @@
         snapshot.forEach(doc => {
 
             const user = doc.data();
-
+            const id = docSnap.id;
             html += `
                 <div class="user-card">
                     <p><b>Name:</b> ${user.name}</p>
                     <p><b>Phone:</b> ${user.phone}</p>
                     <p><b>Email:</b> ${user.email}</p>
+
+                    <button onclick="deleteUser('${id}')"
+                     style="
+                     padding:8px 12px;
+                     margin-top:8px;
+         									 background:red;
+																 color:white;
+                     border:none;
+                     border-radius:8px;
+                     cursor:pointer;
+                     ">
+                     BAN / REMOVE
+                    </button>
                 </div>
             `;
         });
@@ -1238,7 +1251,9 @@ import {
 getFirestore,
 collection,
 addDoc,
-onSnapshot
+onSnapshot,
+deleteDoc,
+doc 
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
