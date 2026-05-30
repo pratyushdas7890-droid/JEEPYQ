@@ -1120,47 +1120,6 @@
             backOptBtn.style.display = "none";
         });
     });
-    const firebaseConfig = {
-  apiKey: "AIzaSyCRqGsHmOc5xrg23aEXMtfQzFi8FRVX6Fg",
-  authDomain: "jeepqy.firebaseapp.com",
-  databaseURL: "https://jeepqy-default-rtdb.firebaseio.com",
-  projectId: "jeepqy",
-  storageBucket: "jeepqy.firebasestorage.app",
-  messagingSenderId: "855581745353",
-  appId: "1:855581745353:web:3a76d06ca9f55f55f3ad18",
-  measurementId: "G-VPE5F4B496"
-};
-firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  const database = firebase.database();
-  // লগইন করানোর ফাংশন
-function loginUser(email, password) {
-  auth.signInWithEmailAndPassword(email, password)
-    .then((userCredential) => {
-      const user = userCredential.user;
-      
-      // ১. এই ডিভাইসের জন্য একটি ইউনিক সেশন আইডি তৈরি (Random String + Time)
-      const currentSessionId = Math.random().toString(36).substring(2, 15) + Date.now();
-      
-      // ২. এই আইডিটি ব্রাউজারের লোকাল স্টোরেজে সেভ করে রাখা
-      localStorage.setItem("device_session_id", currentSessionId);
-      
-      // ৩. ফায়ারবেস রিয়েল-টাইম ডেটাবেজে এই আইডিটি আপডেট করা
-      database.ref('users/' + user.uid).update({
-        currentSession: currentSessionId,
-        lastLogin: new Date().toISOString(),
-        email: user.email
-      }).then(() => {
-        // লগইন সফল হলে অ্যাডমিন বা ড্যাশবোর্ড পেজে নিয়ে যাওয়া
-        window.location.href = "Webadmin.html"; // ⚠️ তোমার অ্যাডমিন পেজের ফাইল নাম দাও
-      });
-
-    })
-    .catch((error) => {
-      console.error("লগইন ব্যর্থ হয়েছে: ", error.message);
-      alert("ভুল ইমেইল বা পাসওয়ার্ড! অথবা: " + error.message);
-    });
-}
-
+    
 </script>
 </body>
