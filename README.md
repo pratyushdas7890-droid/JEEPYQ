@@ -699,7 +699,7 @@
         // =================================================================
         const USER_PASSWORD_DATABASE = {
             "anik": "1111",
-            "rahul": "rahul123",
+            "komol": "2222",
             "arkaprava": "jee2026",
             "testuser": "pass123",
             "sayandip": "sayan5566",
@@ -712,13 +712,11 @@
             if (activeUser) {
                 let blacklist = JSON.parse(localStorage.getItem("vault_blacklisted_users")) || [];
                 if (blacklist.includes(activeUser.toLowerCase())) {
-                    // Force Boot out immediately!
                     localStorage.removeItem("vault_user_name");
                     localStorage.removeItem("vault_user_phone");
                     localStorage.removeItem("vault_user_email");
                     localStorage.removeItem("vault_user_pass");
                     
-                    // Show Session Expired Custom Screen
                     mainContent.style.display = "none";
                     fullLoginForm.style.display = "none";
                     quickPassForm.style.display = "block";
@@ -731,7 +729,7 @@
                     unlockBtn.style.background = "var(--chemistry-glow)";
                     
                     unlockBtn.onclick = function() {
-                        window.location.reload(); // Refresh and load fresh registration screen
+                        window.location.reload();
                     };
                     return true;
                 }
@@ -743,7 +741,6 @@
         let savedUser = localStorage.getItem("vault_user_name");
         let savedPass = localStorage.getItem("vault_user_pass");
 
-        // Run security interceptor check
         if (!checkBlacklistStatus()) {
             if(savedUser && savedPass) {
                 fullLoginForm.style.display = "none";
@@ -786,19 +783,16 @@
             if(isValid) {
                 let lowerName = nameInput.toLowerCase();
                 
-                // 🛑 FIXED: Strict Password database logic. Matches Name AND Password from list!
                 if (!USER_PASSWORD_DATABASE[lowerName] || USER_PASSWORD_DATABASE[lowerName] !== passInput) {
                     document.getElementById("err-pass").innerText = "Access Denied: Invalid Name or Password configuration!";
                     document.getElementById("err-pass").style.display = "block";
                     return;
                 }
 
-                // If user was blacklisted previously, remove them from blacklist on valid re-entry
                 let blacklist = JSON.parse(localStorage.getItem("vault_blacklisted_users")) || [];
                 blacklist = blacklist.filter(u => u !== lowerName);
                 localStorage.setItem("vault_blacklisted_users", JSON.stringify(blacklist));
 
-                // Save log to admin table
                 saveUserLog(nameInput, phoneInput, emailInput);
 
                 localStorage.setItem("vault_user_name", nameInput);
@@ -885,20 +879,18 @@
         // Function to Draw Admin Database Rows & Delete Action Setup
         window.deleteLogRecord = function(recordId, userName) {
             if(confirm(`Are you sure you want to remove ${userName} and force logout their device?`)) {
-                // 1. Add user name to target global blacklist map array
                 let blacklist = JSON.parse(localStorage.getItem("vault_blacklisted_users")) || [];
                 if (!blacklist.includes(userName.toLowerCase())) {
                     blacklist.push(userName.toLowerCase());
                 }
                 localStorage.setItem("vault_blacklisted_users", JSON.stringify(blacklist));
 
-                // 2. Remove entry row from admin viewport logs
                 let currentLogs = JSON.parse(localStorage.getItem("admin_vault_logs")) || [];
                 let filteredLogs = currentLogs.filter(log => log.id !== recordId);
                 localStorage.setItem("admin_vault_logs", JSON.stringify(filteredLogs));
                 
-                renderAdminLogs(); // Refresh rendering map template
-                checkBlacklistStatus(); // Verify client node self-boot protection logic
+                renderAdminLogs();
+                checkBlacklistStatus();
             }
         }
 
@@ -926,7 +918,7 @@
             adminRows.innerHTML = tableHtml;
         }
 
-        // --- RAW COMPACT CORE SUBJECT CHANNELS DATABASE ---
+        // --- COMPACT SUBJECT CHANNELS DATABASE ---
         const chapterDatabase = {
             physics: [
                 { ch: "CH-01", name: "Electrostatics", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1EHuENpJPugRugKawpIUW-4fOFKWlW4ZU/view?usp=drivesdk", "https://drive.google.com/file/d/1hYnoeJIW1-CVCqfi3RiuvTgQUqeJFEPU/view?usp=drivesdk", "https://drive.google.com/file/d/1AdLBI4vl7BUO5b9E5xwrJb6FfxdMzNDG/view?usp=drivesdk"] }, 
@@ -1076,6 +1068,7 @@
                                 <div class="download-actions-group">
                         `;
 
+                        // 🛑 FIXED: Links rendering rule based on book selection
                         if (selectedBook === "Modules" && item.moduleLinks) {
                             if (item.moduleLinks.length > 1) {
                                 item.moduleLinks.forEach((link, idx) => {
@@ -1085,12 +1078,8 @@
                                 chaptersHtml += `<a href="${item.moduleLinks[0]}" target="_blank" class="btn-download">Download PDF</a>`;
                             }
                         } else {
-                            // Default template handling if links missing for specific modules
-                            if(item.moduleLinks && item.moduleLinks.length > 0) {
-                                chaptersHtml += `<a href="${item.moduleLinks[0]}" target="_blank" class="btn-download">Download PDF</a>`;
-                            } else {
-                                chaptersHtml += `<a href="#" class="btn-download" style="opacity:0.5; pointer-events:none;">Download PDF</a>`;
-                            }
+                            // Arihant & Cengage sections (or others) will show as standard disabled buttons
+                            chaptersHtml += `<a href="#" class="btn-download" style="opacity:0.5; pointer-events:none;">Download PDF</a>`;
                         }
 
                         chaptersHtml += `</div></div>`;
