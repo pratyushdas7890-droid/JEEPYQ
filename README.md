@@ -693,10 +693,6 @@
         
         let selectedSubject = "";
 
-        // =================================================================
-        // 🔑 [এখানে আপনি স্টুডেন্টদের নাম ও পাসওয়ার্ড নিজের মতো পরিবর্তন/যোগ করুন]
-        // নামগুলো টাইপ করার সময় অবশ্যই ছোট হাতের অক্ষরে (lowercase) লিখবেন।
-        // =================================================================
         const USER_PASSWORD_DATABASE = {
             "pratyush": "0000",
             "komol": "1234",
@@ -706,7 +702,6 @@
             "pर्जी": "998877"
         };
 
-        // Real-Time Blacklist Security Interceptor
         function checkBlacklistStatus() {
             let activeUser = localStorage.getItem("vault_user_name");
             if (activeUser) {
@@ -737,7 +732,6 @@
             return false;
         }
 
-        // Cache Device Verification Logic
         let savedUser = localStorage.getItem("vault_user_name");
         let savedPass = localStorage.getItem("vault_user_pass");
 
@@ -749,7 +743,6 @@
             }
         }
 
-        // Full Validation Node Authentication Process
         document.getElementById("submit-login").addEventListener("click", function() {
             let nameInput = document.getElementById("reg-name").value.trim();
             let phoneInput = document.getElementById("reg-phone").value.trim();
@@ -804,7 +797,6 @@
             }
         });
 
-        // Quick Token Password Unlock Verification Node
         document.getElementById("submit-quick").addEventListener("click", function() {
             if (checkBlacklistStatus()) return;
             
@@ -826,7 +818,6 @@
             document.getElementById("menu-email").innerText = email;
         }
 
-        // Admin Panel Log Recorder Functional Logic
         function saveUserLog(name, phone, email) {
             let currentLogs = JSON.parse(localStorage.getItem("admin_vault_logs")) || [];
             let timeStamp = new Date().toLocaleString();
@@ -842,7 +833,6 @@
             localStorage.setItem("admin_vault_logs", JSON.stringify(currentLogs));
         }
 
-        // Dropdown Menu Controllers Matrix
         const menuBtn = document.getElementById("menu-toggle-btn");
         const dropdownMenu = document.getElementById("user-dropdown");
         
@@ -863,7 +853,6 @@
             window.location.reload();
         });
 
-        // Admin Node Execution Engine Trigger & Live Table Rendering
         document.getElementById("admin-login-trigger").addEventListener("click", function() {
             let adminPrompt = prompt("Enter 4-Digit Secure Admin Password Pin:");
             if(adminPrompt === "0000") {
@@ -876,7 +865,6 @@
             }
         });
 
-        // Function to Draw Admin Database Rows & Delete Action Setup
         window.deleteLogRecord = function(recordId, userName) {
             if(confirm(`Are you sure you want to remove ${userName} and force logout their device?`)) {
                 let blacklist = JSON.parse(localStorage.getItem("vault_blacklisted_users")) || [];
@@ -918,18 +906,23 @@
             adminRows.innerHTML = tableHtml;
         }
 
-        // --- COMPACT SUBJECT CHANNELS DATABASE ---
+        // ==========================================
+        // 📌 ব্ল্যাকবুকের ডাইরেক্ট গুগল ড্রাইভ লিংক এখানে বসাও:
+        // ==========================================
+        const BLACKBOOK_PDF_LINK = ""; 
+        // ==========================================
+
         const chapterDatabase = {
             physics: [
-                { ch: "CH-01", name: "Electrostatics", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1EHuENpJPugRugKawpIUW-4fOFKWlW4ZU/view?usp=drivesdk", "https://drive.google.com/file/d/1hYnoeJIW1-CVCqfi3RiuvTgQUqeJFEPU/view?usp=drivesdk", "https://drive.google.com/file/d/1AdLBI4vl7BUO5b9E5xwrJb6FfxdMzNDG/view?usp=drivesdk"] }, 
-                { ch: "CH-02", name: "Current Electricity", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1C-48MABN0F9VO0YmIw75pJH3Ryfc7NAu/view?usp=drivesdk"] }, 
-                { ch: "CH-03", name: "Magnetic Effects of Current and Magnetism", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1L_AP4uNfbgNbLCCBSRYwnQS9OEHPnTuL/view?usp=drivesdk", "https://drive.google.com/file/d/1IWol_bthljJwylCp48aqhPBbuhG8-n15/view?usp=drivesdk"] }, 
-                { ch: "CH-04", name: "Electromagnetic Induction and Alternating Currents", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/10KJcZudJUfzDI60GayixiQrZ3kFEE998/view?usp=drivesdk", "https://drive.google.com/file/d/1qUN4pWVnM2onNbVEL14a1MP9zDqBTNtU/view?usp=drivesdk"] }, 
-                { ch: "CH-05", name: "Electromagnetic Waves", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1DL7clF00NPmRCU2VwPK69IldAQxkZ7mE/view?usp=drivesdk"] }, 
-                { ch: "CH-06", name: "Optics", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1CXSEWSxPQWh08jpgmwefQ-TwN1ohMOis/view?usp=drivesdk", "https://drive.google.com/file/d/1vis8a41P_4WjmzqRN42zc0D0KLs56aXA/view?usp=drivesdk"] }, 
-                { ch: "CH-07", name: "Dual Nature of Matter and Radiation", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1g-OfaOASLIzs01N16aI5OTamgmEysWXv/view?usp=drivesdk"] }, 
-                { ch: "CH-08", name: "Atoms and Nuclei", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1uy9hDpsrId3f_8lwq_MZY_2VBA-Ca9qa/view?usp=drivesdk", "https://drive.google.com/file/d/1Kqp4ecMeA0QnEmnZWAV4nl7NFP2nOmwy/view?usp=drivesdk"] }, 
-                { ch: "CH-09", name: "Electronic Devices", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1lfKKYDt4b7g_v-NVMc3qlxIxR1z7KjCf/view?usp=drivesdk"] } 
+                { ch: "CH-01", name: "Electrostatics", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1EHuENpJPugRugKawpIUW-4fOFKWlW4ZU/view?usp=drivesdk", "https://drive.google.com/file/d/1hYnoeJIW1-CVCqfi3RiuvTgQUqeJFEPU/view?usp=drivesdk", "https://drive.google.com/file/d/1AdLBI4vl7BUO5b9E5xwrJb6FfxdMzNDG/view?usp=drivesdk"], arihantLinks: [""], cengageLinks: [""] }, 
+                { ch: "CH-02", name: "Current Electricity", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1C-48MABN0F9VO0YmIw75pJH3Ryfc7NAu/view?usp=drivesdk"], arihantLinks: [""], cengageLinks: [""] }, 
+                { ch: "CH-03", name: "Magnetic Effects of Current and Magnetism", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1L_AP4uNfbgNbLCCBSRYwnQS9OEHPnTuL/view?usp=drivesdk", "https://drive.google.com/file/d/1IWol_bthljJwylCp48aqhPBbuhG8-n15/view?usp=drivesdk"], arihantLinks: [""], cengageLinks: [""] }, 
+                { ch: "CH-04", name: "Electromagnetic Induction and Alternating Currents", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/10KJcZudJUfzDI60GayixiQrZ3kFEE998/view?usp=drivesdk", "https://drive.google.com/file/d/1qUN4pWVnM2onNbVEL14a1MP9zDqBTNtU/view?usp=drivesdk"], arihantLinks: [""], cengageLinks: [""] }, 
+                { ch: "CH-05", name: "Electromagnetic Waves", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1DL7clF00NPmRCU2VwPK69IldAQxkZ7mE/view?usp=drivesdk"], arihantLinks: [""], cengageLinks: [""] }, 
+                { ch: "CH-06", name: "Optics", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1CXSEWSxPQWh08jpgmwefQ-TwN1ohMOis/view?usp=drivesdk", "https://drive.google.com/file/d/1vis8a41P_4WjmzqRN42zc0D0KLs56aXA/view?usp=drivesdk"], arihantLinks: [""], cengageLinks: [""] }, 
+                { ch: "CH-07", name: "Dual Nature of Matter and Radiation", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1g-OfaOASLIzs01N16aI5OTamgmEysWXv/view?usp=drivesdk"], arihantLinks: [""], cengageLinks: [""] }, 
+                { ch: "CH-08", name: "Atoms and Nuclei", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1uy9hDpsrId3f_8lwq_MZY_2VBA-Ca9qa/view?usp=drivesdk", "https://drive.google.com/file/d/1Kqp4ecMeA0QnEmnZWAV4nl7NFP2nOmwy/view?usp=drivesdk"], arihantLinks: [""], cengageLinks: [""] }, 
+                { ch: "CH-09", name: "Electronic Devices", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1lfKKYDt4b7g_v-NVMc3qlxIxR1z7KjCf/view?usp=drivesdk"], arihantLinks: [""], cengageLinks: [""] } 
             ],
             chemistry_modules: [
                 { ch: "CH-01", name: "Solutions", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/11SNYhgSwpNL8Y1-aRYo0mMlveuq9GwJY/view?usp=drivesdk"] },
@@ -949,36 +942,35 @@
                 { ch: "CH-15", name: "Nuclear Chemistry", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1lQuSqJTpOnh8w1TMBD98RlcP7c4b3ofj/view?usp=drivesdk"] }
             ],
             chemistry_others: [
-                { ch: "CH-01", name: "Solutions", sub: "PYQ Practice Sheet" },
-                { ch: "CH-02", name: "Electrochemistry", sub: "PYQ Practice Sheet" },
-                { ch: "CH-03", name: "Chemical Kinetics", sub: "PYQ Practice Sheet" },
-                { ch: "CH-04", name: "d- and f-Block Elements", sub: "PYQ Practice Sheet" },
-                { ch: "CH-05", name: "Coordination Compounds", sub: "PYQ Practice Sheet" },
-                { ch: "CH-06", name: "Haloalkanes and Haloarenes", sub: "PYQ Practice Sheet" },
-                { ch: "CH-07", name: "Alcohols, Phenols and Ethers", sub: "PYQ Practice Sheet" },
-                { ch: "CH-08", name: "Aldehydes, Ketones and Carboxylic Acids", sub: "PYQ Practice Sheet" },
-                { ch: "CH-09", name: "Amines", sub: "PYQ Practice Sheet" },
-                { ch: "CH-10", name: "Biomolecules", sub: "PYQ Practice Sheet" }
+                { ch: "CH-01", name: "Solutions", sub: "PYQ Practice Sheet", arihantLinks: [""], cengageLinks: [""] },
+                { ch: "CH-02", name: "Electrochemistry", sub: "PYQ Practice Sheet", arihantLinks: [""], cengageLinks: [""] },
+                { ch: "CH-03", name: "Chemical Kinetics", sub: "PYQ Practice Sheet", arihantLinks: [""], cengageLinks: [""] },
+                { ch: "CH-04", name: "d- and f-Block Elements", sub: "PYQ Practice Sheet", arihantLinks: [""], cengageLinks: [""] },
+                { ch: "CH-05", name: "Coordination Compounds", sub: "PYQ Practice Sheet", arihantLinks: [""], cengageLinks: [""] },
+                { ch: "CH-06", name: "Haloalkanes and Haloarenes", sub: "PYQ Practice Sheet", arihantLinks: [""], cengageLinks: [""] },
+                { ch: "CH-07", name: "Alcohols, Phenols and Ethers", sub: "PYQ Practice Sheet", arihantLinks: [""], cengageLinks: [""] },
+                { ch: "CH-08", name: "Aldehydes, Ketones and Carboxylic Acids", sub: "PYQ Practice Sheet", arihantLinks: [""], cengageLinks: [""] },
+                { ch: "CH-09", name: "Amines", sub: "PYQ Practice Sheet", arihantLinks: [""], cengageLinks: [""] },
+                { ch: "CH-10", name: "Biomolecules", sub: "PYQ Practice Sheet", arihantLinks: [""], cengageLinks: [""] }
             ],
+            // Maths-এর অ্যারে থেকে Blackbook-এর ফিল্ডগুলো সরিয়ে দেওয়া হলো, কারণ ওটা একটা সিঙ্গেল পিডিএফ
             maths: [
-                { ch: "CH-01", name: "Relations and Functions", sub: "PYQ Practice Sheet" ,moduleLinks: ["https://drive.google.com/file/d/1lYAgHgFzxmRkrtLC3Kkw9h3QeqXzm4GE/view?usp=drivesdk"]},
-                { ch: "CH-02", name: "Inverse Trigonometric Functions", sub: "PYQ Practice Sheet",moduleLinks: ["https://drive.google.com/file/d/1ziOEOnneeecOLdFPCb15QhguYnpy-9vC/view?usp=drivesdk"]},
-                { ch: "CH-03", name: "Matrices", sub: "PYQ Practice Sheet",moduleLinks: ["https://drive.google.com/file/d/1yRfjMFABIsX0AZ0n_kbGhF8OoiFII074/view?usp=drivesdk"]},
-                { ch: "CH-04", name: "Determinants", sub: "PYQ Practice Sheet",moduleLinks: ["https://drive.google.com/file/d/1idI9bnxoUi1Uf-G-m5NPaFV2ZETrNxx0/view?usp=drivesdk"]},
-                { ch: "CH-05", name: "Continuity and Differentiability", sub: "PYQ Practice Sheet",moduleLinks: ["https://drive.google.com/file/d/15qmHDlIlSr-xHnTI9dflfmH3ajbs-PKc/view?usp=drivesdk"]},
-                { ch: "CH-06", name: "Application of Derivatives", sub: "PYQ Practice Sheet",moduleLinks: ["https://drive.google.com/file/d/1EvFxeLKRb36GtcqBndgnR9k1QDToa2Xz/view?usp=drivesdk"]},
-                { ch: "CH-07", name: "Integrals", sub: "PYQ Practice Sheet",moduleLinks:
-["https://drive.google.com/file/d/19ywNjZEVCUQmmc9W9vYeV-WIfThbPtmQ/view?usp=drivesdk"] },
-                { ch: "CH-08", name: "Application of Integrals", sub: "PYQ Practice Sheet",moduleLinks: ["https://drive.google.com/file/d/1wvwoH57ohnQZaupJw84KbXvpZXXZbiS3/view?usp=drivesdk"]},
-                { ch: "CH-09", name: "Differential Equations", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/12sC2-JkDhiYLR_euEC9Exf4QDsRJIZu4/view?usp=drivesdk"]},
-                { ch: "CH-10", name: "Vector Algebra", sub: "PYQ Practice Sheet",moduleLinks:["https://drive.google.com/file/d/1p-MGbT0WI4ORBJNI-OnJUj86jRtvp48y/view?usp=drivesdk"] },
-                { ch: "CH-11", name: "Three Dimensional Geometry", sub: "PYQ Practice Sheet",moduleLinks: ["https://drive.google.com/file/d/1sPAd7AGJ3iKjVUfeN1kenb_-5waVaxZT/view?usp=drivesdk"] },
-                { ch: "CH-12", name: "Linear Programming", sub: "PYQ Practice Sheet",moduleLinks: ["https://drive.google.com/file/d/1PZAwJPbSMGJbWRJScTWMRtTtb65YsXuz/view?usp=drivesdk"] },
-                { ch: "CH-13", name: "Probability", sub: "PYQ Practice Sheet",moduleLinks: ["https://drive.google.com/file/d/1wWN-CbPDd3hIKZ06dWEIukVne06YiijT/view?usp=drivesdk"] }
+                { ch: "CH-01", name: "Relations and Functions", sub: "PYQ Practice Sheet" ,moduleLinks: ["https://drive.google.com/file/d/1lYAgHgFzxmRkrtLC3Kkw9h3QeqXzm4GE/view?usp=drivesdk"], arihantLinks: ["https://drive.google.com/file/d/1Zp1ktKPeXYJZg-Y_GqpUWLV2mVXw0rr0/view?usp=drivesdk"] },
+                { ch: "CH-02", name: "Inverse Trigonometric Functions", sub: "PYQ Practice Sheet",moduleLinks: ["https://drive.google.com/file/d/1ziOEOnneeecOLdFPCb15QhguYnpy-9vC/view?usp=drivesdk"], arihantLinks: ["https://drive.google.com/file/d/13Mxdb26YvlZUt5eRy-5jfsVFhVeBo5O9/view?usp=drivesdk"] },
+                { ch: "CH-03", name: "Matrices", sub: "PYQ Practice Sheet",moduleLinks: ["https://drive.google.com/file/d/1yRfjMFABIsX0AZ0n_kbGhF8OoiFII074/view?usp=drivesdk"], arihantLinks: ["https://drive.google.com/file/d/1Ak6KOj9cPVDs2k5dJNZXpRdHZjPEpx4b/view?usp=drivesdk"] },
+                { ch: "CH-04", name: "Determinants", sub: "PYQ Practice Sheet",moduleLinks: ["https://drive.google.com/file/d/1idI9bnxoUi1Uf-G-m5NPaFV2ZETrNxx0/view?usp=drivesdk"], arihantLinks: ["https://drive.google.com/file/d/16gHwV38UOqJgNPUETGZ2MWOy0yebA5j1/view?usp=drivesdk"] },
+                { ch: "CH-05", name: "Continuity and Differentiability", sub: "PYQ Practice Sheet",moduleLinks: ["https://drive.google.com/file/d/15qmHDlIlSr-xHnTI9dflfmH3ajbs-PKc/view?usp=drivesdk"], arihantLinks: ["https://drive.google.com/file/d/1_3h2K4wUNpssBHhvuq8gO1yBorz949sk/view?usp=drivesdk"] },
+                { ch: "CH-06", name: "Application of Derivatives", sub: "PYQ Practice Sheet",moduleLinks: ["https://drive.google.com/file/d/1EvFxeLKRb36GtcqBndgnR9k1QDToa2Xz/view?usp=drivesdk"], arihantLinks: ["https://drive.google.com/file/d/1dr4SV16SB7mfHnkJn4pny0U2xqIHvmni/view?usp=drivesdk"] },
+                { ch: "CH-07", name: "Integrals", sub: "PYQ Practice Sheet",moduleLinks:["https://drive.google.com/file/d/19ywNjZEVCUQmmc9W9vYeV-WIfThbPtmQ/view?usp=drivesdk"], arihantLinks: ["https://drive.google.com/file/d/1UjQImeLLxJQ_uClyT-XJ-HoRAhbV93JN/view?usp=drivesdk"] },
+                { ch: "CH-08", name: "Application of Integrals", sub: "PYQ Practice Sheet",moduleLinks: ["https://drive.google.com/file/d/1wvwoH57ohnQZaupJw84KbXvpZXXZbiS3/view?usp=drivesdk"], arihantLinks: ["https://drive.google.com/file/d/188VU2dcgyuH80YdrxLKy7aCWYHkOPCjI/view?usp=drivesdk"] },
+                { ch: "CH-09", name: "Differential Equations", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/12sC2-JkDhiYLR_euEC9Exf4QDsRJIZu4/view?usp=drivesdk"], arihantLinks: ["https://drive.google.com/file/d/19Djm45t8Aj7od42Wv8wL2Bhw7fAb2ZKP/view?usp=drivesdk"] },
+                { ch: "CH-10", name: "Vector Algebra", sub: "PYQ Practice Sheet",moduleLinks:["https://drive.google.com/file/d/1p-MGbT0WI4ORBJNI-OnJUj86jRtvp48y/view?usp=drivesdk"], arihantLinks: ["https://drive.google.com/file/d/1Uy-EK9dpDdONyjCOZWXYdhxkBqCDGLpD/view?usp=drivesdk"] },
+                { ch: "CH-11", name: "Three Dimensional Geometry", sub: "PYQ Practice Sheet",moduleLinks: ["https://drive.google.com/file/d/1sPAd7AGJ3iKjVUfeN1kenb_-5waVaxZT/view?usp=drivesdk"], arihantLinks: ["https://drive.google.com/file/d/1KYPkzkKEyOwe4qdYSENL3Xhy_36EVCUL/view?usp=drivesdk"] },
+                { ch: "CH-12", name: "Linear Programming", sub: "PYQ Practice Sheet",moduleLinks: ["https://drive.google.com/file/d/1PZAwJPbSMGJbWRJScTWMRtTtb65YsXuz/view?usp=drivesdk"], arihantLinks: [""] },
+                { ch: "CH-13", name: "Probability", sub: "PYQ Practice Sheet",moduleLinks: ["https://drive.google.com/file/d/1wWN-CbPDd3hIKZ06dWEIukVne06YiijT/view?usp=drivesdk"], arihantLinks: ["https://drive.google.com/file/d/1lBcKQS3bWGm6fpHpQevK2dpSAnDCI_MG/view?usp=drivesdk"] }
             ]
         };
 
-        // Step 1: Subject Selection (Your exact updated dynamic logic)
         document.querySelectorAll(".subject-grid .subject-card").forEach(card => {
             card.addEventListener("click", function() {
                 if (checkBlacklistStatus()) return;
@@ -995,7 +987,8 @@
                 if (selectedSubject === "maths") {
                     books = [
                         { original: "Modules", display: "Modules (Practice)" },
-                        { original: "Arihant", display: "Arihant (PYQ)" }
+                        { original: "Arihant", display: "Arihant (PYQ)" },
+                        { original: "Blackbook", display: "Black Book (Advanced)" }
                     ];
                 }
 
@@ -1005,9 +998,15 @@
                     optionCard.setAttribute("data-type", selectedSubject);
                     optionCard.setAttribute("data-book", book.original);
                     optionCard.setAttribute("data-display-book", book.display);
+                    
+                    let titleStyle = "font-size:22px;";
+                    if (book.original === "Blackbook") {
+                        titleStyle += " color: #cbd5e1; text-shadow: 0 0 10px rgba(255,255,255,0.2); font-weight: 800;";
+                    }
+
                     optionCard.innerHTML = `
                         <span class="card-icon-tag">Resource 0${index + 1}</span>
-                        <span class="card-title" style="font-size:22px;">${book.display}</span>
+                        <span class="card-title" style="${titleStyle}">${book.display}</span>
                     `;
                     optionsGrid.appendChild(optionCard);
                 });
@@ -1020,14 +1019,32 @@
             });
         });
 
-        // Step 2: Book Selection & Rendering
         function setupBookCards() {
             document.querySelectorAll(".options-grid .option-card").forEach(card => {
-                card.style.borderColor = selectedSubject === "physics" ? "#3b82f6" : selectedSubject === "maths" ? "#10b981" : "#f59e0b";
+                const selectedBookType = card.getAttribute("data-book");
+                
+                if (selectedBookType === "Blackbook") {
+                    card.style.borderColor = "#9ca3af";
+                    card.style.boxShadow = "0 0 20px rgba(156, 163, 175, 0.15)";
+                    card.style.background = "linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(0,0,0,0.2) 100%)";
+                } else {
+                    card.style.borderColor = selectedSubject === "physics" ? "#3b82f6" : selectedSubject === "maths" ? "#10b981" : "#f59e0b";
+                }
                 
                 card.addEventListener("click", function() {
                     if (checkBlacklistStatus()) return;
                     const selectedBook = this.getAttribute("data-book");
+                    
+                    // 📌 Blackbook-এ ক্লিক করলে সরাসরি নতুন ট্যাবে ড্রাইভ লিংক খুলবে
+                    if (selectedBook === "Blackbook") {
+                        if (BLACKBOOK_PDF_LINK && BLACKBOOK_PDF_LINK !== "") {
+                            window.open(BLACKBOOK_PDF_LINK, "_blank");
+                        } else {
+                            alert("Black Book-এর ড্রাইভ লিংক এখনো দেওয়া হয়নি!");
+                        }
+                        return; // এখানেই থেমে যাবে, চ্যাপ্টার লিস্ট খুলবে না
+                    }
+
                     const displayBookName = this.getAttribute("data-display-book");
                     optionsGrid.style.display = "none";
                     
@@ -1044,42 +1061,76 @@
                     }
 
                     let chapters = [];
+                    
                     if (selectedSubject === "chemistry") {
                         chapters = selectedBook === "Modules" ? chapterDatabase.chemistry_modules : chapterDatabase.chemistry_others;
+                    } else if (selectedSubject === "maths") {
+                        if (selectedBook === "Arihant") {
+                            chapters = chapterDatabase.maths.filter(item => item.name !== "Linear Programming");
+                        } else {
+                            chapters = chapterDatabase.maths;
+                        }
                     } else {
                         chapters = chapterDatabase[selectedSubject];
                     }
+
+                    let formattedChapters = chapters.map((item, index) => {
+                        let num = index + 1;
+                        let newChName = "CH-" + (num < 10 ? "0" + num : num);
+                        return { ...item, displayCh: newChName };
+                    });
 
                     let chaptersHtml = `
                         <div class="chapters-panel active ${viewClass}">
                             <div class="panel-header">
                                 <span class="panel-title" style="color:${titleColor}">${selectedSubject.charAt(0).toUpperCase() + selectedSubject.slice(1)} - ${displayBookName}</span>
-                                <span class="total-badge">${chapters.length} Chapters</span>
+                                <span class="total-badge">${formattedChapters.length} Chapters</span>
                             </div>
                             <div class="chapter-list">
                     `;
 
-                    chapters.forEach(item => {
+                    formattedChapters.forEach(item => {
                         chaptersHtml += `
                             <div class="chapter-item">
                                 <div class="chapter-details">
-                                    <span class="chapter-title-text">${item.ch}: ${item.name}</span>
+                                    <span class="chapter-title-text">${item.displayCh}: ${item.name}</span>
                                     <span class="chapter-subtitle-text">${item.sub}</span>
                                 </div>
                                 <div class="download-actions-group">
                         `;
 
-                        // 🛑 FIXED: Links rendering rule based on book selection
                         if (selectedBook === "Modules" && item.moduleLinks) {
                             if (item.moduleLinks.length > 1) {
                                 item.moduleLinks.forEach((link, idx) => {
                                     chaptersHtml += `<a href="${link}" target="_blank" class="btn-download">Part ${idx + 1}</a>`;
                                 });
-                            } else if (item.moduleLinks.length === 1) {
+                            } else if (item.moduleLinks.length === 1 && item.moduleLinks[0] !== "") {
                                 chaptersHtml += `<a href="${item.moduleLinks[0]}" target="_blank" class="btn-download">Download PDF</a>`;
                             }
-                        } else {
-                            // Arihant & Cengage sections (or others) will show as standard disabled buttons
+                        } 
+                        else if (selectedBook === "Arihant" && item.arihantLinks) {
+                            if (item.arihantLinks.length > 1) {
+                                item.arihantLinks.forEach((link, idx) => {
+                                    chaptersHtml += `<a href="${link}" target="_blank" class="btn-download">Part ${idx + 1}</a>`;
+                                });
+                            } else if (item.arihantLinks.length === 1 && item.arihantLinks[0] !== "") {
+                                chaptersHtml += `<a href="${item.arihantLinks[0]}" target="_blank" class="btn-download">Download PDF</a>`;
+                            } else {
+                                chaptersHtml += `<a href="#" class="btn-download" style="opacity:0.5; pointer-events:none;">Link Pending</a>`;
+                            }
+                        }
+                        else if (selectedBook === "Cengage" && item.cengageLinks) {
+                            if (item.cengageLinks.length > 1) {
+                                item.cengageLinks.forEach((link, idx) => {
+                                    chaptersHtml += `<a href="${link}" target="_blank" class="btn-download">Part ${idx + 1}</a>`;
+                                });
+                            } else if (item.cengageLinks.length === 1 && item.cengageLinks[0] !== "") {
+                                chaptersHtml += `<a href="${item.cengageLinks[0]}" target="_blank" class="btn-download">Download PDF</a>`;
+                            } else {
+                                chaptersHtml += `<a href="#" class="btn-download" style="opacity:0.5; pointer-events:none;">Link Pending</a>`;
+                            }
+                        } 
+                        else {
                             chaptersHtml += `<a href="#" class="btn-download" style="opacity:0.5; pointer-events:none;">Download PDF</a>`;
                         }
 
@@ -1091,7 +1142,6 @@
                     backSubjBtn.style.display = "none";
                     backOptBtn.style.display = "inline-flex";
                     
-                    // Hook security verify to file action click
                     document.querySelectorAll(".btn-download").forEach(btn => {
                         btn.addEventListener("click", function(e) {
                             if(checkBlacklistStatus()) {
@@ -1103,7 +1153,6 @@
             });
         }
 
-        // Back Buttons Logic
         backSubjBtn.addEventListener("click", function() {
             if (checkBlacklistStatus()) return;
             subjectGrid.style.display = "grid";
@@ -1120,6 +1169,5 @@
             backOptBtn.style.display = "none";
         });
     });
-    
 </script>
 </body>
