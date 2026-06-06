@@ -695,7 +695,7 @@
 
         const USER_PASSWORD_DATABASE = {
             "pratyush": "0000",
-            "komol": "1234",
+            "kamalendra nath roy": "1234",
             "ripan": "7890",
             "testuser": "pass123",
             "sayandip": "sayan5566",
