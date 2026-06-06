@@ -1,4 +1,3 @@
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -50,47 +49,86 @@
             margin: 0 auto;
         }
 
+        /* 📌 আল্ট্রা-মডার্ন থ্রিডি গ্লোয়িং প্রিমিয়াম ব্যানার (অ্যানিমেশন বা স্কেল ছাড়া স্থায়ি লুক) */
         header {
-            background: var(--glass-card);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            padding: 45px 30px;
-            border-radius: var(--radius-main);
+            background: radial-gradient(120% 120% at 50% 0%, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.9) 100%);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            padding: 60px 40px;
+            border-radius: 32px;
             text-align: center;
-            margin-bottom: 35px;
-            border: 1px solid var(--glass-border);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            margin-bottom: 40px;
             position: relative;
+            
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 
+                0 4px 30px rgba(0, 0, 0, 0.4),
+                0 30px 60px rgba(0, 0, 0, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15),
+                0 0 50px rgba(59, 130, 246, 0.1);
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(circle at 10% 10%, rgba(59, 130, 246, 0.2) 0%, transparent 45%),
+                radial-gradient(circle at 90% 90%, rgba(16, 185, 129, 0.15) 0%, transparent 45%);
+            pointer-events: none;
+            border-radius: 32px;
         }
 
         header h1 {
-            font-size: 44px;
-            font-weight: 800;
-            letter-spacing: -1.5px;
-            margin-bottom: 10px;
-            background: linear-gradient(to right, #ffffff, #a5f3fc);
+            font-size: 56px;
+            font-weight: 900;
+            letter-spacing: -2.5px;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #ffffff 20%, #cbd5e1 50%, #3b82f6 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 4px 15px rgba(0, 0, 0, 0.5));
+            position: relative;
+            z-index: 1;
         }
 
         header p {
-            color: var(--text-muted);
+            color: #94a3b8;
             font-size: 15px;
             font-weight: 500;
-            line-height: 1.6;
+            line-height: 1.7;
+            max-width: 680px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
-        /* Nav Dropdown Floating Menu */
+        header p span.highlight-line {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 4px 16px;
+            font-weight: 800;
+            font-size: 13px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-radius: 20px;
+            background: linear-gradient(90deg, rgba(59, 130, 246, 0.15), rgba(16, 185, 129, 0.15));
+            border: 1px solid rgba(59, 130, 246, 0.25);
+            color: #60a5fa;
+            text-shadow: 0 0 10px rgba(96, 165, 250, 0.3);
+        }
+
+        /* Nav Dropdown Floating Menu Architecture */
         .menu-container {
             position: absolute;
             top: 25px;
             right: 25px;
-            z-index: 100;
+            z-index: 110;
         }
 
         .three-dot-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--glass-border);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             color: white;
             width: 40px;
             height: 40px;
@@ -101,11 +139,12 @@
             justify-content: center;
             align-items: center;
             gap: 4px;
-            transition: 0.3s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
 
         .three-dot-btn:hover {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.2);
         }
 
         .three-dot-btn span {
@@ -115,18 +154,18 @@
             border-radius: 50%;
         }
 
+        /* 📌 ড্রপডাউন মেনু এখন সরাসরি ইনস্ট্যান্ট শো/হাইড হবে (কোনো ট্রানজিশন ল্যাগ নেই) */
         .dropdown-menu {
             display: none;
             position: absolute;
             top: 50px;
             right: 0;
-            background: rgba(10, 15, 29, 0.95);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 20px;
+            background: #0d1527;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 18px;
+            padding: 22px;
             width: 260px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.85);
             text-align: left;
         }
 
@@ -156,32 +195,19 @@
             margin: 15px 0;
         }
 
-        .admin-login-btn, .logout-btn {
+        .logout-btn {
             width: 100%;
-            padding: 10px;
+            padding: 11px;
             border-radius: 8px;
             border: none;
             cursor: pointer;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 13px;
-            transition: 0.3s;
-        }
-
-        .admin-login-btn {
-            background: rgba(245, 158, 11, 0.1);
-            color: #f59e0b;
-            border: 1px solid rgba(245, 158, 11, 0.3);
-            margin-bottom: 8px;
-        }
-
-        .admin-login-btn:hover { background: rgba(245, 158, 11, 0.2); }
-
-        .logout-btn {
-            background: rgba(239, 68, 68, 0.1);
+            background: rgba(239, 68, 68, 0.15);
             color: #ef4444;
             border: 1px solid rgba(239, 68, 68, 0.3);
         }
-        .logout-btn:hover { background: rgba(239, 68, 68, 0.2); }
+        .logout-btn:hover { background: rgba(239, 68, 68, 0.25); }
 
         /* Auth Screen Architecture */
         .auth-wrapper {
@@ -234,7 +260,6 @@
             color: white;
             font-size: 14px;
             outline: none;
-            transition: 0.3s;
         }
 
         .form-group input:focus {
@@ -253,15 +278,11 @@
             font-weight: 700;
             font-size: 15px;
             cursor: pointer;
-            transition: 0.3s;
             box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
             margin-top: 10px;
         }
 
-        .auth-btn:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.1);
-        }
+        .auth-btn:hover { filter: brightness(1.1); }
 
         .error-msg {
             color: #ef4444;
@@ -271,75 +292,19 @@
             font-weight: 500;
         }
 
-        /* Admin Logical Panel Wrapper */
-        .admin-panel {
-            display: none;
-            background: var(--glass-card);
-            border: 1px solid #f59e0b;
-            border-radius: var(--radius-main);
-            padding: 30px;
-            margin-top: 30px;
-        }
-
-        .admin-table-container {
-            width: 100%;
-            overflow-x: auto;
-            margin-top: 20px;
-        }
-
-        .admin-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
-            min-width: 600px;
-        }
-
-        .admin-table th, .admin-table td {
-            border: 1px solid var(--glass-border);
-            padding: 12px;
-            text-align: left;
-        }
-
-        .admin-table th {
-            background: rgba(245, 158, 11, 0.1);
-            color: #f59e0b;
-        }
-
-        .btn-remove {
-            background: rgba(239, 68, 68, 0.15);
-            color: #ef4444;
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            padding: 6px 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: 600;
-            transition: 0.2s;
-        }
-
-        .btn-remove:hover {
-            background: rgba(239, 68, 68, 0.3);
-        }
-
-        /* Main Web Content Hidden View Layer */
         #main-content {
             display: none;
         }
 
-        /* Core Elements Classes */
+        /* Control Bar Styles */
         .control-bar {
             display: none;
             margin-bottom: 25px;
-            opacity: 0;
-            transform: translateY(-10px);
-            transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1), transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .control-bar.active {
             display: flex;
             gap: 12px;
-            opacity: 1;
-            transform: translateY(0);
         }
 
         .btn-back {
@@ -354,26 +319,24 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .btn-back:hover {
             background: rgba(255, 255, 255, 0.1);
             border-color: rgba(255, 255, 255, 0.18);
-            transform: translateX(-4px);
         }
 
         .subject-grid, .options-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 20px;
-            transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1), transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .options-grid {
             display: none;
         }
 
+        /* 📌 কার্ড স্টাইল (কোনো অ্যানিমেশন বা স্লাইডিং স্কেল ট্রানজিশন ট্রিকার ছাড়া পিওর স্ট্যাটিক) */
         .subject-card, .option-card {
             background: var(--glass-card);
             border: 1px solid var(--glass-border);
@@ -381,7 +344,6 @@
             padding: 50px 25px;
             text-align: center;
             cursor: pointer;
-            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.3s ease, box-shadow 0.3s ease;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -390,13 +352,9 @@
             box-shadow: 0 15px 35px rgba(0,0,0,0.2);
         }
 
-        .subject-card:active, .option-card:active {
-            transform: scale(0.95);
-        }
-
-        .subject-card[data-target="physics"]:hover, .option-card[data-type="physics"]:hover { border-color: #3b82f6; box-shadow: 0 0 30px rgba(59, 130, 246, 0.25); }
-        .subject-card[data-target="chemistry"]:hover, .option-card[data-type="chemistry"]:hover { border-color: #f59e0b; box-shadow: 0 0 30px rgba(245, 158, 11, 0.2); }
-        .subject-card[data-target="maths"]:hover, .option-card[data-type="maths"]:hover { border-color: #10b981; box-shadow: 0 0 30px rgba(16, 185, 129, 0.2); }
+        .subject-card[data-target="physics"]:hover, .option-card[data-type="physics"]:hover { border-color: #3b82f6; box-shadow: 0 12px 35px rgba(59, 130, 246, 0.3); }
+        .subject-card[data-target="chemistry"]:hover, .option-card[data-type="chemistry"]:hover { border-color: #f59e0b; box-shadow: 0 12px 35px rgba(245, 158, 11, 0.25); }
+        .subject-card[data-target="maths"]:hover, .option-card[data-type="maths"]:hover { border-color: #10b981; box-shadow: 0 12px 35px rgba(16, 185, 129, 0.25); }
 
         .card-icon-tag {
             font-size: 11px;
@@ -414,10 +372,6 @@
 
         .subject-card svg {
             margin: 8px 0;
-            transition: transform 0.3s ease;
-        }
-        .subject-card:hover svg {
-            transform: scale(1.1) rotate(5deg);
         }
 
         .chapters-panel {
@@ -427,15 +381,10 @@
             border-radius: var(--radius-main);
             padding: 35px;
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
-            opacity: 0;
-            transform: translateY(24px);
-            transition: opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1), transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .chapters-panel.active {
             display: block;
-            opacity: 1;
-            transform: translateY(0);
         }
 
         .panel-header {
@@ -476,13 +425,11 @@
             background: rgba(255, 255, 255, 0.005);
             border-radius: 16px;
             border: 1px solid var(--glass-border);
-            transition: background 0.3s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.3s ease, transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .chapter-item:hover {
             background: rgba(255, 255, 255, 0.03);
             border-color: rgba(255, 255, 255, 0.15);
-            transform: scale(1.01);
         }
 
         .chapter-details {
@@ -519,11 +466,9 @@
             border-radius: var(--radius-btn);
             white-space: nowrap;
             letter-spacing: 0.3px;
-            transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), filter 0.2s ease, box-shadow 0.2s ease;
         }
 
         .btn-download:hover {
-            transform: translateY(-2px);
             filter: brightness(1.15);
         }
 
@@ -533,10 +478,10 @@
 
         @media (max-width: 768px) {
             body { padding: 25px 12px; }
-            header { padding: 35px 20px; margin-bottom: 25px; }
-            header h1 { font-size: 36px; }
+            header { padding: 50px 20px; margin-bottom: 25px; border-radius: 24px; }
+            header h1 { font-size: 42px; letter-spacing: -1.5px; }
             .menu-container { top: 15px; right: 15px; }
-            .dropdown-menu { right: -10px; }
+            .dropdown-menu { right: -10px; width: 240px; }
             .subject-grid, .options-grid { grid-template-columns: 1fr; gap: 15px; }
             .subject-card, .option-card { padding: 40px 20px; }
             .chapters-panel { padding: 20px; }
@@ -592,6 +537,7 @@
     <div class="container">
         
         <header id="main-header">
+            <!-- Floating User Profile Menu Area -->
             <div class="menu-container">
                 <button class="three-dot-btn" id="menu-toggle-btn">
                     <span></span><span></span><span></span>
@@ -604,13 +550,16 @@
                         <p><strong>Email:</strong> <span id="menu-email"></span></p>
                     </div>
                     <div class="menu-divider"></div>
-                    <button class="admin-login-btn" id="admin-login-trigger">Admin Login</button>
                     <button class="logout-btn" id="session-logout">Reset Device</button>
                 </div>
             </div>
 
             <h1>JEE PYQ</h1>
-            <p>Complete Chapter-wise Previous Year Questions for JEE Main & Advanced Entrance Preparation.</p>
+            <p>
+                Complete Chapter-wise Previous Year Questions for JEE Main & Advanced Entrance Preparation
+                <br>
+                <span class="highlight-line">for Class 11 & 12</span>
+            </p>
         </header>
 
         <div class="control-bar" id="control-bar">
@@ -652,28 +601,6 @@
 
         <div class="options-grid" id="options-grid"></div>
         <div id="chapters-container"></div>
-
-        <div class="admin-panel" id="admin-database-view">
-            <h3 style="color:#f59e0b; font-size:22px;">Vault User Database (Admin Mode)</h3>
-            <p style="font-size:12px; margin-bottom:15px;">Secure client-side database entry logs for this node.</p>
-            
-            <div class="admin-table-container">
-                <table class="admin-table">
-                    <thead>
-                        <tr>
-                            <th>Student Name</th>
-                            <th>Phone Number</th>
-                            <th>Email Address</th>
-                            <th>Login Timestamp</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="admin-data-rows">
-                        </tbody>
-                </table>
-            </div>
-            <button class="btn-back" style="margin-top:20px; border-color:#f59e0b; color:#f59e0b;" onclick="document.getElementById('admin-database-view').style.display='none'">Close Logs</button>
-        </div>
 
     </div>
 </div>
@@ -853,64 +780,7 @@
             window.location.reload();
         });
 
-        document.getElementById("admin-login-trigger").addEventListener("click", function() {
-            let adminPrompt = prompt("Enter 4-Digit Secure Admin Password Pin:");
-            if(adminPrompt === "0000") {
-                renderAdminLogs();
-                const adminPanel = document.getElementById("admin-database-view");
-                adminPanel.style.display = "block";
-                adminPanel.scrollIntoView({ behavior: 'smooth' });
-            } else if (adminPrompt !== null) {
-                alert("ACCESS DENIED: Critical Authorization Code Failure.");
-            }
-        });
-
-        window.deleteLogRecord = function(recordId, userName) {
-            if(confirm(`Are you sure you want to remove ${userName} and force logout their device?`)) {
-                let blacklist = JSON.parse(localStorage.getItem("vault_blacklisted_users")) || [];
-                if (!blacklist.includes(userName.toLowerCase())) {
-                    blacklist.push(userName.toLowerCase());
-                }
-                localStorage.setItem("vault_blacklisted_users", JSON.stringify(blacklist));
-
-                let currentLogs = JSON.parse(localStorage.getItem("admin_vault_logs")) || [];
-                let filteredLogs = currentLogs.filter(log => log.id !== recordId);
-                localStorage.setItem("admin_vault_logs", JSON.stringify(filteredLogs));
-                
-                renderAdminLogs();
-                checkBlacklistStatus();
-            }
-        }
-
-        function renderAdminLogs() {
-            const adminRows = document.getElementById("admin-data-rows");
-            let currentLogs = JSON.parse(localStorage.getItem("admin_vault_logs")) || [];
-            
-            if(currentLogs.length === 0) {
-                adminRows.innerHTML = `<tr><td colspan="5" style="text-align:center; color:var(--text-muted);">No login history records found in this system node database.</td></tr>`;
-                return;
-            }
-
-            let tableHtml = "";
-            currentLogs.forEach(log => {
-                tableHtml += `
-                    <tr>
-                        <td><strong>${log.name}</strong></td>
-                        <td>${log.phone}</td>
-                        <td>${log.email}</td>
-                        <td style="color:var(--text-muted); font-size:12px;">${log.time}</td>
-                        <td><button class="btn-remove" onclick="deleteLogRecord(${log.id}, '${log.name}')">Remove</button></td>
-                    </tr>
-                `;
-            });
-            adminRows.innerHTML = tableHtml;
-        }
-
-        // ==========================================
-        // 📌 ব্ল্যাকবুকের ডাইরেক্ট গুগল ড্রাইভ লিংক এখানে বসাও:
-        // ==========================================
         const BLACKBOOK_PDF_LINK = ""; 
-        // ==========================================
 
         const chapterDatabase = {
             physics: [
@@ -953,7 +823,6 @@
                 { ch: "CH-09", name: "Amines", sub: "PYQ Practice Sheet", arihantLinks: [""], cengageLinks: [""] },
                 { ch: "CH-10", name: "Biomolecules", sub: "PYQ Practice Sheet", arihantLinks: [""], cengageLinks: [""] }
             ],
-            // Maths-এর অ্যারে থেকে Blackbook-এর ফিল্ডগুলো সরিয়ে দেওয়া হলো, কারণ ওটা একটা সিঙ্গেল পিডিএফ
             maths: [
                 { ch: "CH-01", name: "Relations and Functions", sub: "PYQ Practice Sheet" ,moduleLinks: ["https://drive.google.com/file/d/1lYAgHgFzxmRkrtLC3Kkw9h3QeqXzm4GE/view?usp=drivesdk"], arihantLinks: ["https://drive.google.com/file/d/1Zp1ktKPeXYJZg-Y_GqpUWLV2mVXw0rr0/view?usp=drivesdk"] },
                 { ch: "CH-02", name: "Inverse Trigonometric Functions", sub: "PYQ Practice Sheet",moduleLinks: ["https://drive.google.com/file/d/1ziOEOnneeecOLdFPCb15QhguYnpy-9vC/view?usp=drivesdk"], arihantLinks: ["https://drive.google.com/file/d/13Mxdb26YvlZUt5eRy-5jfsVFhVeBo5O9/view?usp=drivesdk"] },
@@ -1035,14 +904,13 @@
                     if (checkBlacklistStatus()) return;
                     const selectedBook = this.getAttribute("data-book");
                     
-                    // 📌 Blackbook-এ ক্লিক করলে সরাসরি নতুন ট্যাবে ড্রাইভ লিংক খুলবে
                     if (selectedBook === "Blackbook") {
                         if (BLACKBOOK_PDF_LINK && BLACKBOOK_PDF_LINK !== "") {
                             window.open(BLACKBOOK_PDF_LINK, "_blank");
                         } else {
                             alert("Black Book-এর ড্রাইভ লিংক এখনো দেওয়া হয়নি!");
                         }
-                        return; // এখানেই থেমে যাবে, চ্যাপ্টার লিস্ট খুলবে না
+                        return;
                     }
 
                     const displayBookName = this.getAttribute("data-display-book");
