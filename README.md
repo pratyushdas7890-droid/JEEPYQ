@@ -537,7 +537,6 @@
     <div class="container">
         
         <header id="main-header">
-            <!-- Floating User Profile Menu Area -->
             <div class="menu-container">
                 <button class="three-dot-btn" id="menu-toggle-btn">
                     <span></span><span></span><span></span>
@@ -625,7 +624,6 @@
             "kamalendra nath roy": "1234",
             "ripan": "7890",
             "atanu sasmal": "as96",
-            "testuser": "pass123",
             "sayandip": "sayan5566",
             "pर्जी": "998877"
         };
@@ -813,16 +811,18 @@
                 { ch: "CH-15", name: "Nuclear Chemistry", sub: "PYQ Practice Sheet", moduleLinks: ["https://drive.google.com/file/d/1lQuSqJTpOnh8w1TMBD98RlcP7c4b3ofj/view?usp=drivesdk"] }
             ],
             chemistry_others: [
-                { ch: "CH-01", name: "Solutions", sub: "PYQ Practice Sheet", arihantLinks: [""], cengageLinks: [""] },
-                { ch: "CH-02", name: "Electrochemistry", sub: "PYQ Practice Sheet", arihantLinks: [""], cengageLinks: [""] },
-                { ch: "CH-03", name: "Chemical Kinetics", sub: "PYQ Practice Sheet", arihantLinks: [""], cengageLinks: [""] },
-                { ch: "CH-04", name: "d- and f-Block Elements", sub: "PYQ Practice Sheet", arihantLinks: [""], cengageLinks: [""] },
-                { ch: "CH-05", name: "Coordination Compounds", sub: "PYQ Practice Sheet", arihantLinks: [""], cengageLinks: [""] },
-                { ch: "CH-06", name: "Haloalkanes and Haloarenes", sub: "PYQ Practice Sheet", arihantLinks: [""], cengageLinks: [""] },
-                { ch: "CH-07", name: "Alcohols, Phenols and Ethers", sub: "PYQ Practice Sheet", arihantLinks: [""], cengageLinks: [""] },
-                { ch: "CH-08", name: "Aldehydes, Ketones and Carboxylic Acids", sub: "PYQ Practice Sheet", arihantLinks: [""], cengageLinks: [""] },
-                { ch: "CH-09", name: "Amines", sub: "PYQ Practice Sheet", arihantLinks: [""], cengageLinks: [""] },
-                { ch: "CH-10", name: "Biomolecules", sub: "PYQ Practice Sheet", arihantLinks: [""], cengageLinks: [""] }
+                { ch: "CH-01", name: "Solutions", sub: "PYQ Practice Sheet", arihantLinks: ["https://drive.google.com/file/d/1JOm_dsWwpuIQ2b1UUeQQX1MWHAlDstZb/view?usp=drivesdk"], cengageLinks: [""] },
+                { ch: "CH-02", name: "Electrochemistry", sub: "PYQ Practice Sheet", arihantLinks: ["https://drive.google.com/file/d/1ArIV8vg-6fArBVANpEjzj6dgR4oZdy7t/view?usp=drivesdk"], cengageLinks: [""] },
+                { ch: "CH-03", name: "Chemical Kinetics", sub: "PYQ Practice Sheet", arihantLinks: ["https://drive.google.com/file/d/1aJrgTQvFlDyFFt6N42vduqp4zZbYB9Jk/view?usp=drivesdk"], cengageLinks: [""] },
+                { ch: "CH-04", name: "p-Block Elements", sub: "PYQ Practice Sheet", arihantLinks: ["https://drive.google.com/file/d/1qgmyDP0f-k5Pz00VYaPrmMleEi1_4vtH/view?usp=drivesdk"], cengageLinks: [""] },
+                { ch: "CH-05", name: "d- and f-Block Elements", sub: "PYQ Practice Sheet", arihantLinks: ["https://drive.google.com/file/d/1cr4vnRR8TGqs1E-ygHfy_w7dECMkkYpe/view?usp=drivesdk"], cengageLinks: [""] },
+                { ch: "CH-06", name: "Coordination Compounds", sub: "PYQ Practice Sheet", arihantLinks: ["https://drive.google.com/file/d/1uCQjMEN7-zgEYyn0Vhqs5JpFGEogJps9/view?usp=drivesdk"], cengageLinks: [""] },
+                { ch: "CH-07", name: "Haloalkanes and Haloarenes", sub: "PYQ Practice Sheet", arihantLinks: ["https://drive.google.com/file/d/1xY2OtsfT9bXXJCPFCvBLRqKMzmBY2MdX/view?usp=drivesdk"], cengageLinks: [""] },
+                { ch: "CH-08", name: "Alcohols, Phenols and Ethers", sub: "PYQ Practice Sheet", arihantLinks: ["https://drive.google.com/file/d/1stq2JkIwym26khFyOUWCLPYv28ESZ6T8/view?usp=drivesdk"], cengageLinks: [""] },
+                { ch: "CH-09", name: "Aldehydes, Ketones and Carboxylic Acids", sub: "PYQ Practice Sheet", arihantLinks: ["https://drive.google.com/file/d/17olfvijtc_IVHJQmfcHgkmMWWi28aCl9/view?usp=drivesdk"], cengageLinks: [""] },
+                { ch: "CH-10", name: "Biomolecules", sub: "PYQ Practice Sheet", arihantLinks: ["https://drive.google.com/file/d/1ZbIKLrr7M0klTOiKbh1ul-DVbATmnzir/view?usp=drivesdk"], cengageLinks: [""] },
+                { ch: "CH-11", name: "Organic Compounds Containing Nitrogen", sub: "PYQ Practice Sheet", arihantLinks: ["https://drive.google.com/file/d/1DJUgXjQFbzdUco2pMtt2Jl1MePQ5G7yo/view?usp=drivesdk"], cengageLinks: [""] },
+                { ch: "CH-12", name: "Principles Related to Practical Chemistry", sub: "PYQ Practice Sheet", arihantLinks: ["https://drive.google.com/file/d/1LFJGoN0NeIQzVCYqGJemW7poAnSHQhrH/view?usp=drivesdk"], cengageLinks: [""] }
             ],
             maths: [
                 { ch: "CH-01", name: "Relations and Functions", sub: "PYQ Practice Sheet" ,moduleLinks: ["https://drive.google.com/file/d/1lYAgHgFzxmRkrtLC3Kkw9h3QeqXzm4GE/view?usp=drivesdk"], arihantLinks: ["https://drive.google.com/file/d/1Zp1ktKPeXYJZg-Y_GqpUWLV2mVXw0rr0/view?usp=drivesdk"] },
