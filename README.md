@@ -624,6 +624,7 @@
             "pratyush": "0000",
             "kamalendra nath roy": "1234",
             "ripan": "7890",
+            "atanu sasmal": "as96",
             "testuser": "pass123",
             "sayandip": "sayan5566",
             "pर्जी": "998877"
